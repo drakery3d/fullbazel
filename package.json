@@ -5,7 +5,9 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "bazel": "bazelisk",
     "dev": "ibazel run //client:dev_server",
+    "server": "bazel run //client:web_server",
     "postinstall": "ngcc"
   },
   "dependencies": {

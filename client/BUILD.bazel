@@ -92,7 +92,7 @@ terser_minified(
 
 insert_html_assets(
     name = "asset_injected_index_html",
-    outs = ["_/index.html"],
+    outs = ["index.html"],
     asset_paths = [
         "$(execpath styles.css)",
         "$(execpath @npm//:node_modules/zone.js/dist/zone.min.js)",
@@ -100,11 +100,11 @@ insert_html_assets(
     ],
     data = [
         ":bundle.min",
-        ":index.html",
         ":styles.css",
+        ":template.html",
         "@npm//:node_modules/zone.js/dist/zone.min.js",
     ],
-    html_file = ":index.html",
+    html_file = ":template.html",
 )
 
 # TODO pwa support
@@ -113,6 +113,7 @@ insert_html_assets(
 pkg_web(
     name = "webapp",
     srcs = [
+        "index.html",
         ":asset_injected_index_html",
         ":bundle.min",
         ":favicon.ico",
@@ -122,8 +123,6 @@ pkg_web(
         "@npm//:node_modules/zone.js/dist/zone.min.js",
     ],
 )
-
-# TODO make history_server work
 
 history_server(
     name = "web_server",
