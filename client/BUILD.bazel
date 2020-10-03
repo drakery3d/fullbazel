@@ -3,9 +3,10 @@ load("@npm//@bazel/terser:index.bzl", "terser_minified")
 load("@npm//history-server:index.bzl", "history_server")
 load("@npm//@bazel/typescript:index.bzl", "ts_devserver", "ts_library")
 load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+load("@build_bazel_rules_nodejs//:index.bzl", "pkg_web")
 load("//tools:angular_ts_library.bzl", "ng_ts_library")
 load("//tools:insert_html_assets.bzl", "insert_html_assets")
-load("@build_bazel_rules_nodejs//:index.bzl", "pkg_web")
+load("//tools:pkg_pwa.bzl", "pkg_pwa")
 
 package(default_visibility = ["//visibility:public"])
 
@@ -90,6 +91,8 @@ terser_minified(
     config_file = "//tools:terser.config.json",
 )
 
+# NORMAL App
+
 insert_html_assets(
     name = "asset_injected_index_html",
     outs = ["index.html"],
@@ -99,21 +102,18 @@ insert_html_assets(
         "$(execpath bundle.min)/index.es2015.js",
     ],
     data = [
+        ":app.html",
         ":bundle.min",
         ":styles.css",
-        ":template.html",
         "@npm//:node_modules/zone.js/dist/zone.min.js",
     ],
-    html_file = ":template.html",
+    html_file = ":app.html",
 )
 
-# TODO pwa support
-# TODO service worker support
-
 pkg_web(
-    name = "webapp",
+    name = "web_app",
     srcs = [
-        "index.html",
+        "app.html",
         ":asset_injected_index_html",
         ":bundle.min",
         ":favicon.ico",
@@ -125,7 +125,47 @@ pkg_web(
 )
 
 history_server(
-    name = "web_server",
-    data = [":webapp"],
-    templated_args = ["-a $$(rlocation $(rootpath :webapp))"],
+    name = "app_server",
+    data = [":web_app"],
+    templated_args = ["-a $$(rlocation $(rootpath :web_app))"],
+)
+
+# PWA + Service Worker
+
+insert_html_assets(
+    name = "asset_injected_pwa_index_html",
+    outs = ["_/index.html"],
+    asset_paths = [
+        "$(execpath styles.css)",
+        "$(execpath @npm//:node_modules/zone.js/dist/zone.min.js)",
+        "$(execpath bundle.min)/index.es2015.js",
+    ],
+    data = [
+        ":bundle.min",
+        ":pwa.html",
+        ":styles.css",
+        "@npm//:node_modules/zone.js/dist/zone.min.js",
+    ],
+    html_file = ":pwa.html",
+)
+
+pkg_pwa(
+    name = "web_pwa",
+    srcs = [
+        ":asset_injected_pwa_index_html",
+        ":bundle.min",
+        ":favicon.ico",
+        ":manifest.webmanifest",
+        ":robots.txt",
+        ":styles.css",
+        "//client/assets",
+    ],
+    index_html = ":asset_injected_pwa_index_html",
+    ngsw_config = ":ngsw-config.json",
+)
+
+history_server(
+    name = "pwa_server",
+    data = [":web_pwa"],
+    templated_args = ["-a $$(rlocation $(rootpath :web_pwa))"],
 )

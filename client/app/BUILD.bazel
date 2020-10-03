@@ -35,6 +35,7 @@ ng_ts_library(
     deps = [
         ":base",
         "@npm//@angular/core",
+        "@npm//@angular/service-worker",
     ],
 )
 
@@ -46,6 +47,7 @@ ng_ts_library(
         ":base",
         "@npm//@angular/common",
         "@npm//@angular/core",
+        "@npm//@angular/service-worker",
         "@npm//rxjs",
     ],
 )

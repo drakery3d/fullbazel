@@ -63,6 +63,13 @@
   dependencies:
     tslib "^2.0.0"
 
+"@angular/service-worker@^10.1.4":
+  version "10.1.4"
+  resolved "https://registry.yarnpkg.com/@angular/service-worker/-/service-worker-10.1.4.tgz#fa8b126490b145d0fd747eec9a5734a34449fa7b"
+  integrity sha512-NhYwyAVBJc72J7qKgP2p1JZOVniISoz+qun0Ef6ufdCgbjwLiAbGgT4vUkqW84OLXHpKBCdEN1c87MM5onQolA==
+  dependencies:
+    tslib "^2.0.0"
+
 "@bazel/bazelisk@^1.6.1":
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/@bazel/bazelisk/-/bazelisk-1.6.1.tgz#f9e279d2fecaf6cec6ed676bc8714846f3704e40"
