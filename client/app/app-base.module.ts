@@ -5,7 +5,7 @@ import {AppComponent} from './app.component'
 import {AppRoutingModule} from './app-routing.module'
 
 @NgModule({
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [BrowserModule.withServerTransition({appId: 'abs'}), AppRoutingModule],
   declarations: [AppComponent],
 })
 export class AppBaseModule {}

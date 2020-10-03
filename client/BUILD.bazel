@@ -3,7 +3,8 @@ load("@npm//@bazel/terser:index.bzl", "terser_minified")
 load("@npm//history-server:index.bzl", "history_server")
 load("@npm//@bazel/typescript:index.bzl", "ts_devserver", "ts_library")
 load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
-load("@build_bazel_rules_nodejs//:index.bzl", "pkg_web")
+load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary", "pkg_web")
+load("@io_bazel_rules_docker//nodejs:image.bzl", "nodejs_image")
 load("//tools:angular_ts_library.bzl", "ng_ts_library")
 load("//tools:insert_html_assets.bzl", "insert_html_assets")
 load("//tools:pkg_pwa.bzl", "pkg_pwa")
@@ -91,8 +92,6 @@ terser_minified(
     config_file = "//tools:terser.config.json",
 )
 
-# NORMAL App
-
 insert_html_assets(
     name = "asset_injected_index_html",
     outs = ["index.html"],
@@ -130,8 +129,6 @@ history_server(
     templated_args = ["-a $$(rlocation $(rootpath :web_app))"],
 )
 
-# PWA + Service Worker
-
 insert_html_assets(
     name = "asset_injected_pwa_index_html",
     outs = ["_/index.html"],
@@ -168,4 +165,35 @@ history_server(
     name = "pwa_server",
     data = [":web_pwa"],
     templated_args = ["-a $$(rlocation $(rootpath :web_pwa))"],
+)
+
+ts_library(
+    name = "server_lib",
+    srcs = ["server.ts"],
+    deps = [
+        "//client/app:server",
+        "@npm//@angular/core",
+        "@npm//@nguniversal/express-engine",
+        "@npm//@types/express",
+        "@npm//@types/node",
+        "@npm//express",
+    ],
+)
+
+nodejs_binary(
+    name = "client",
+    data = [
+        ":server_lib",
+        ":web_pwa",
+    ],
+    entry_point = ":server.ts",
+)
+
+nodejs_image(
+    name = "prod_server_image",
+    data = [
+        ":server_lib",
+        ":web_pwa",
+    ],
+    entry_point = ":server.ts",
 )

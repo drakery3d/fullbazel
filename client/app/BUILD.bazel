@@ -51,3 +51,15 @@ ng_ts_library(
         "@npm//rxjs",
     ],
 )
+
+ng_ts_library(
+    name = "server",
+    srcs = ["app.server.module.ts"],
+    tsconfig = "//client:tsconfig.json",
+    deps = [
+        ":base",
+        ":prod",
+        "@npm//@angular/core",
+        "@npm//@angular/platform-server",
+    ],
+)
