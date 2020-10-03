@@ -7,4 +7,5 @@
 // TODO unit tests
 // TODO integration tests
 // TODO ts_dev_server with socketio
+// TODO deploy to kubernetes
 -->
