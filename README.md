@@ -8,4 +8,7 @@
 // TODO integration tests
 // TODO ts_dev_server with socketio
 // TODO deploy to kubernetes
+// TODO ngrx
+// TODO globally shared package
+// TODO differential loading (es5, es6)
 -->

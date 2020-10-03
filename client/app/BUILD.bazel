@@ -18,6 +18,8 @@ ng_ts_library(
     angular_assets = [":app_styles"],
     tsconfig = "//client:tsconfig.json",
     deps = [
+        "//client/features/about",
+        "//client/features/home",
         "@npm//@angular/common",
         "@npm//@angular/core",
         "@npm//@angular/platform-browser",
