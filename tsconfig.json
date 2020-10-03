@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "strict": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "target": "ES5",
+    "types": ["node"]
+  },
+  "exclude": ["bazel-out", "node_modules", "dist"]
+}

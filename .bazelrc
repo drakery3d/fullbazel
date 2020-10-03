@@ -1,0 +1,2 @@
+build --incompatible_strict_action_env
+build --define=angular_ivy_enabled=True

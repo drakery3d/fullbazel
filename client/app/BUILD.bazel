@@ -1,0 +1,49 @@
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+load("//tools:angular_ts_library.bzl", "ng_ts_library")
+
+package(default_visibility = ["//client:__subpackages__"])
+
+sass_binary(
+    name = "app_styles",
+    src = "app.component.sass",
+)
+
+ng_ts_library(
+    name = "base",
+    srcs = [
+        "app.component.ts",
+        "app-base.module.ts",
+        "app-routing.module.ts",
+    ],
+    angular_assets = [":app_styles"],
+    tsconfig = "//client:tsconfig.json",
+    deps = [
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//@angular/platform-browser",
+        "@npm//@angular/router",
+        "@npm//rxjs",
+    ],
+)
+
+ng_ts_library(
+    name = "dev",
+    srcs = ["app-dev.module.ts"],
+    tsconfig = "//client:tsconfig.json",
+    deps = [
+        ":base",
+        "@npm//@angular/core",
+    ],
+)
+
+ng_ts_library(
+    name = "prod",
+    srcs = ["app-prod.module.ts"],
+    tsconfig = "//client:tsconfig.json",
+    deps = [
+        ":base",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//rxjs",
+    ],
+)
