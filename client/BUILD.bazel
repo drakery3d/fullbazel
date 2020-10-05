@@ -41,24 +41,39 @@ ng_ts_library(
     ],
 )
 
+insert_html_assets(
+    name = "inject_scripts_for_dev",
+    outs = ["dev/index.html"],
+    asset_paths = [
+        "$(execpath :styles.css)",
+        "$(execpath @npm//:node_modules/zone.js/dist/zone.min.js)",
+        "./_/ts_scripts.js",
+    ],
+    data = [
+        ":app.html",
+        ":styles.css",
+        "@npm//:node_modules/zone.js/dist/zone.min.js",
+    ],
+    html_file = ":app.html",
+)
+
 ts_devserver(
     name = "dev_server",
-    additional_root_paths = ["abs/client/_"],
+    additional_root_paths = ["client/dev"],
     entry_module = "abs/client/main.dev",
     port = 4200,
     scripts = [
         "@npm//:node_modules/tslib/tslib.js",
         "//tools:rxjs_umd_modules",
     ],
-    serving_path = "/bundle.min/index.es2015.js",
     static_files = [
         "@npm//:node_modules/zone.js/dist/zone.min.js",
         "//client/assets",
-        ":favicon.ico",
-        ":asset_injected_index_html",
+        ":inject_scripts_for_dev",
         ":styles.css",
+        ":favicon.ico",
     ],
-    deps = [":dev_src"],
+    deps = ["//client:dev_src"],
 )
 
 ng_ts_library(
