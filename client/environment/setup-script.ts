@@ -1,6 +1,7 @@
 import {promises as fsPromises} from 'fs'
 import * as path from 'path'
 
+// TODO use dev prod from enums lib
 async function main() {
   const environment = process.argv.slice(2)[0] || 'dev'
   const environments = ['dev', 'prod']
