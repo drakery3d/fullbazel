@@ -21,7 +21,25 @@
   display: block
   margin-bottom: var(--space-med)
 
-// large screens
-@media only screen and (min-width: 600px)
-  .container
-    margin-top: var(--space-huge)
+.quote
+  margin-bottom: var(--space-big)
+  animation-name: fadeIn
+  animation-duration: var(--transition-speed)
+
+  .content
+    font-family: 'Montserrat', sans-serif
+    color: var(--text)
+
+  .author
+    font-family: 'Lora', serif
+    font-size: .8em
+    color: var(--text-light)
+
+@keyframes fadeIn
+  0%
+    transform: translateY(-50%) scale(1.2)
+    opacity: 0
+
+  100%
+    transform: translateY(0%) scale(1)
+    opacity: 1

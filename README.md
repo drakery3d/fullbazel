@@ -20,20 +20,26 @@
 - Environments
 - Shared libraries
 - Perfect Lighthouse score
+- Realtime messages from server with Web Sockets
 
 # Commands
 
-- Setup project: `yarn`
+- Setup project: `yarn install`
 
-- Start development server: `yarn dev`
-- Start PWA web server: `yarn pwa`
-- Start Node.Js with server side rendering: `yarn ssr`
+**Development**
+
+- Start client: `yarn dev`
+- Start server: `yarn server:dev`
+
+**Production**
+
+- Start client: `yarn ssr`
+- Start backend: `yarn server`
 
 # TODO
 
 - NgRx
 - Deployment to Kubernetes
-- `ts_devserver` with Socket.IO
 - Service Worker Updates
 - Differential Loading
 - Simple Backend
@@ -41,3 +47,7 @@
 - Integration Tests
 - Documentation
 - Upgrade to NgRx (currenlty doesn't work)
+
+## Thanks to all the people listed below!
+
+[@rayman1104](https://github.com/rayman1104) [@marcus-sa](https://github.com/marcus-sa) [@joeljeske](https://github.com/joeljeske)
