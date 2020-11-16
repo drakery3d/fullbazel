@@ -1,6 +1,6 @@
-import {Component, Inject} from '@angular/core'
+import {Component} from '@angular/core'
 
-import {ENVIRONMENT, ClientEnvironment} from '@client/environment'
+import {Tags} from '@libs/enums'
 
 @Component({
   selector: 'abs-home',
@@ -9,14 +9,13 @@ import {ENVIRONMENT, ClientEnvironment} from '@client/environment'
       <h1>Angular Bazel Starter</h1>
       <p>Let's build something great!</p>
       <span class="line"></span>
-      <a routerLink="/about"><abs-button>About</abs-button></a>
-      <div class="env">
-        <pre>{{ environment | json }}</pre>
+      <div class="tags">
+        <span *ngFor="let tag of tags">{{ tag }}</span>
       </div>
     </div>
   `,
   styleUrls: ['home.component.sass'],
 })
 export class HomeComponent {
-  constructor(@Inject(ENVIRONMENT) public environment: ClientEnvironment) {}
+  tags = Object.keys(Tags).map(key => Tags[key])
 }

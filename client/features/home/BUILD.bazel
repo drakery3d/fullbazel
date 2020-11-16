@@ -14,8 +14,7 @@ ng_ts_library(
     angular_assets = [":styles"],
     tsconfig = "//client:tsconfig.json",
     deps = [
-        "//client/environment",
-        "//libs/ui-elements",
+        "//libs/enums",
         "@npm//@angular/common",
         "@npm//@angular/core",
         "@npm//@angular/router",

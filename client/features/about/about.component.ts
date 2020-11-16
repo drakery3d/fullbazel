@@ -1,6 +1,6 @@
-import {Component} from '@angular/core'
+import {Component, Inject} from '@angular/core'
 
-import {Tags} from '@libs/enums'
+import {ENVIRONMENT, ClientEnvironment} from '@client/environment'
 
 @Component({
   selector: 'abs-about',
@@ -11,13 +11,14 @@ import {Tags} from '@libs/enums'
         This project will help you to get started building modern web apps with Angular and Bazel.
       </p>
       <span class="line"></span>
-      <div class="tags">
-        <span *ngFor="let tag of tags">{{ tag }}</span>
+      <div class="env">
+        <pre>{{ environment | json }}</pre>
       </div>
+      <a routerLink="/"><abs-button>Home</abs-button></a>
     </div>
   `,
   styleUrls: ['about.component.sass'],
 })
 export class AboutComponent {
-  tags = Object.keys(Tags).map(key => Tags[key])
+  constructor(@Inject(ENVIRONMENT) public environment: ClientEnvironment) {}
 }

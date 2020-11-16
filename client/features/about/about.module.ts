@@ -2,10 +2,16 @@ import {NgModule} from '@angular/core'
 import {CommonModule} from '@angular/common'
 import {RouterModule} from '@angular/router'
 
+import {UiElementsModule} from '@libs/ui-elements'
+
 import {AboutComponent} from './about.component'
 
 @NgModule({
-  imports: [CommonModule, RouterModule.forChild([{path: '', component: AboutComponent}])],
+  imports: [
+    CommonModule,
+    UiElementsModule,
+    RouterModule.forChild([{path: '', component: AboutComponent}]),
+  ],
   declarations: [AboutComponent],
 })
 export class AboutModule {}

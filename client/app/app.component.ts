@@ -35,7 +35,11 @@ import {Component} from '@angular/core'
         </li>
 
         <li class="bottom secondary">
-          <a href="https://github.com/flolu/angular-bazel-starter">
+          <a
+            href="https://github.com/flolu/angular-bazel-starter"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path d="M0 0h24v24H0V0z" fill="none" />
               <path

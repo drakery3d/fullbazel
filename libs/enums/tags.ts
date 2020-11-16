@@ -9,4 +9,5 @@ export enum Tags {
   NodeJs = 'node.js',
   Sass = 'sass',
   HTML = 'html',
+  Monorepo = 'monorepo',
 }
