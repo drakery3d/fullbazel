@@ -1,0 +1,12 @@
+diff --git a/node_modules/engine.io-parser/lib/index.js b/node_modules/engine.io-parser/lib/index.js
+index a412b46..b9f7d50 100644
+--- a/node_modules/engine.io-parser/lib/index.js
++++ b/node_modules/engine.io-parser/lib/index.js
+@@ -1,5 +1,5 @@
+-const encodePacket = require("./encodePacket");
+-const decodePacket = require("./decodePacket");
++const encodePacket = require("./encodePacket.browser");
++const decodePacket = require("./decodePacket.browser");
+ 
+ const SEPARATOR = String.fromCharCode(30); // see https://en.wikipedia.org/wiki/Delimiter#ASCII_delimited_text
+ 

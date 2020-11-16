@@ -1,0 +1,23 @@
+load("//tools:angular_ts_library.bzl", "ng_ts_library")
+load("@io_bazel_rules_sass//:defs.bzl", "multi_sass_binary")
+
+package(default_visibility = ["//client:__subpackages__"])
+
+multi_sass_binary(
+    name = "styles",
+    srcs = glob(include = ["**/*.sass"]),
+)
+
+ng_ts_library(
+    name = "realtime",
+    srcs = glob(["*.ts"]),
+    angular_assets = [":styles"],
+    tsconfig = "//client:tsconfig.json",
+    deps = [
+        "//client/environment",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//@angular/router",
+        "@npm//socket.io-client",
+    ],
+)

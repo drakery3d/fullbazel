@@ -21,6 +21,7 @@ ng_ts_library(
         "//client/environment",
         "//client/features/about",
         "//client/features/home",
+        "//client/features/realtime",
         "@npm//@angular/common",
         "@npm//@angular/core",
         "@npm//@angular/platform-browser",

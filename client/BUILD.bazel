@@ -65,6 +65,7 @@ ts_devserver(
     scripts = [
         "@npm//:node_modules/tslib/tslib.js",
         "//tools:rxjs_umd_modules",
+        "@npm//socket.io-client:socket.io-client__umd",
     ],
     static_files = [
         "@npm//:node_modules/zone.js/dist/zone.min.js",
