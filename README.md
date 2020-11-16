@@ -21,6 +21,7 @@
 - Shared libraries
 - Perfect Lighthouse score
 - Realtime messages from server with Web Sockets
+- NgRx for state management
 
 # Commands
 
@@ -38,7 +39,6 @@
 
 # TODO
 
-- NgRx
 - Deployment to Kubernetes
 - Service Worker Updates
 - Differential Loading

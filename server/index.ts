@@ -12,6 +12,8 @@ const io = new Server(3000, {
   cors: {origin: isProd ? 'http://localhost:8080' : 'http://localhost:4200'},
 })
 
+console.log('Web socket server started on port 3000')
+
 io.on('connect', (socket: Socket) => {
   console.log(`connect ${socket.id}`)
 

@@ -20,8 +20,10 @@ ng_ts_library(
         "@npm//@angular/common",
         "@npm//@angular/core",
         "@npm//@angular/router",
+        "@npm//@ngrx/effects",
         "@npm//@ngrx/entity",
         "@npm//@ngrx/store",
+        "@npm//rxjs",
         "@npm//socket.io-client",
     ],
 )

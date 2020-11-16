@@ -1,8 +1,6 @@
 import {Store} from '@ngrx/store'
-import {Component, Inject} from '@angular/core'
-import * as socketIO from 'socket.io-client'
+import {Component} from '@angular/core'
 
-import {ENVIRONMENT, ClientEnvironment} from '@client/environment'
 import {QuoteActions} from './quote.actions'
 import {QuoteSeletors} from './quote.selectors'
 
@@ -32,17 +30,7 @@ import {QuoteSeletors} from './quote.selectors'
 export class RealtimeComponent {
   quotes$ = this.store.select(QuoteSeletors.quotes)
 
-  private io = socketIO.io('http://localhost:3000')
-
-  constructor(@Inject(ENVIRONMENT) public environment: ClientEnvironment, private store: Store) {
-    this.io.on('connect', () => {
-      console.log('conntected with server')
-    })
-
-    this.io.on('quotes', quote => {
-      this.store.dispatch(QuoteActions.add({quote}))
-    })
-  }
+  constructor(private store: Store) {}
 
   remove(id: string) {
     this.store.dispatch(QuoteActions.removeOne({id}))
