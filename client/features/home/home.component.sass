@@ -1,0 +1,31 @@
+:host
+  display: block
+  padding: var(--space)
+  display: flex
+  align-items: center
+  justify-content: center
+  text-align: center
+
+.container
+  max-width: 40rem
+  flex: 1
+  display: flex
+  flex-direction: column
+  align-items: center
+  margin-top: var(--space-big)
+
+.line
+  background: var(--color)
+  height: 2px
+  border-radius: 1px
+  width: var(--space-med)
+  display: block
+  margin-bottom: var(--space-med)
+
+a
+  text-decoration: none
+
+// large screens
+@media only screen and (min-width: 600px)
+  .container
+    margin-top: var(--space-huge)
