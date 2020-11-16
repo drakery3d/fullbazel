@@ -36,8 +36,10 @@ ng_ts_library(
     deps = [
         ":base",
         "//client/environment",
+        "//client/store",
         "@npm//@angular/core",
         "@npm//@angular/service-worker",
+        "@npm//@ngrx/store-devtools",
     ],
 )
 
@@ -48,6 +50,7 @@ ng_ts_library(
     deps = [
         ":base",
         "//client/environment",
+        "//client/store",
         "@npm//@angular/common",
         "@npm//@angular/core",
         "@npm//@angular/service-worker",

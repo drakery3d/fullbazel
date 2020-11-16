@@ -11,7 +11,7 @@
     "ssr": "yarn run setup-env dev && bazel run //client:prod_server_image",
     "client": "yarn run setup-env dev && bazel run //client",
     "setup-env": "yarn ts-node client/environment/setup-script",
-    "postinstall": "yarn run setup-env dev && ngcc"
+    "postinstall": "patch-package --patch-dir dev/patches && yarn run setup-env dev && ngcc"
   },
   "dependencies": {
     "@angular/animations": "^10.1.4",
@@ -22,6 +22,9 @@
     "@angular/platform-server": "^10.1.4",
     "@angular/router": "^10.1.4",
     "@angular/service-worker": "^10.1.4",
+    "@ngrx/effects": "9.1.2",
+    "@ngrx/router-store": "^9.1.2",
+    "@ngrx/store": "9.1.2",
     "@nguniversal/express-engine": "^10.1.0",
     "express": "^4.17.1",
     "rxjs": "^6.6.3",
@@ -37,17 +40,19 @@
     "@bazel/rollup": "^2.2.0",
     "@bazel/terser": "^2.2.0",
     "@bazel/typescript": "^2.2.0",
+    "@ngrx/store-devtools": "9.1.2",
     "@types/express": "^4.17.8",
     "@types/node": "^14.11.2",
     "history-server": "^1.3.1",
     "html-insert-assets": "^0.10.0",
+    "patch-package": "^6.2.2",
     "prettier": "^2.1.2",
     "rollup": "^2.28.2",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "terser": "^5.3.4",
     "ts-node": "^9.0.0",
-    "typescript": "^4.0.3"
+    "typescript": "^4.0.5"
   },
   "prettier": {
     "printWidth": 100,

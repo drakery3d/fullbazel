@@ -40,3 +40,4 @@
 - Unit Tests
 - Integration Tests
 - Documentation
+- Upgrade to NgRx (currenlty doesn't work)

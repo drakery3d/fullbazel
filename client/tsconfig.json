@@ -9,6 +9,7 @@
     "lib": ["es2018", "dom"],
     "paths": {
       "@libs/*": ["../libs/*"],
+      "@client/store": ["./store"],
       "@client/environment": ["./environment"],
     }
   },
