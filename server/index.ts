@@ -2,6 +2,9 @@ import {Server, Socket} from 'socket.io'
 import * as faker from 'faker'
 import {interval} from 'rxjs'
 import {takeWhile, tap} from 'rxjs/operators'
+import {v4 as uuidv4} from 'uuid'
+
+import {Quote} from '@libs/schema'
 
 const arg = process.argv[2]
 const isProd = arg ? arg === 'prod' : true
@@ -16,7 +19,7 @@ io.on('connect', (socket: Socket) => {
     console.log(`disconnect ${socket.id}`)
   })
 
-  interval(1000)
+  interval(2000)
     .pipe(
       takeWhile(() => socket.connected),
       tap(() => socket.emit('quotes', makeQuote())),
@@ -24,4 +27,8 @@ io.on('connect', (socket: Socket) => {
     .subscribe()
 })
 
-const makeQuote = () => ({content: faker.lorem.sentence(), author: faker.name.firstName()})
+const makeQuote = (): Quote => ({
+  content: faker.lorem.sentence(),
+  author: faker.name.firstName(),
+  id: uuidv4(),
+})

@@ -5,7 +5,10 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "target": "ES5",
-    "types": ["node"]
+    "types": ["node"],
+    "paths": {
+      "@libs/*": ["./libs/*"],
+    }
   },
   "exclude": ["bazel-out", "node_modules", "dist"]
 }

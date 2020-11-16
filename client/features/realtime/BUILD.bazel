@@ -15,9 +15,13 @@ ng_ts_library(
     tsconfig = "//client:tsconfig.json",
     deps = [
         "//client/environment",
+        "//libs/schema",
+        "//libs/ui-elements",
         "@npm//@angular/common",
         "@npm//@angular/core",
         "@npm//@angular/router",
+        "@npm//@ngrx/entity",
+        "@npm//@ngrx/store",
         "@npm//socket.io-client",
     ],
 )
