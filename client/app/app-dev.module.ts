@@ -1,6 +1,7 @@
-import {NgModule} from '@angular/core'
+import {Inject, NgModule} from '@angular/core'
 import {ServiceWorkerModule} from '@angular/service-worker'
 
+import {ENVIRONMENT, ClientEnvironment} from '@client/environment'
 import {AppBaseModule} from './app-base.module'
 import {AppComponent} from './app.component'
 
@@ -9,7 +10,7 @@ import {AppComponent} from './app.component'
   bootstrap: [AppComponent],
 })
 export class AppDevModule {
-  constructor() {
-    console.log(`🛠️ Launching development app`)
+  constructor(@Inject(ENVIRONMENT) private environment: ClientEnvironment) {
+    console.log(`🛠️ Launching development app`, this.environment)
   }
 }

@@ -6,12 +6,14 @@
   "private": true,
   "scripts": {
     "bazel": "bazelisk",
-    "dev": "ibazel run //client:dev_server",
-    "app": "bazel run //client:app_server",
-    "pwa": "bazel run //client:pwa_server",
-    "ssr": "bazel run //client:prod_server_image",
-    "client": "bazel run //client",
-    "postinstall": "ngcc"
+    "dev": "yarn run setup-env dev && ibazel run //client:dev_server",
+    "dev-with-prod-env": "yarn run setup-env prod && ibazel run //client:dev_server",
+    "app": "yarn run setup-env dev && bazel run //client:app_server",
+    "pwa": "yarn run setup-env dev && bazel run //client:pwa_server",
+    "ssr": "yarn run setup-env dev && bazel run //client:prod_server_image",
+    "client": "yarn run setup-env dev && bazel run //client",
+    "setup-env": "yarn ts-node client/environment/setup-script",
+    "postinstall": "yarn run setup-env dev && ngcc"
   },
   "dependencies": {
     "@angular/animations": "^10.1.4",
@@ -46,6 +48,7 @@
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "terser": "^5.3.4",
+    "ts-node": "^9.0.0",
     "typescript": "^4.0.3"
   },
   "prettier": {

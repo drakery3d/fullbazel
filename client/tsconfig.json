@@ -6,6 +6,9 @@
     "module": "esnext",
     "moduleResolution": "node",
     "target": "es2015",
-    "lib": ["es2018", "dom"]
-  }
+    "lib": ["es2018", "dom"],
+    "paths": {
+      "@client/environment": ["./environment"],
+    }
+  },
 }

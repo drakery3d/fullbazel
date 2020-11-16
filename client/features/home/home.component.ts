@@ -1,4 +1,6 @@
-import {Component} from '@angular/core'
+import {Component, Inject} from '@angular/core'
+
+import {ENVIRONMENT, ClientEnvironment} from '@client/environment'
 
 @Component({
   selector: 'abs-home',
@@ -8,8 +10,13 @@ import {Component} from '@angular/core'
       <p>Let's build something great!</p>
       <span class="line"></span>
       <a routerLink="/about"><button>About</button></a>
+      <div class="env">
+        <pre>{{ environment | json }}</pre>
+      </div>
     </div>
   `,
   styleUrls: ['home.component.sass'],
 })
-export class HomeComponent {}
+export class HomeComponent {
+  constructor(@Inject(ENVIRONMENT) public environment: ClientEnvironment) {}
+}

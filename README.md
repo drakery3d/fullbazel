@@ -25,9 +25,10 @@
 - Unit Tests
 - Integration Tests
 - Shared Library
-- Environment Variables
 - Deployment to Kubernetes
 - Deployment to Heroku (also for demo)
 - `ts_devserver` with Socket.IO
 - Service Worker Updates
 - Differential Loading
+- NgRx
+- Simple Backend

@@ -1,0 +1,16 @@
+load("//tools:angular_ts_library.bzl", "ng_ts_library")
+
+package(default_visibility = ["//client:__subpackages__"])
+
+ng_ts_library(
+    name = "environment",
+    srcs = [
+        "environment.ts",
+        "index.ts",
+    ],
+    module_name = "@client/environment",
+    tsconfig = "//client:tsconfig.json",
+    deps = [
+        "@npm//@angular/core",
+    ],
+)
