@@ -1,7 +1,7 @@
 {
   "name": "Angular Bazel Starter",
   "short_name": "ABS",
-  "theme_color": "#000",
+  "theme_color": "#4d9f4e",
   "background_color": "#fff",
   "display": "standalone",
   "scope": "./",

@@ -1,6 +1,15 @@
-# Angular Bazel Starter
+<div align="center">
+  <a href="https://github.com/flolu/angular-bazel-starter">
+    <img width="180px" height="auto" src="./client/assets/icons/icon-192x192.png" />
+  </a>
+  <br>
+  <h1>Angular Bazel Starter</h1>
+  <p>
+    Full stack starter Monorepo for building modern web apps with <a href="https://angular.io/">Angular</a> and <a href="https://bazel.build/">Bazel</a>
+  </p>
+</div>
 
-## Features
+# Features
 
 - Development server with hot reload
 - Lazy Loading
@@ -8,13 +17,11 @@
 - Service Worker
 - Server Side Rendering
 - Sass for styling
-- Perfect Lighthouse score
 - Environments
 - Shared libraries
+- Perfect Lighthouse score
 
-  ![](./assets/lighthouse.png)
-
-## Commands
+# Commands
 
 - Setup project: `yarn`
 - Start development server: `yarn dev`
@@ -22,14 +29,14 @@
 - Start PWA web server: `yarn pwa`
 - Start Node.Js with server side rendering: `yarn ssr`
 
-## TODO
+# TODO
 
-- Unit Tests
-- Integration Tests
+- NgRx
 - Deployment to Kubernetes
-- Deployment to Heroku (also for demo)
 - `ts_devserver` with Socket.IO
 - Service Worker Updates
 - Differential Loading
-- NgRx
 - Simple Backend
+- Unit Tests
+- Integration Tests
+- Documentation
