@@ -9,13 +9,12 @@ multi_sass_binary(
 )
 
 ng_ts_library(
-    name = "home",
-    srcs = glob(["*.ts"]),
+    name = "ui-elements",
+    srcs = glob(["**/*.ts"]),
     angular_assets = [":styles"],
+    module_name = "@libs/ui-elements",
     tsconfig = "//client:tsconfig.json",
     deps = [
-        "//client/environment",
-        "//libs/ui-elements",
         "@npm//@angular/common",
         "@npm//@angular/core",
         "@npm//@angular/router",

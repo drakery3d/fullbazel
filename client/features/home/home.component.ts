@@ -9,7 +9,7 @@ import {ENVIRONMENT, ClientEnvironment} from '@client/environment'
       <h1>Angular Bazel Starter</h1>
       <p>Let's build something great!</p>
       <span class="line"></span>
-      <a routerLink="/about"><button>About</button></a>
+      <a routerLink="/about"><abs-button>About</abs-button></a>
       <div class="env">
         <pre>{{ environment | json }}</pre>
       </div>

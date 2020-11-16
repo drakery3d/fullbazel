@@ -9,6 +9,8 @@
 - Server Side Rendering
 - Sass for styling
 - Perfect Lighthouse score
+- Environments
+- Shared libraries
 
   ![](./assets/lighthouse.png)
 
@@ -24,7 +26,6 @@
 
 - Unit Tests
 - Integration Tests
-- Shared Library
 - Deployment to Kubernetes
 - Deployment to Heroku (also for demo)
 - `ts_devserver` with Socket.IO

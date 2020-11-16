@@ -2,6 +2,7 @@ load("//tools:angular_ts_library.bzl", "ng_ts_library")
 
 package(default_visibility = ["//client:__subpackages__"])
 
+# TODO does ts_lib work here, too?
 ng_ts_library(
     name = "environment",
     srcs = [
