@@ -8,7 +8,10 @@ import {ServiceWorkerService} from './service-worker.service'
 @Component({
   selector: 'abs-root',
   template: `
+    <div class="connectivity" *ngIf="offline$ | async">You are offline!</div>
+
     <abs-nav></abs-nav>
+
     <div *ngIf="availableSwUpdate" (click)="onUpdateServiceWorker()" id="update_banner">
       <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24">
         <g><rect fill="none" height="24" width="24" /></g>
@@ -45,7 +48,6 @@ export class AppComponent {
   private handleSwUpdates() {
     this.serviceWorkerService.launchUpdateCheckingRoutine()
     this.serviceWorkerService.launchUpdateHandler(event => {
-      console.log('update avail', event)
       this.availableSwUpdate = event
     })
   }

@@ -5,7 +5,8 @@
   align-items: center
   top: var(--space-med)
   right: -4px
-  background: var(--text-dark)
+  background: rgba(0,0,0,.75)
+  backdrop-filter: blur(.3rem)
   border: 2px solid var(--text)
   color: white
   fill: white
@@ -27,3 +28,16 @@
     transform: translateX(100%)
   to
     transform: translateX(0%)
+
+.connectivity
+  background: rgba(0,0,0,.75)
+  backdrop-filter: blur(.3rem)
+  position: fixed
+  top: 0
+  color: white
+  font-size: .8rem
+  padding: .4rem 0
+  left: 0
+  right: 0
+  text-align: center
+  z-index: 2
