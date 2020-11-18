@@ -40,14 +40,16 @@
 # TODO
 
 - Deployment to Kubernetes
-- Service Worker Updates
+- Push Notifications
 - Differential Loading
-- Simple Backend
 - Unit Tests
 - Integration Tests
 - Documentation
-- Upgrade to NgRx (currenlty doesn't work)
 
 ## Thanks to all the people listed below!
 
 [@rayman1104](https://github.com/rayman1104) [@marcus-sa](https://github.com/marcus-sa) [@joeljeske](https://github.com/joeljeske)
+
+<!--
+# TODO upgrade ngrx to v10... currently causes errors
+-->

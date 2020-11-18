@@ -10,4 +10,5 @@ export enum Tags {
   Sass = 'sass',
   HTML = 'html',
   Monorepo = 'monorepo',
+  WebSockets = 'web-sockets',
 }

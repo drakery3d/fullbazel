@@ -42,6 +42,7 @@
         span
           display: none
           margin-left: 1rem
+          white-space: nowrap
 
         svg
           filter: grayscale(100%)
@@ -84,8 +85,8 @@
       li
         justify-content: center
 
-    // .secondary
-    //   display: none
+    .hide-small
+      display: none
 
   .main
     margin: 0
@@ -103,7 +104,36 @@
     transition: width var(--transition-speed) ease, box-shadow var(--transition-speed) ease
     &:hover
       box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.05)
-      width: 18rem
+      width: 22rem
 
       ul > li > a > span
         display: inline
+
+#update_banner
+  position: fixed
+  display: flex
+  align-items: center
+  top: var(--space-med)
+  right: -4px
+  background: var(--text-dark)
+  border: 2px solid var(--text)
+  color: white
+  fill: white
+  padding: var(--space) var(--space-med)
+  border-radius: 3px
+  font-size: 1.5rem
+  animation: fadein var(--transition-speed) ease-in
+  cursor: pointer
+
+  svg
+    width: 2rem
+    height: 2rem
+
+  span
+    margin-left: var(--space)
+
+@keyframes fadein
+  from
+    transform: translateX(100%)
+  to
+    transform: translateX(0%)
