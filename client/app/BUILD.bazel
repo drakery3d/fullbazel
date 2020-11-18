@@ -15,6 +15,7 @@ ng_ts_library(
         "app-base.module.ts",
         "app-routing.module.ts",
         "navigation.component.ts",
+        "push-notification.service.ts",
         "service-worker.service.ts",
     ],
     angular_assets = [":styles"],

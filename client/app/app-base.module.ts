@@ -6,10 +6,15 @@ import {AppComponent} from './app.component'
 import {AppRoutingModule} from './app-routing.module'
 import {ServiceWorkerService} from './service-worker.service'
 import {NavigationComopnent} from './navigation.component'
+import {PushNotificationService} from './push-notification.service'
 
 @NgModule({
   imports: [BrowserModule.withServerTransition({appId: 'abs'}), AppRoutingModule],
   declarations: [AppComponent, NavigationComopnent],
-  providers: [ServiceWorkerService, {provide: ENVIRONMENT, useValue: environment}],
+  providers: [
+    ServiceWorkerService,
+    PushNotificationService,
+    {provide: ENVIRONMENT, useValue: environment},
+  ],
 })
 export class AppBaseModule {}

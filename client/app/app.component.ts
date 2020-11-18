@@ -1,8 +1,10 @@
-import {Component} from '@angular/core'
+import {isPlatformBrowser} from '@angular/common'
+import {Component, Inject, PLATFORM_ID} from '@angular/core'
 import {UpdateAvailableEvent} from '@angular/service-worker'
 import {fromEvent, merge, Observable, of} from 'rxjs'
 import {mapTo} from 'rxjs/operators'
 
+import {PushNotificationService} from './push-notification.service'
 import {ServiceWorkerService} from './service-worker.service'
 
 @Component({
@@ -36,9 +38,16 @@ export class AppComponent {
   offline$: Observable<boolean>
   availableSwUpdate: UpdateAvailableEvent
 
-  constructor(private serviceWorkerService: ServiceWorkerService) {
-    this.handleConnectivity()
-    this.handleSwUpdates()
+  constructor(
+    private serviceWorkerService: ServiceWorkerService,
+    private notificationService: PushNotificationService,
+    @Inject(PLATFORM_ID) private platform: string,
+  ) {
+    if (isPlatformBrowser(this.platform)) {
+      this.notificationService.initialize()
+      this.handleConnectivity()
+      this.handleSwUpdates()
+    }
   }
 
   onUpdateServiceWorker() {

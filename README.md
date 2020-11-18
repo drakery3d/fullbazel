@@ -22,6 +22,7 @@
 - Perfect Lighthouse score
 - Realtime messages from server with Web Sockets
 - NgRx for state management
+- Push Notifications
 
 # Commands
 
@@ -40,7 +41,6 @@
 # TODO
 
 - Deployment to Kubernetes
-- Push Notifications
 - Differential Loading
 - Unit Tests
 - Integration Tests
