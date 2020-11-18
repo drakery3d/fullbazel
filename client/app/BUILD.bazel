@@ -1,11 +1,11 @@
-load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+load("@io_bazel_rules_sass//:defs.bzl", "multi_sass_binary")
 load("//tools:angular_ts_library.bzl", "ng_ts_library")
 
 package(default_visibility = ["//client:__subpackages__"])
 
-sass_binary(
-    name = "app_styles",
-    src = "app.component.sass",
+multi_sass_binary(
+    name = "styles",
+    srcs = glob(include = ["**/*.sass"]),
 )
 
 ng_ts_library(
@@ -14,9 +14,10 @@ ng_ts_library(
         "app.component.ts",
         "app-base.module.ts",
         "app-routing.module.ts",
+        "navigation.component.ts",
         "service-worker.service.ts",
     ],
-    angular_assets = [":app_styles"],
+    angular_assets = [":styles"],
     tsconfig = "//client:tsconfig.json",
     deps = [
         "//client/environment",

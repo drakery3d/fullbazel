@@ -5,10 +5,11 @@ import {ENVIRONMENT, environment} from '@client/environment'
 import {AppComponent} from './app.component'
 import {AppRoutingModule} from './app-routing.module'
 import {ServiceWorkerService} from './service-worker.service'
+import {NavigationComopnent} from './navigation.component'
 
 @NgModule({
   imports: [BrowserModule.withServerTransition({appId: 'abs'}), AppRoutingModule],
-  declarations: [AppComponent],
+  declarations: [AppComponent, NavigationComopnent],
   providers: [ServiceWorkerService, {provide: ENVIRONMENT, useValue: environment}],
 })
 export class AppBaseModule {}
