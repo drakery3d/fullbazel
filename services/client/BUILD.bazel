@@ -50,11 +50,11 @@ insert_html_assets(
         "./_/ts_scripts.js",
     ],
     data = [
-        ":app.html",
+        ":main.html",
         ":styles.css",
         "@npm//:node_modules/zone.js/dist/zone.min.js",
     ],
-    html_file = ":app.html",
+    html_file = ":main.html",
 )
 
 ts_devserver(
@@ -117,18 +117,18 @@ insert_html_assets(
         "$(execpath bundle.min)/index.es2015.js",
     ],
     data = [
-        ":app.html",
         ":bundle.min",
+        ":main.html",
         ":styles.css",
         "@npm//:node_modules/zone.js/dist/zone.min.js",
     ],
-    html_file = ":app.html",
+    html_file = ":main.html",
 )
 
 pkg_web(
     name = "web_app",
     srcs = [
-        "app.html",
+        "main.html",
         ":asset_injected_index_html",
         ":bundle.min",
         ":favicon.ico",
@@ -155,11 +155,11 @@ insert_html_assets(
     ],
     data = [
         ":bundle.min",
-        ":pwa.html",
+        ":main.html",
         ":styles.css",
         "@npm//:node_modules/zone.js/dist/zone.min.js",
     ],
-    html_file = ":pwa.html",
+    html_file = ":main.html",
 )
 
 pkg_pwa(

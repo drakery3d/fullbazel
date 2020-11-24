@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://github.com/flolu/angular-bazel-starter">
-    <img width="180px" height="auto" src="./client/assets/icons/icon-192x192.png" />
+    <img width="180px" height="auto" src="./services/client/assets/icons/icon-192x192.png" />
   </a>
   <br>
   <h1>Angular Bazel Starter</h1>

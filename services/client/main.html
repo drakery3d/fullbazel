@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Angular Bazel Starter</title>
+    <meta name="description" content="Angular Bazel Starter for Fast and Modern Web Applications" />
+    <base href="/" />
+    <link rel="icon" type="image/png" sizes="72x72" href="assets/icons/icon-72x72.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192x192.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#4d9f4e" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+
+    <noscript>
+      <style>
+        .noscript {
+          position: fixed;
+          top: 0;
+          right: 0;
+          left: 0;
+          z-index: 11;
+          background: var(--color-dark);
+          color: white;
+          font-size: 1.25rem;
+          padding: 1rem;
+          text-align: center;
+        }
+      </style>
+    </noscript>
+
+    <style>
+      .app-loading {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 9;
+        background: white;
+        pointer-events: none;
+      }
+
+      .app-loading > img {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        animation: iconLoading 1.5s infinite;
+        width: 100px;
+        height: 100px;
+        margin: auto;
+        z-index: 10;
+      }
+
+      .app-loading.loaded {
+        animation: fadeOut 500ms ease-out;
+        opacity: 0;
+      }
+
+      .app-loading.loaded > svg {
+        animation: iconFadeOut 300ms ease-out;
+        opacity: 0;
+      }
+
+      @keyframes iconLoading {
+          0% {
+            transform: scale(1);
+          }
+          50% {
+            transform: scale(1.1);
+          }
+          100% {
+            transform: scale(1);
+          }
+      }
+
+      @keyframes iconFadeOut {
+          0% {
+            transform: scale(1);
+            opacity: 1;
+          }
+          20% {
+            transform: scale(.8);
+            opacity: 1;
+          }
+          100% {
+            transform: scale(1.8);
+            opacity: 0;
+          }
+      }
+
+      @keyframes fadeOut {
+          from {
+            opacity: 1;
+          }
+          to {
+            opacity: 0;
+          }
+      }
+
+
+    </style>
+  </head>
+  <body>
+    <noscript>
+      <div class='noscript'>
+        <span>Please enable <strong>Javascript</strong> to use this app!</span>
+      </div>
+    </noscript>
+
+    <div class='app-loading'>
+      <img src="assets/icons/icon-192x192.png">
+    </div>
+
+    <abs-root></abs-root>
+  </body>
+</html>
