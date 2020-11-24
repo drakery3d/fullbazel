@@ -21,6 +21,8 @@ io.on('connect', (socket: Socket) => {
     console.log(`disconnect ${socket.id}`)
   })
 
+  socket.emit('quotes', makeQuote())
+
   interval(2000)
     .pipe(
       takeWhile(() => socket.connected),

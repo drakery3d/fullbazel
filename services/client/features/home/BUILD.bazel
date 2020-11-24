@@ -1,7 +1,7 @@
 load("//tools:angular_ts_library.bzl", "ng_ts_library")
 load("@io_bazel_rules_sass//:defs.bzl", "multi_sass_binary")
 
-package(default_visibility = ["//client:__subpackages__"])
+package(default_visibility = ["//services/client:__subpackages__"])
 
 multi_sass_binary(
     name = "styles",
@@ -9,13 +9,12 @@ multi_sass_binary(
 )
 
 ng_ts_library(
-    name = "about",
+    name = "home",
     srcs = glob(["*.ts"]),
     angular_assets = [":styles"],
-    tsconfig = "//client:tsconfig.json",
+    tsconfig = "//services/client:tsconfig.json",
     deps = [
-        "//client/environment",
-        "//libs/ui-elements",
+        "//libs/enums",
         "@npm//@angular/common",
         "@npm//@angular/core",
         "@npm//@angular/router",

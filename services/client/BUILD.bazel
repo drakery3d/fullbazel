@@ -34,9 +34,9 @@ ts_library(
 ng_ts_library(
     name = "dev_src",
     srcs = ["main.dev.ts"],
-    tsconfig = "//client:tsconfig.json",
+    tsconfig = "//services/client:tsconfig.json",
     deps = [
-        "//client/app:dev",
+        "//services/client/app:dev",
         "@npm//@angular/platform-browser",
     ],
 )
@@ -59,8 +59,8 @@ insert_html_assets(
 
 ts_devserver(
     name = "dev_server",
-    additional_root_paths = ["client/dev"],
-    entry_module = "abs/client/main.dev",
+    additional_root_paths = ["services/client/dev"],
+    entry_module = "abs/services/client/main.dev",
     port = 4200,
     scripts = [
         "@npm//:node_modules/tslib/tslib.js",
@@ -69,20 +69,20 @@ ts_devserver(
     ],
     static_files = [
         "@npm//:node_modules/zone.js/dist/zone.min.js",
-        "//client/assets",
+        "//services/client/assets",
         ":inject_scripts_for_dev",
         ":styles.css",
         ":favicon.ico",
     ],
-    deps = ["//client:dev_src"],
+    deps = ["//services/client:dev_src"],
 )
 
 ng_ts_library(
     name = "prod_src",
     srcs = ["main.prod.ts"],
-    tsconfig = "//client:tsconfig.json",
+    tsconfig = "//services/client:tsconfig.json",
     deps = [
-        "//client/app:prod",
+        "//services/client/app:prod",
         "@npm//@angular/core",
         "@npm//@angular/platform-browser",
     ],
@@ -134,7 +134,7 @@ pkg_web(
         ":favicon.ico",
         ":robots.txt",
         ":styles.css",
-        "//client/assets",
+        "//services/client/assets",
         "@npm//:node_modules/zone.js/dist/zone.min.js",
     ],
 )
@@ -171,7 +171,7 @@ pkg_pwa(
         ":manifest.webmanifest",
         ":robots.txt",
         ":styles.css",
-        "//client/assets",
+        "//services/client/assets",
     ],
     index_html = ":asset_injected_pwa_index_html",
     ngsw_config = ":ngsw-config.json",
@@ -187,7 +187,7 @@ ts_library(
     name = "server_lib",
     srcs = ["server.ts"],
     deps = [
-        "//client/app:server",
+        "//services/client/app:server",
         "@npm//@angular/core",
         "@npm//@nguniversal/express-engine",
         "@npm//@types/express",

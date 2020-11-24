@@ -1,14 +1,14 @@
 load("//tools:angular_ts_library.bzl", "ng_ts_library")
 
-package(default_visibility = ["//client:__subpackages__"])
+package(default_visibility = ["//services/client:__subpackages__"])
 
 ng_ts_library(
     name = "store",
     srcs = glob(["**/*.ts"]),
     module_name = "@client/store",
-    tsconfig = "//client:tsconfig.json",
+    tsconfig = "//services/client:tsconfig.json",
     deps = [
-        "//client/store/router",
+        "//services/client/store/router",
         "@npm//@angular/core",
         "@npm//@ngrx/effects",
         "@npm//@ngrx/router-store",

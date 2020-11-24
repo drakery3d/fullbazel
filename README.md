@@ -41,6 +41,8 @@
 # TODO
 
 - Deployment to Kubernetes
+- Configuration and Secret management for different environments
+- Docker compose to start dev backend
 - Differential Loading
 - Unit Tests
 - Integration Tests
