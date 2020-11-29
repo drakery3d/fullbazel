@@ -4,17 +4,15 @@
   "private": true,
   "scripts": {
     "bazel": "bazelisk",
-    "dev": "yarn run setup-env dev && ibazel run //services/client:dev_server",
-    "dev-with-prod-env": "yarn run setup-env prod && ibazel run //services/client:dev_server",
-    "ssr": "yarn run setup-env dev && bazel run //services/client:prod_server_image",
-    "client": "yarn run setup-env dev && bazel run //services/client",
+    "build:dev": "bazel build //... --//:env=dev",
+    "build:prod": "bazel build //... --//:env=prod",
+    "client:dev": "ibazel run //services/client:dev_server --//:env=dev",
+    "client": " bazel run //services/client:prod_server_image --//:env=dev",
     "server:dev": "yarn ts-node-dev -r tsconfig-paths/register services/server dev",
     "server": "yarn ts-node -r tsconfig-paths/register services/server",
-    "setup-env": "yarn ts-node services/client/environment/setup-script",
-    "build:prod": "bazel build //... --//:env=prod",
     "deploy": "bazel run :kubernetes.apply --//:env=prod",
     "upsert-secrets": "shx cp -n libs/config/secrets/dev.secrets-example.json libs/config/secrets/dev.secrets.json && shx cp -n libs/config/secrets/prod.secrets-example.json libs/config/secrets/prod.secrets.json",
-    "postinstall": "patch-package --patch-dir dev/patches && yarn run setup-env dev && yarn run upsert-secrets && ngcc"
+    "postinstall": "patch-package --patch-dir dev/patches && yarn run upsert-secrets && ngcc"
   },
   "dependencies": {
     "@angular/animations": "^10.1.4",

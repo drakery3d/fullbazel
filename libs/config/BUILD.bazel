@@ -104,6 +104,7 @@ genrule(
 ts_library(
     name = "client_environment",
     srcs = ["client.environment.ts"],
+    module_name = "@generated/config",
 )
 
 # DOCKER COMPOSE ENVIRONMENT VARIABLES

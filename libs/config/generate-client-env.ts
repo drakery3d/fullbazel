@@ -10,13 +10,14 @@ const environment = process.argv[3]
 async function main() {
   const config = await readConfig(environment)
   const project = new Project()
-  const tsFile = project.createSourceFile('file.ts', `export const environment = {};`)
+  const tsFile = project.createSourceFile('file.ts', `export const env = {};`)
   const objLiteral = tsFile
-    .getVariableDeclarationOrThrow('environment')
+    .getVariableDeclarationOrThrow('env')
     .getInitializerIfKindOrThrow(ts.SyntaxKind.ObjectLiteralExpression)
   objLiteral.addPropertyAssignments([
     {name: 'env', initializer: writer => writer.quote(environment)},
     {name: 'api', initializer: writer => writer.quote(config.api)},
+    {name: 'vapidPublicKey', initializer: writer => writer.quote(config.vapidPublicKey)},
   ])
   await fs.promises.writeFile(path.join(ruleDir, 'client.environment.ts'), tsFile.getFullText())
 }

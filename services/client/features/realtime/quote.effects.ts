@@ -6,12 +6,12 @@ import * as socketIO from 'socket.io-client'
 
 import {Quote} from '@libs/schema'
 
-import {ENVIRONMENT, ClientEnvironment} from '@client/environment'
+import {ClientEnvironment, ENVIRONMENT} from '@client/environment'
 import {QuoteActions} from './quote.actions'
 
 @Injectable()
 export class QuoteEffects {
-  private io = socketIO.io(this.environment.webSocketServer)
+  private io = socketIO.io(this.environment.api)
 
   constructor(@Inject(ENVIRONMENT) public environment: ClientEnvironment) {}
 

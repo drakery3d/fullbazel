@@ -16,13 +16,6 @@ config_setting(
 )
 
 config_setting(
-    name = "env_staging",
-    flag_values = {
-        ":env": "staging",
-    },
-)
-
-config_setting(
     name = "env_dev",
     flag_values = {
         ":env": "dev",

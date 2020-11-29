@@ -22,8 +22,11 @@
           "type": "string"
         }
       }
+    },
+    "vapidPublicKey": {
+      "type": "string"
     }
   },
-  "required": ["environment", "api", "database"],
+  "required": ["environment", "api", "database", "vapidPublicKey"],
   "additionalProperties": false
 }

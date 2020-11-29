@@ -4,13 +4,11 @@ package(default_visibility = ["//services/client:__subpackages__"])
 
 ts_library(
     name = "environment",
-    srcs = [
-        "environment.ts",
-        "index.ts",
-    ],
+    srcs = ["index.ts"],
     module_name = "@client/environment",
     tsconfig = "//services/client:tsconfig.json",
     deps = [
+        "//libs/config:client_environment",
         "@npm//@angular/core",
     ],
 )
