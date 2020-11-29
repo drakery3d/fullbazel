@@ -5,7 +5,7 @@
   <br>
   <h1>Angular Bazel Starter</h1>
   <p>
-    Full stack starter Monorepo for building modern web apps with <a href="https://angular.io/">Angular</a> and <a href="https://bazel.build/">Bazel</a>
+    Full stack starter Monorepo for building modern web apps with <a href="https://angular.io">Angular</a> and <a href="https://bazel.build">Bazel</a> deployed to a Kubernetes Cluster
   </p>
 </div>
 
@@ -29,7 +29,6 @@
 # Requirements
 
 - Linux
-- Bazel <!-- TODO check if actually needed, maybe bazelisk is enough -->
 - Yarn
 - Docker Compose
 - Kubectl
@@ -56,15 +55,11 @@
 # TODO
 
 - Differential Loading
-- Unit Tests
-- Integration Tests
+- Tests
 - Documentation
-- Server Side Rendering doesn't seem to work yet
+- Upgrade from NgRx v9 to v10
+- Second client without server side rendering (also add loading screen back in)
 
 ## Thanks to all the people listed below!
 
 [@rayman1104](https://github.com/rayman1104) [@marcus-sa](https://github.com/marcus-sa) [@joeljeske](https://github.com/joeljeske)
-
-<!--
-# TODO upgrade ngrx to v10... currently causes errors
--->
