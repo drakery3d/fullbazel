@@ -10,7 +10,7 @@ import {AppServerModule} from './app/app.server.module'
 enableProdMode()
 
 const app = express()
-const PORT = process.env.PORT || 4000
+const PORT = process.env.PORT || 8080
 const DIST_FOLDER = join(process.cwd(), 'services/client/web_pwa')
 
 app.engine('html', ngExpressEngine({bootstrap: AppServerModule}) as any)
