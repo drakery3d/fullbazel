@@ -23,6 +23,8 @@ body
   font-family: 'Montserrat', sans-serif
   font-size: 18px
   background: var(--bg-light)
+  display: flex
+  flex-direction: column
 
 ::-webkit-scrollbar
   width: 0.3rem
@@ -50,3 +52,6 @@ p
 ::selection
   color: white
   background: var(--color-light)
+
+.unselectable
+  user-select: none

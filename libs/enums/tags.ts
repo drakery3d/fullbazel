@@ -11,4 +11,5 @@ export enum Tags {
   HTML = 'html',
   Monorepo = 'monorepo',
   WebSockets = 'web-sockets',
+  NgRx = 'ngrx',
 }

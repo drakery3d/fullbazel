@@ -25,7 +25,7 @@ import {ServiceWorkerService} from './service-worker.service'
           </g>
         </g>
       </svg>
-      <span>Update Available</span>
+      <span class="unselectable">Update Available</span>
     </div>
 
     <div class="main">

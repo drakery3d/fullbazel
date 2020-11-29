@@ -5,6 +5,7 @@ import {EffectsModule} from '@ngrx/effects'
 import {StoreModule} from '@ngrx/store'
 
 import {UiElementsModule} from '@libs/ui-elements'
+
 import {RealtimeComponent} from './realtime.component'
 import {quoteReducer} from './quote.reducer'
 import {QuoteEffects} from './quote.effects'
