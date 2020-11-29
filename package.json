@@ -13,7 +13,8 @@
     "server:dev": "yarn ts-node-dev -r tsconfig-paths/register services/server dev",
     "server": "yarn ts-node -r tsconfig-paths/register services/server",
     "setup-env": "yarn ts-node services/client/environment/setup-script",
-    "postinstall": "patch-package --patch-dir dev/patches && yarn run setup-env dev && ngcc"
+    "upsert-secrets": "shx cp -n libs/config/secrets/dev.secrets-example.json libs/config/secrets/dev.secrets.json && shx cp -n libs/config/secrets/prod.secrets-example.json libs/config/secrets/prod.secrets.json",
+    "postinstall": "patch-package --patch-dir dev/patches && yarn run setup-env dev && yarn run upsert-secrets && ngcc"
   },
   "dependencies": {
     "@angular/animations": "^10.1.4",
@@ -59,6 +60,7 @@
     "rollup": "^2.28.2",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
+    "shx": "^0.3.3",
     "terser": "^5.3.4",
     "ts-morph": "^9.1.0",
     "ts-node": "^9.0.0",

@@ -36,16 +36,8 @@
 
 **Setup**
 
-```bash
-# Install dependencies
-yarn && \
-
-# Create secrets for cevelopment
-cp libs/config/secrets/dev.secrets-example.json libs/config/secrets/dev.secrets.json && \
-
-# Create secrets for production
-cp libs/config/secrets/prod.secrets-example.json libs/config/secrets/prod.secrets.json
-```
+- Just run: `yarn`
+- Optionally modify secrets in `libs/config/secrets`
 
 **Development**
 
