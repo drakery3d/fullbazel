@@ -23,6 +23,7 @@ ng_ts_library(
         "@npm//@ngrx/effects",
         "@npm//@ngrx/entity",
         "@npm//@ngrx/store",
+        "@npm//base64-arraybuffer",
         "@npm//rxjs",
         "@npm//socket.io-client",
     ],

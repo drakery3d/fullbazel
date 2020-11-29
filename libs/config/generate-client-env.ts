@@ -8,17 +8,27 @@ const ruleDir = process.argv[2]
 const environment = process.argv[3]
 
 async function main() {
+  // TODO later use typed conig
   const config = await readConfig(environment)
   const project = new Project()
   const tsFile = project.createSourceFile('file.ts', `export const env = {};`)
   const objLiteral = tsFile
     .getVariableDeclarationOrThrow('env')
     .getInitializerIfKindOrThrow(ts.SyntaxKind.ObjectLiteralExpression)
-  objLiteral.addPropertyAssignments([
-    {name: 'env', initializer: writer => writer.quote(environment)},
-    {name: 'api', initializer: writer => writer.quote(config.api)},
-    {name: 'vapidPublicKey', initializer: writer => writer.quote(config.vapidPublicKey)},
-  ])
+
+  const env = {
+    env: environment,
+    api: config.api,
+    vapidPublicKey: config.vapidPublicKey,
+  }
+
+  objLiteral.addPropertyAssignments(
+    Object.keys(env).map(key => ({
+      name: key,
+      initializer: writer => writer.quote((env as any)[key]),
+    })),
+  )
+
   await fs.promises.writeFile(path.join(ruleDir, 'client.environment.ts'), tsFile.getFullText())
 }
 

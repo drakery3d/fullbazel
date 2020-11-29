@@ -24,6 +24,7 @@
 - Push Notifications
 - Deployment to Kubernetes
 - Configuration and Secret management for different environments
+- Docker compose for local development with hot reload
 
 # Requirements
 
@@ -58,7 +59,6 @@
 
 # TODO
 
-- Docker compose to start dev backend
 - Differential Loading
 - Unit Tests
 - Integration Tests

@@ -1,0 +1,15 @@
+version: '3'
+services:
+  server:
+    image: node:lts-alpine
+    container_name: abs_server
+    volumes:
+      - ./package.json:/package.json
+      - ./tsconfig.json:/tsconfig.json
+      - ./node_modules:/node_modules
+      - ./libs:/libs
+      - ./services/server:/services/server
+    ports:
+      - '3000:3000'
+    env_file: bazel-bin/libs/config/docker-compose.env
+    command: yarn run ts-node-dev -r tsconfig-paths/register services/server dev
