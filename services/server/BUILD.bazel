@@ -1,5 +1,6 @@
 load("@npm//@bazel/typescript:index.bzl", "ts_library")
 load("@io_bazel_rules_docker//nodejs:image.bzl", "nodejs_image")
+load("@k8s_deploy//:defaults.bzl", "k8s_deploy")
 
 package(default_visibility = ["//visibility:public"])
 
@@ -7,8 +8,14 @@ ts_library(
     name = "lib",
     srcs = glob(["**/*.ts"]),
     deps = [
+        "//libs/schema",
+        "@npm//@types/faker",
         "@npm//@types/node",
+        "@npm//@types/uuid",
+        "@npm//faker",
+        "@npm//rxjs",
         "@npm//socket.io",
+        "@npm//uuid",
     ],
 )
 
@@ -18,4 +25,10 @@ nodejs_image(
         ":lib",
     ],
     entry_point = ":index.ts",
+)
+
+k8s_deploy(
+    name = "kubernetes",
+    images = {"server:placeholder_name": ":image"},
+    template = ":server.yaml",
 )

@@ -1,0 +1,13 @@
+load("@k8s_deploy//:defaults.bzl", "k8s_deploy")
+
+package(default_visibility = ["//visibility:public"])
+
+k8s_deploy(
+    name = "certificate_issuer",
+    template = ":certificate-issuer.yaml",
+)
+
+k8s_deploy(
+    name = "ingress",
+    template = ":ingress.yaml",
+)

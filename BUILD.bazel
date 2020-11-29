@@ -1,3 +1,42 @@
-package(default_visibility = ["//services:__subpackages__"])
+load("@bazel_skylib//rules:common_settings.bzl", "string_flag")
+load("@io_bazel_rules_k8s//k8s:objects.bzl", "k8s_objects")
 
 exports_files(["tsconfig.json"])
+
+string_flag(
+    name = "env",
+    build_setting_default = "dev",
+)
+
+config_setting(
+    name = "env_prod",
+    flag_values = {
+        ":env": "prod",
+    },
+)
+
+config_setting(
+    name = "env_staging",
+    flag_values = {
+        ":env": "staging",
+    },
+)
+
+config_setting(
+    name = "env_dev",
+    flag_values = {
+        ":env": "dev",
+    },
+)
+
+k8s_objects(
+    name = "kubernetes",
+    objects = [
+        "//libs/kubernetes:certificate_issuer",
+        "//libs/kubernetes:ingress",
+        "//libs/config:config",
+        "//libs/config:secrets",
+        "//services/client:kubernetes",
+        "//services/server:kubernetes",
+    ],
+)

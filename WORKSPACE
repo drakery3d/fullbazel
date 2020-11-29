@@ -58,3 +58,26 @@ rules_sass_dependencies()
 load("@io_bazel_rules_sass//:defs.bzl", "sass_repositories")
 
 sass_repositories()
+
+# https://github.com/bazelbuild/rules_k8s#setup
+http_archive(
+    name = "io_bazel_rules_k8s",
+    sha256 = "773aa45f2421a66c8aa651b8cecb8ea51db91799a405bd7b913d77052ac7261a",
+    strip_prefix = "rules_k8s-0.5",
+    urls = ["https://github.com/bazelbuild/rules_k8s/archive/v0.5.tar.gz"],
+)
+
+load("@io_bazel_rules_k8s//k8s:k8s.bzl", "k8s_defaults", "k8s_repositories")
+
+k8s_repositories()
+
+load("@io_bazel_rules_k8s//k8s:k8s_go_deps.bzl", k8s_go_deps = "deps")
+
+k8s_go_deps()
+
+k8s_defaults(
+    name = "k8s_deploy",
+    cluster = "gke_angular-bazel-starter_europe-west3-b_demo",
+    image_chroot = "gcr.io/angular-bazel-starter",
+    kind = "deployment",
+)

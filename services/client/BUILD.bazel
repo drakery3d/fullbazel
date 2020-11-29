@@ -5,6 +5,7 @@ load("@npm//@bazel/typescript:index.bzl", "ts_devserver", "ts_library")
 load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
 load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary", "pkg_web")
 load("@io_bazel_rules_docker//nodejs:image.bzl", "nodejs_image")
+load("@k8s_deploy//:defaults.bzl", "k8s_deploy")
 load("//tools:angular_ts_library.bzl", "ng_ts_library")
 load("//tools:insert_html_assets.bzl", "insert_html_assets")
 load("//tools:pkg_pwa.bzl", "pkg_pwa")
@@ -212,4 +213,10 @@ nodejs_image(
         ":web_pwa",
     ],
     entry_point = ":server.ts",
+)
+
+k8s_deploy(
+    name = "kubernetes",
+    images = {"client:placeholder_name": ":prod_server_image"},
+    template = ":client.yaml",
 )
