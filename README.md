@@ -24,9 +24,28 @@
 - NgRx for state management
 - Push Notifications
 
+# Requirements
+
+- Linux
+- Bazel <!-- TODO check if actually needed, maybe bazelisk is enough -->
+- Yarn
+- Docker Compose
+- Kubectl
+
 # Commands
 
-- Setup project: `yarn install`
+**Setup**
+
+```bash
+# Install dependencies
+yarn && \
+
+# Create secrets for cevelopment
+cp libs/config/secrets/dev.secrets-example.json libs/config/secrets/dev.secrets.json && \
+
+# Create secrets for production
+cp libs/config/secrets/prod.secrets-example.json libs/config/secrets/prod.secrets.json
+```
 
 **Development**
 

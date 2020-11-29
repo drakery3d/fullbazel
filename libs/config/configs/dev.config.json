@@ -1,0 +1,9 @@
+{
+  "$schema": "./config.schema.json",
+  "environment": "dev",
+  "api": "http://localhost:3000",
+  "database": {
+    "host": "mongodb:27017",
+    "user": "admin"
+  }
+}

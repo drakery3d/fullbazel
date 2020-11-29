@@ -1,0 +1,125 @@
+load("@npm//@bazel/typescript:index.bzl", "ts_library")
+load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
+load("@k8s_deploy//:defaults.bzl", "k8s_deploy")
+
+package(default_visibility = ["//visibility:public"])
+
+ENVIRONMENTS = [
+    "dev",
+    "prod",
+]
+
+ts_library(
+    name = "generate_lib",
+    srcs = glob(["**/*.ts"]),
+    deps = [
+        "@npm//@types/node",
+        "@npm//ts-morph",
+        "@npm//yaml",
+    ],
+)
+
+filegroup(
+    name = "config_jsons",
+    srcs = glob(
+        include = ["configs/*"],
+        exclude = ["**/*.schema.json"],
+    ),
+)
+
+filegroup(
+    name = "secrets_jsons",
+    srcs = glob(
+        include = ["secrets/*"],
+        exclude = ["**/*.schema.json"],
+    ),
+)
+
+# KUBERNETES CONFIG
+nodejs_binary(
+    name = "generate_k8s_configs_bin",
+    data = [
+        ":config_jsons",
+        ":generate_lib",
+    ],
+    entry_point = "generate-k8s-configs.ts",
+)
+
+genrule(
+    name = "generate_k8s_configs",
+    outs = ["%s.config.yaml" % s for s in ENVIRONMENTS],
+    cmd = "$(location generate_k8s_configs_bin) $(RULEDIR)",
+    tools = [":generate_k8s_configs_bin"],
+)
+
+k8s_deploy(
+    name = "config",
+    template = ":prod.config.yaml",
+)
+
+# KUBERNETES SECRETS
+nodejs_binary(
+    name = "generate_k8s_secrets_bin",
+    data = [
+        ":generate_lib",
+        ":secrets_jsons",
+    ],
+    entry_point = "generate-k8s-secrets.ts",
+)
+
+genrule(
+    name = "generate_k8s_secrets",
+    outs = ["%s.secrets.yaml" % s for s in ENVIRONMENTS],
+    cmd = "$(location generate_k8s_secrets_bin) $(RULEDIR)",
+    tools = [":generate_k8s_secrets_bin"],
+)
+
+k8s_deploy(
+    name = "secrets",
+    template = ":prod.secrets.yaml",
+)
+
+# CLIENT ENVIRONMENT
+nodejs_binary(
+    name = "generate_client_env_bin",
+    data = [
+        ":config_jsons",
+        ":generate_lib",
+    ],
+    entry_point = "generate-client-env.ts",
+)
+
+CLIENT_ENV_CMD = "$(location generate_client_env_bin) $(RULEDIR) %s"
+
+genrule(
+    name = "generate_client_env",
+    outs = ["client.environment.ts"],
+    cmd = select({
+        "//:env_prod": CLIENT_ENV_CMD % "prod",
+        "//:env_dev": CLIENT_ENV_CMD % "dev",
+    }),
+    tools = [":generate_client_env_bin"],
+)
+
+ts_library(
+    name = "client_environment",
+    srcs = ["client.environment.ts"],
+)
+
+# DOCKER COMPOSE ENVIRONMENT VARIABLES
+nodejs_binary(
+    name = "generate_docker_compose_env_bin",
+    data = [
+        ":config_jsons",
+        ":generate_lib",
+        ":secrets_jsons",
+    ],
+    entry_point = "generate-dc-env.ts",
+)
+
+genrule(
+    name = "generate_docker_compose_env",
+    outs = ["docker-compose.env"],
+    cmd = "$(location generate_docker_compose_env_bin) $@",
+    tools = [":generate_docker_compose_env_bin"],
+)

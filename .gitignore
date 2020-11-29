@@ -1,6 +1,8 @@
 node_modules
 bazel-*
 dist
-client/environment/environment.ts
-
 *.log
+
+client/environment/environment.ts
+libs/config/secrets/dev.secrets.json
+libs/config/secrets/prod.secrets.json

@@ -1,0 +1,9 @@
+{
+  "$schema": "./config.schema.json",
+  "environment": "prod",
+  "api": "https://api.example.com",
+  "database": {
+    "host": "database-svc.mongodb.svc.cluster.local:27017",
+    "user": "admin"
+  }
+}
