@@ -2,5 +2,6 @@
   "$schema": "./config.schema.json",
   "environment": "dev",
   "api": "http://localhost:3000",
+  "client": "http://localhost:4200",
   "vapidPublicKey": "BKrGmhd1_CQ2TRZYAj9RRWZBT9S1fFUVPnPgFurEoIvq9j0pATf6gNK-1CkaOsWHYhd5C3HIAOv4AUI8H29SAFs"
 }

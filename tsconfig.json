@@ -7,7 +7,8 @@
     "lib": ["es6"],
     "target": "es5",
     "paths": {
-      "@libs/*": ["./libs/*"]
+      "@libs/*": ["./libs/*"],
+      "@generated/config/*": ["./bazel-bin/libs/config/*"]
     },
     "types": ["node"]
   },

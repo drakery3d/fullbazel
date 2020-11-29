@@ -5,15 +5,10 @@ import {takeWhile, tap} from 'rxjs/operators'
 import {v4 as uuidv4} from 'uuid'
 
 import {Quote} from '@libs/schema'
+import {Config} from '@libs/config'
 
-// TODO read config
-
-const arg = process.argv[2]
-const isProd = arg ? arg === 'prod' : true
-const io = new Server(3000, {
-  cors: {origin: isProd ? 'http://localhost:8080' : 'http://localhost:4200'},
-})
-
+const config = new Config()
+const io = new Server(3000, {cors: {origin: config.get('client')}})
 console.log('Web socket server started on port 3000')
 
 io.on('connect', (socket: Socket) => {

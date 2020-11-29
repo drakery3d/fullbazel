@@ -9,6 +9,7 @@ services:
       - ./node_modules:/node_modules
       - ./libs:/libs
       - ./services/server:/services/server
+      - ./bazel-bin/libs/config:/bazel-bin/libs/config
     ports:
       - '3000:3000'
     env_file: bazel-bin/libs/config/docker-compose.env

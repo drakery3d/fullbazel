@@ -6,10 +6,9 @@
     "bazel": "bazelisk",
     "build:dev": "bazel build //... --//:env=dev",
     "build:prod": "bazel build //... --//:env=prod",
-    "client:dev": "ibazel run //services/client:dev_server --//:env=dev",
-    "client": " bazel run //services/client:prod_server_image --//:env=dev",
-    "server:dev": "docker-compose -f docker-compose.yaml up --build",
-    "server": "yarn ts-node -r tsconfig-paths/register services/server",
+    "client": "ibazel run //services/client:dev_server --//:env=dev",
+    "client:ssr": " bazel run //services/client:prod_server_image --//:env=dev",
+    "server": "bazelisk build //libs/config:generate_docker_compose_env --//:env=dev && docker-compose -f docker-compose.yaml up --build",
     "deploy": "bazel run :kubernetes.apply --//:env=prod",
     "upsert-secrets": "shx cp -n libs/config/secrets/dev.secrets-example.json libs/config/secrets/dev.secrets.json && shx cp -n libs/config/secrets/prod.secrets-example.json libs/config/secrets/prod.secrets.json",
     "postinstall": "patch-package --patch-dir dev/patches && yarn run upsert-secrets && ngcc"

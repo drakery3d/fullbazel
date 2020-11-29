@@ -9,8 +9,10 @@
       "enum": ["dev", "prod"]
     },
     "api": {
-      "type": "string",
-      "description": "Endpoint to the API gateway."
+      "type": "string"
+    },
+    "client": {
+      "type": "string"
     },
     "vapidPublicKey": {
       "type": "string"

@@ -40,16 +40,12 @@
 
 - Just run: `yarn`
 - Optionally modify secrets in `libs/config/secrets`
+- Then build the project once: `yarn build:dev`
 
 **Development**
 
-- Start client: `yarn client:dev`
-- Start server: `yarn server:dev`
-
-**Local Production**
-
 - Start client: `yarn client`
-- Start backend: `yarn server`
+- Start server: `yarn server`
 
 **Deploy**
 

@@ -10,8 +10,28 @@ ENVIRONMENTS = [
 ]
 
 ts_library(
+    name = "config_lib",
+    srcs = [
+        "config.ts",
+        "index.ts",
+    ],
+    module_name = "@libs/config",
+    visibility = ["//services:__subpackages__"],
+    deps = [
+        ":flat_config_keys",
+        "@npm//@types/node",
+    ],
+)
+
+ts_library(
     name = "generate_lib",
-    srcs = glob(["**/*.ts"]),
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "index.ts",
+            "config.ts",
+        ],
+    ),
     deps = [
         "@npm//@types/node",
         "@npm//ts-morph",
@@ -123,4 +143,33 @@ genrule(
     outs = ["docker-compose.env"],
     cmd = "$(location generate_docker_compose_env_bin) $@",
     tools = [":generate_docker_compose_env_bin"],
+)
+
+# FLAT CONFIG KEYS TYPE
+nodejs_binary(
+    name = "generate_flat_config_keys_bin",
+    data = [
+        ":config_jsons",
+        ":generate_lib",
+        ":secrets_jsons",
+    ],
+    entry_point = "generate-flat-config-keys.ts",
+)
+
+FLAT_CONFIG_KEYS_CMD = "$(location generate_flat_config_keys_bin) $(RULEDIR) %s"
+
+genrule(
+    name = "generate_flat_config_keys",
+    outs = ["flat-config-keys.ts"],
+    cmd = select({
+        "//:env_prod": FLAT_CONFIG_KEYS_CMD % "prod",
+        "//:env_dev": FLAT_CONFIG_KEYS_CMD % "dev",
+    }),
+    tools = [":generate_flat_config_keys_bin"],
+)
+
+ts_library(
+    name = "flat_config_keys",
+    srcs = ["flat-config-keys.ts"],
+    module_name = "@generated/config",
 )

@@ -8,6 +8,7 @@ ts_library(
     name = "lib",
     srcs = glob(["*.ts"]),
     deps = [
+        "//libs/config:config_lib",
         "//libs/schema",
         "@npm//@types/faker",
         "@npm//@types/node",
