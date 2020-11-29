@@ -12,7 +12,7 @@ spec:
     - hosts:
         - abs.flolu.com
         - api.abs.flolu.com
-      secretName: 3d-designer-tls
+      secretName: angular-bazel-starter-tls
   rules:
     - host: abs.flolu.com
       http:

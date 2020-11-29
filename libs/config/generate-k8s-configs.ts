@@ -24,7 +24,7 @@ async function main() {
 
 function k8sConfig(data: object) {
   return {
-    apiVersion: 1,
+    apiVersion: 'v1',
     kind: 'ConfigMap',
     metadata: {
       name: 'config',

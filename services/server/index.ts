@@ -1,10 +1,12 @@
-import {Server, Socket} from 'socket.io'
 import * as faker from 'faker'
+import {Server, Socket} from 'socket.io'
 import {interval} from 'rxjs'
 import {takeWhile, tap} from 'rxjs/operators'
 import {v4 as uuidv4} from 'uuid'
 
 import {Quote} from '@libs/schema'
+
+// TODO read config
 
 const arg = process.argv[2]
 const isProd = arg ? arg === 'prod' : true

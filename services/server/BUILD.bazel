@@ -6,12 +6,13 @@ package(default_visibility = ["//visibility:public"])
 
 ts_library(
     name = "lib",
-    srcs = glob(["**/*.ts"]),
+    srcs = glob(["*.ts"]),
     deps = [
         "//libs/schema",
         "@npm//@types/faker",
         "@npm//@types/node",
         "@npm//@types/uuid",
+        "@npm//base64-arraybuffer",
         "@npm//faker",
         "@npm//rxjs",
         "@npm//socket.io",
@@ -21,10 +22,8 @@ ts_library(
 
 nodejs_image(
     name = "image",
-    data = [
-        ":lib",
-    ],
-    entry_point = ":index.ts",
+    data = [":lib"],
+    entry_point = "index.ts",
 )
 
 k8s_deploy(

@@ -12,21 +12,10 @@
       "type": "string",
       "description": "Endpoint to the API gateway."
     },
-    "database": {
-      "type": "object",
-      "properties": {
-        "host": {
-          "type": "string"
-        },
-        "user": {
-          "type": "string"
-        }
-      }
-    },
     "vapidPublicKey": {
       "type": "string"
     }
   },
-  "required": ["environment", "api", "database", "vapidPublicKey"],
+  "required": ["environment", "api", "vapidPublicKey"],
   "additionalProperties": false
 }

@@ -77,7 +77,7 @@ k8s_go_deps()
 
 k8s_defaults(
     name = "k8s_deploy",
-    cluster = "gke_angular-bazel-starter_europe-west3-b_demo",
+    cluster = "gke_angular-bazel-starter_europe-west3-b_cluster",
     image_chroot = "gcr.io/angular-bazel-starter",
     kind = "deployment",
 )

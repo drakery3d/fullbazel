@@ -24,8 +24,8 @@ async function main() {
 
 function k8sSecrets(data: object) {
   return {
-    apiVersion: 1,
-    kind: 'Secrets',
+    apiVersion: 'v1',
+    kind: 'Secret',
     type: 'Opaque',
     metadata: {
       name: 'secrets',

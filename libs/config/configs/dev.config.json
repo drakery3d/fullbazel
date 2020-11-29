@@ -2,9 +2,5 @@
   "$schema": "./config.schema.json",
   "environment": "dev",
   "api": "http://localhost:3000",
-  "database": {
-    "host": "mongodb:27017",
-    "user": "admin"
-  },
   "vapidPublicKey": "BKrGmhd1_CQ2TRZYAj9RRWZBT9S1fFUVPnPgFurEoIvq9j0pATf6gNK-1CkaOsWHYhd5C3HIAOv4AUI8H29SAFs"
 }

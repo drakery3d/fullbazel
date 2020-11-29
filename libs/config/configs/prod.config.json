@@ -1,10 +1,6 @@
 {
   "$schema": "./config.schema.json",
   "environment": "prod",
-  "api": "https://api.example.com",
-  "database": {
-    "host": "database-svc.mongodb.svc.cluster.local:27017",
-    "user": "admin"
-  },
+  "api": "https://api.abs.flolu.com",
   "vapidPublicKey": "BKrGmhd1_CQ2TRZYAj9RRWZBT9S1fFUVPnPgFurEoIvq9j0pATf6gNK-1CkaOsWHYhd5C3HIAOv4AUI8H29SAFs"
 }
