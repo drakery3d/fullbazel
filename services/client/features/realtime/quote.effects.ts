@@ -11,7 +11,7 @@ import {QuoteActions} from './quote.actions'
 
 @Injectable()
 export class QuoteEffects {
-  private io = socketIO.io(this.environment.api)
+  private io = socketIO.io(this.environment.api, {transports: ['websocket']})
 
   constructor(@Inject(ENVIRONMENT) public environment: ClientEnvironment) {}
 

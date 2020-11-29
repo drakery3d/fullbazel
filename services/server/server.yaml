@@ -21,13 +21,13 @@ spec:
           readinessProbe:
             httpGet:
               path: /
-              port: 3000
+              port: 8080
             initialDelaySeconds: 5
             periodSeconds: 3
           livenessProbe:
             httpGet:
               path: /
-              port: 3000
+              port: 8080
             initialDelaySeconds: 5
             periodSeconds: 10
           resources:
@@ -55,7 +55,7 @@ spec:
   selector:
     app: server
   ports:
-    - name: http
+    - name: ws
       port: 3000
       targetPort: 3000
   type: NodePort

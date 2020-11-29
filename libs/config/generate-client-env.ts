@@ -8,7 +8,6 @@ const ruleDir = process.argv[2]
 const environment = process.argv[3]
 
 async function main() {
-  // TODO later use typed conig
   const config = await readConfig(environment)
   const project = new Project()
   const tsFile = project.createSourceFile('file.ts', `export const env = {};`)
