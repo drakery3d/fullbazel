@@ -38,7 +38,6 @@
 **Setup**
 
 - Just run: `yarn`
-- Optionally modify secrets in `libs/config/secrets`
 - Then build the project once: `yarn build:dev`
 
 **Development**

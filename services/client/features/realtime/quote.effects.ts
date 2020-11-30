@@ -19,7 +19,8 @@ export class QuoteEffects {
     @Inject(PLATFORM_ID) private platform: string,
   ) {
     if (isPlatformBrowser(this.platform)) {
-      this.io = socketIO.io(this.environment.api, {transports: ['websocket']})
+      const options = this.environment.env === 'prod' ? {transports: ['websocket']} : {}
+      this.io = socketIO.io(this.environment.api, options)
     }
   }
 

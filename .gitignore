@@ -3,6 +3,6 @@ bazel-*
 dist
 *.log
 
-client/environment/environment.ts
+services/client/environment/environment.ts
 libs/config/secrets/dev.secrets.json
 libs/config/secrets/prod.secrets.json

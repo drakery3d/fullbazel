@@ -10,7 +10,7 @@
     "client:ssr": " bazel run //services/client:prod_server_image --//:env=dev",
     "server": "bazelisk build //libs/config:generate_docker_compose_env --//:env=dev && docker-compose -f docker-compose.yaml up --build",
     "deploy": "bazel run :kubernetes.apply --//:env=prod",
-    "upsert-secrets": "shx cp -n libs/config/secrets/dev.secrets-example.json libs/config/secrets/dev.secrets.json && shx cp -n libs/config/secrets/prod.secrets-example.json libs/config/secrets/prod.secrets.json",
+    "upsert-secrets": "shx cp -n libs/config/secrets/example.secrets.json libs/config/secrets/dev.secrets.json && shx cp -n libs/config/secrets/example.secrets.json libs/config/secrets/prod.secrets.json",
     "up": "yarn upgrade-interactive",
     "postinstall": "patch-package --patch-dir dev/patches && yarn run upsert-secrets && ngcc"
   },

@@ -9,7 +9,7 @@ index 923223d..1ec2668 100755
  const JSONP = require("./polling-jsonp");
  const websocket = require("./websocket");
 diff --git a/node_modules/engine.io-client/lib/transports/polling-xhr.js b/node_modules/engine.io-client/lib/transports/polling-xhr.js
-index 9988b02..a2ff168 100755
+index 80ee1b1..7485b45 100755
 --- a/node_modules/engine.io-client/lib/transports/polling-xhr.js
 +++ b/node_modules/engine.io-client/lib/transports/polling-xhr.js
 @@ -1,6 +1,6 @@
