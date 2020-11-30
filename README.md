@@ -57,7 +57,7 @@
 - Differential Loading
 - Tests
 - Documentation
-- Upgrade from NgRx v9 to v10
+- Upgrade from NgRx v9 to v10 ([rules_nodejs/issues/2320](https://github.com/bazelbuild/rules_nodejs/issues/2320))
 - Second client without server side rendering (also add loading screen back in)
 
 ## Thanks to all the people listed below!
