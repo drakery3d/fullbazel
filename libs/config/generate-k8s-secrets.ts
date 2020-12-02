@@ -14,7 +14,7 @@ async function main() {
     files.map(async file => {
       const environment = file.split('.')[0]
       const secrets = await readSecrets(environment)
-      const flat = flattenObject(secrets)
+      const flat = flattenObject({secrets})
       const content = yaml.stringify(k8sSecrets(flat))
       const outFile = `${environment}${secretsSuffix}`
       await fs.promises.writeFile(path.join(ruleDir, outFile), content)
