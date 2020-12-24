@@ -236,6 +236,7 @@ nodejs_binary(
         ":web_pwa",
     ],
     entry_point = ":server.ts",
+    templated_args = ["--bazel_patch_module_resolver"],
 )
 
 nodejs_image(
@@ -245,6 +246,7 @@ nodejs_image(
         ":web_pwa",
     ],
     entry_point = ":server.ts",
+    templated_args = ["--bazel_patch_module_resolver"],
 )
 
 k8s_deploy(
