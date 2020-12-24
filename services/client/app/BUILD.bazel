@@ -1,11 +1,16 @@
-load("@io_bazel_rules_sass//:defs.bzl", "multi_sass_binary")
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
 load("//tools:angular_ts_library.bzl", "ng_ts_library")
 
 package(default_visibility = ["//services/client:__subpackages__"])
 
-multi_sass_binary(
-    name = "styles",
-    srcs = glob(include = ["**/*.sass"]),
+sass_binary(
+    name = "app_styles",
+    src = "app.component.sass",
+)
+
+sass_binary(
+    name = "navigation_styles",
+    src = "navigation.component.sass",
 )
 
 ng_ts_library(
@@ -18,7 +23,10 @@ ng_ts_library(
         "push-notification.service.ts",
         "service-worker.service.ts",
     ],
-    angular_assets = [":styles"],
+    angular_assets = [
+        "app_styles",
+        "navigation_styles",
+    ],
     tsconfig = "//services/client:tsconfig.json",
     deps = [
         "//services/client/environment",

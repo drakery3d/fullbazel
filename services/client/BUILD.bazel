@@ -1,7 +1,8 @@
 load("@npm//@bazel/rollup:index.bzl", "rollup_bundle")
 load("@npm//@bazel/terser:index.bzl", "terser_minified")
 load("@npm//history-server:index.bzl", "history_server")
-load("@npm//@bazel/typescript:index.bzl", "ts_devserver", "ts_library")
+load("@npm//@bazel/typescript:index.bzl", "ts_library")
+load("@npm//@bazel/concatjs:index.bzl", "concatjs_devserver")
 load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
 load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary", "pkg_web")
 load("@io_bazel_rules_docker//nodejs:image.bzl", "nodejs_image")
@@ -60,7 +61,7 @@ insert_html_assets(
     html_file = ":main.html",
 )
 
-ts_devserver(
+concatjs_devserver(
     name = "dev_server",
     additional_root_paths = ["services/client/dev"],
     entry_module = "abs/services/client/main.dev",

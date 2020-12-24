@@ -5,11 +5,38 @@ workspace(
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
+# https://github.com/bazelbuild/bazel-skylib/releases
+http_archive(
+    name = "bazel_skylib",
+    sha256 = "1c531376ac7e5a180e0237938a2536de0c54d93f5c278634818e0efc952dd56c",
+    urls = [
+        "https://github.com/bazelbuild/bazel-skylib/releases/download/1.0.3/bazel-skylib-1.0.3.tar.gz",
+        "https://mirror.bazel.build/github.com/bazelbuild/bazel-skylib/releases/download/1.0.3/bazel-skylib-1.0.3.tar.gz",
+    ],
+)
+
+load("@bazel_skylib//:workspace.bzl", "bazel_skylib_workspace")
+
+bazel_skylib_workspace()
+
 # https://github.com/bazelbuild/rules_nodejs/releases
 http_archive(
     name = "build_bazel_rules_nodejs",
-    sha256 = "121f17d8b421ce72f3376431c3461cd66bfe14de49059edc7bb008d5aebd16be",
-    urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/2.3.1/rules_nodejs-2.3.1.tar.gz"],
+    sha256 = "6142e9586162b179fdd570a55e50d1332e7d9c030efd853453438d607569721d",
+    urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/3.0.0/rules_nodejs-3.0.0.tar.gz"],
+)
+
+# Fetch sass rules for compiling sass files
+http_archive(
+    name = "io_bazel_rules_sass",
+    patch_args = ["-p1"],
+    patches = ["@build_bazel_rules_nodejs//:rules_sass.issue127.patch"],
+    sha256 = "8392cf8910db2b1dc3b488ea18113bfe4fd666037bf8ec30d2a3f08fc602a6d8",
+    strip_prefix = "rules_sass-1.30.0",
+    urls = [
+        "https://github.com/bazelbuild/rules_sass/archive/1.30.0.zip",
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_sass/archive/1.30.0.zip",
+    ],
 )
 
 load("@build_bazel_rules_nodejs//:index.bzl", "yarn_install")
@@ -19,6 +46,28 @@ yarn_install(
     package_json = "//:package.json",
     quiet = False,
     yarn_lock = "//:yarn.lock",
+)
+
+load("@io_bazel_rules_sass//sass:sass_repositories.bzl", "sass_repositories")
+
+sass_repositories()
+
+# https://github.com/bazelbuild/rules_webtesting/releases
+http_archive(
+    name = "io_bazel_rules_webtesting",
+    sha256 = "9bb461d5ef08e850025480bab185fd269242d4e533bca75bfb748001ceb343c3",
+    urls = ["https://github.com/bazelbuild/rules_webtesting/releases/download/0.3.3/rules_webtesting.tar.gz"],
+)
+
+load("@io_bazel_rules_webtesting//web:repositories.bzl", "web_test_repositories")
+
+web_test_repositories()
+
+load("@io_bazel_rules_webtesting//web/versioned:browsers-0.3.2.bzl", "browser_repositories")
+
+browser_repositories(
+    chromium = True,
+    firefox = True,
 )
 
 # https://github.com/bazelbuild/rules_docker/releases
@@ -43,22 +92,6 @@ container_deps()
 load("@io_bazel_rules_docker//nodejs:image.bzl", nodejs_image_repos = "repositories")
 
 nodejs_image_repos()
-
-# https://github.com/bazelbuild/rules_sass#setup
-http_archive(
-    name = "io_bazel_rules_sass",
-    sha256 = "9dcfba04e4af896626f4760d866f895ea4291bc30bf7287887cefcf4707b6a62",
-    strip_prefix = "rules_sass-1.26.3",
-    url = "https://github.com/bazelbuild/rules_sass/archive/1.26.3.zip",
-)
-
-load("@io_bazel_rules_sass//:package.bzl", "rules_sass_dependencies")
-
-rules_sass_dependencies()
-
-load("@io_bazel_rules_sass//:defs.bzl", "sass_repositories")
-
-sass_repositories()
 
 # https://github.com/bazelbuild/rules_k8s#setup
 http_archive(

@@ -14,7 +14,7 @@ ts_library(
         "@npm//@types/faker",
         "@npm//@types/node",
         "@npm//@types/uuid",
-        "@npm//base64-arraybuffer",
+        # "@npm//base64-arraybuffer",
         "@npm//faker",
         "@npm//rxjs",
         "@npm//socket.io",

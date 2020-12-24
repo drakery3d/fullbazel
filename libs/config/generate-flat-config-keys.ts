@@ -1,6 +1,6 @@
 import * as fs from 'fs'
 import * as path from 'path'
-import {Project, ts} from 'ts-morph'
+import {Project} from 'ts-morph'
 
 import {flattenObject} from './flatten-object'
 import {readConfig, readSecrets} from './utils'

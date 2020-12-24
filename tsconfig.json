@@ -8,7 +8,7 @@
     "module": "commonjs",
     "strict": true,
     "lib": ["es2019"],
-    "target": "es2017",
+    "target": "es2017"
   },
   "exclude": ["node_modules", "bazel-*"]
 }

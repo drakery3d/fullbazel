@@ -65,6 +65,7 @@ nodejs_binary(
         ":generate_lib",
     ],
     entry_point = "generate-k8s-configs.ts",
+    templated_args = ["--bazel_patch_module_resolver"],
 )
 
 genrule(
@@ -87,6 +88,7 @@ nodejs_binary(
         ":secrets_jsons",
     ],
     entry_point = "generate-k8s-secrets.ts",
+    templated_args = ["--bazel_patch_module_resolver"],
 )
 
 genrule(
@@ -109,6 +111,7 @@ nodejs_binary(
         ":generate_lib",
     ],
     entry_point = "generate-client-env.ts",
+    templated_args = ["--bazel_patch_module_resolver"],
 )
 
 CLIENT_ENV_CMD = "$(location generate_client_env_bin) $(RULEDIR) %s"
@@ -139,6 +142,7 @@ nodejs_binary(
         ":secrets_jsons",
     ],
     entry_point = "generate-dc-env.ts",
+    templated_args = ["--bazel_patch_module_resolver"],
 )
 
 genrule(
@@ -157,6 +161,7 @@ nodejs_binary(
         ":secrets_jsons",
     ],
     entry_point = "generate-flat-config-keys.ts",
+    templated_args = ["--bazel_patch_module_resolver"],
 )
 
 FLAT_CONFIG_KEYS_CMD = "$(location generate_flat_config_keys_bin) $(RULEDIR) %s"

@@ -1,11 +1,11 @@
 load("//tools:angular_ts_library.bzl", "ng_ts_library")
-load("@io_bazel_rules_sass//:defs.bzl", "multi_sass_binary")
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
 
 package(default_visibility = ["//services/client:__subpackages__"])
 
-multi_sass_binary(
+sass_binary(
     name = "styles",
-    srcs = glob(include = ["**/*.sass"]),
+    src = "realtime.component.sass",
 )
 
 ng_ts_library(
@@ -23,7 +23,7 @@ ng_ts_library(
         "@npm//@ngrx/effects",
         "@npm//@ngrx/entity",
         "@npm//@ngrx/store",
-        "@npm//base64-arraybuffer",
+        # "@npm//base64-arraybuffer",
         "@npm//rxjs",
         "@npm//socket.io-client",
     ],
