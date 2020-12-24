@@ -47,25 +47,22 @@ export class PushNotificationService implements OnDestroy {
     }
   }
 
-  private async ensureSubscription(): Promise<PushSubscription | null> {
-    try {
-      const sw = await navigator.serviceWorker.getRegistration()
-      const existingSub = await sw.pushManager.getSubscription()
-      if (existingSub) return existingSub
+  private async ensureSubscription(): Promise<PushSubscription> {
+    const sw = await navigator.serviceWorker.getRegistration()
+    if (!sw) throw 'Could not get ServiceWorkerRegistration'
+    const existingSub = await sw.pushManager.getSubscription()
+    if (existingSub) return existingSub
 
-      const sub = await this.swPush.requestSubscription({
-        serverPublicKey: this.environment.vapidPublicKey,
-      })
-      return sub
-    } catch (error) {
-      console.log('error while ensuring subscription', error)
-      return null
-    }
+    const sub = await this.swPush.requestSubscription({
+      serverPublicKey: this.environment.vapidPublicKey,
+    })
+    return sub
   }
 
   async sendSampleNotificationLocally() {
     if (await this.ensurePushPermission()) {
       const sw = await navigator.serviceWorker.getRegistration()
+      if (!sw) throw 'Could not get ServiceWorkerRegistration'
       await sw.showNotification(`This is how you will be notified`, {
         icon: 'assets/icons/icon-72x72.png',
       })

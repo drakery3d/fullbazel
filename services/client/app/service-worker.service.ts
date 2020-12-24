@@ -47,7 +47,7 @@ export class ServiceWorkerService {
   forceUpdateNow() {
     if (!this.isAvailable) return
     this.swUpdate.activateUpdate().then(() => {
-      localStorage.setItem(this.updateDiscoveredAtKey, null)
+      localStorage.setItem(this.updateDiscoveredAtKey, '')
       document.location.reload()
     })
   }

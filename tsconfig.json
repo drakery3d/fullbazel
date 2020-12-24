@@ -1,16 +1,14 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
-    "strict": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "lib": ["es6"],
-    "target": "es5",
+    "baseUrl": ".",
     "paths": {
       "@libs/*": ["./libs/*"],
       "@generated/config/*": ["./bazel-bin/libs/config/*"]
     },
-    "types": ["node"]
+    "module": "commonjs",
+    "strict": true,
+    "lib": ["es2019"],
+    "target": "es2017",
   },
-  "exclude": ["node_modules", "bazel-out", "bazel-bin", "bazel-testlogs", "bazel-angular-bazel-starter", "dist"]
+  "exclude": ["node_modules", "bazel-*"]
 }

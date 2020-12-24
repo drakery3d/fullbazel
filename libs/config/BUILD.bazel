@@ -16,6 +16,7 @@ ts_library(
         "index.ts",
     ],
     module_name = "@libs/config",
+    tsconfig = "tsconfig.json",
     visibility = ["//services:__subpackages__"],
     deps = [
         ":flat_config_keys",
@@ -32,6 +33,7 @@ ts_library(
             "config.ts",
         ],
     ),
+    tsconfig = ":tsconfig.json",
     deps = [
         "@npm//@types/node",
         "@npm//ts-morph",
@@ -125,6 +127,7 @@ ts_library(
     name = "client_environment",
     srcs = ["client.environment.ts"],
     module_name = "@generated/config",
+    tsconfig = "tsconfig.json",
 )
 
 # DOCKER COMPOSE ENVIRONMENT VARIABLES
@@ -172,4 +175,5 @@ ts_library(
     name = "flat_config_keys",
     srcs = ["flat-config-keys.ts"],
     module_name = "@generated/config",
+    tsconfig = "tsconfig.json",
 )

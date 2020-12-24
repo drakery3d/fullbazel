@@ -27,5 +27,5 @@ import {Tags} from '@libs/enums'
   styleUrls: ['home.component.sass'],
 })
 export class HomeComponent {
-  tags = Object.keys(Tags).map(key => Tags[key])
+  tags = Object.keys(Tags).map(key => (Tags as any)[key])
 }

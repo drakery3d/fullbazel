@@ -27,6 +27,7 @@ ts_library(
     name = "initialize_testbed",
     testonly = True,
     srcs = ["initialize_testbed.ts"],
+    tsconfig = "tsconfig.json",
     deps = [
         "@npm//@angular/core",
         "@npm//@angular/platform-browser-dynamic",
@@ -216,6 +217,7 @@ history_server(
 ts_library(
     name = "server_lib",
     srcs = ["server.ts"],
+    tsconfig = "tsconfig.json",
     deps = [
         "//services/client/app:server",
         "@npm//@angular/core",

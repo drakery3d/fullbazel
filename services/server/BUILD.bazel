@@ -7,6 +7,7 @@ package(default_visibility = ["//visibility:public"])
 ts_library(
     name = "lib",
     srcs = glob(["*.ts"]),
+    tsconfig = "tsconfig.json",
     deps = [
         "//libs/config:config_lib",
         "//libs/schema",
