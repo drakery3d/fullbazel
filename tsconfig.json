@@ -7,8 +7,8 @@
     },
     "module": "commonjs",
     "strict": true,
-    "lib": ["es2019"],
-    "target": "es2017"
+    "lib": ["esnext"],
+    "target": "es2015"
   },
   "exclude": ["node_modules", "bazel-*"]
 }

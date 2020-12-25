@@ -1,7 +1,7 @@
 load("@npm//@bazel/rollup:index.bzl", "rollup_bundle")
 load("@npm//@bazel/terser:index.bzl", "terser_minified")
 load("@npm//history-server:index.bzl", "history_server")
-load("@npm//@bazel/typescript:index.bzl", "ts_library")
+load("@npm//@bazel/typescript:index.bzl", "ts_config", "ts_library")
 load("@npm//@bazel/concatjs:index.bzl", "concatjs_devserver")
 load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
 load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary", "pkg_web")
@@ -14,21 +14,30 @@ load("//tools:pkg_pwa.bzl", "pkg_pwa")
 
 package(default_visibility = ["//visibility:public"])
 
-exports_files([
-    "ngsw-config.json",
-    "tsconfig.json",
-])
+exports_files(["ngsw-config.json"])
 
 sass_binary(
     name = "styles",
     src = "styles.sass",
 )
 
+ts_config(
+    name = "tsconfig",
+    src = "tsconfig.json",
+    deps = ["//:tsconfig"],
+)
+
+ts_config(
+    name = "tsconfig-server",
+    src = "tsconfig.server.json",
+    deps = ["//:tsconfig"],
+)
+
 ts_library(
     name = "initialize_testbed",
     testonly = True,
     srcs = ["initialize_testbed.ts"],
-    tsconfig = "tsconfig.json",
+    tsconfig = "tsconfig",
     deps = [
         "@npm//@angular/core",
         "@npm//@angular/platform-browser-dynamic",
@@ -38,7 +47,7 @@ ts_library(
 ng_ts_library(
     name = "dev_src",
     srcs = ["main.dev.ts"],
-    tsconfig = "//services/client:tsconfig.json",
+    tsconfig = "tsconfig",
     deps = [
         "//services/client/app:dev",
         "@npm//@angular/platform-browser",
@@ -84,7 +93,7 @@ concatjs_devserver(
 ng_ts_library(
     name = "prod_src",
     srcs = ["main.prod.ts"],
-    tsconfig = "//services/client:tsconfig.json",
+    tsconfig = "tsconfig",
     deps = [
         "//services/client/app:prod",
         "@npm//@angular/core",
@@ -218,7 +227,7 @@ history_server(
 ts_library(
     name = "server_lib",
     srcs = ["server.ts"],
-    tsconfig = "tsconfig.json",
+    tsconfig = "tsconfig-server",
     deps = [
         "//services/client/app:server",
         "@npm//@angular/core",
