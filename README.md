@@ -58,6 +58,7 @@
 - Documentation
 - Upgrade from NgRx v9 to v10 ([rules_nodejs/issues/2320](https://github.com/bazelbuild/rules_nodejs/issues/2320))
 - Second client without server side rendering (also add loading screen back in)
+- Do we need systemjs and corejs for older browsers? like [here](https://github.com/bazelbuild/rules_nodejs/blob/c344401524dd29882bccd1123e3691b1e27b5c82/examples/angular/src/BUILD.bazel#L254)
 
 ## Thanks to all the people listed below!
 

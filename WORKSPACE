@@ -26,10 +26,13 @@ http_archive(
     urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/3.0.0/rules_nodejs-3.0.0.tar.gz"],
 )
 
-# Fetch sass rules for compiling sass files
+# https://github.com/bazelbuild/rules_sass
 http_archive(
     name = "io_bazel_rules_sass",
     patch_args = ["-p1"],
+    # We need the latest rules_sass to get the --bazel_patch_module_resolver behavior
+    # However it seems to have a bug, so we patch back to the prior dart-sass version.
+    # See https://github.com/bazelbuild/rules_sass/issues/127
     patches = ["@build_bazel_rules_nodejs//:rules_sass.issue127.patch"],
     sha256 = "8392cf8910db2b1dc3b488ea18113bfe4fd666037bf8ec30d2a3f08fc602a6d8",
     strip_prefix = "rules_sass-1.30.0",
@@ -93,12 +96,12 @@ load("@io_bazel_rules_docker//nodejs:image.bzl", nodejs_image_repos = "repositor
 
 nodejs_image_repos()
 
-# https://github.com/bazelbuild/rules_k8s#setup
+# https://github.com/bazelbuild/rules_k8s/releases
 http_archive(
     name = "io_bazel_rules_k8s",
-    sha256 = "773aa45f2421a66c8aa651b8cecb8ea51db91799a405bd7b913d77052ac7261a",
-    strip_prefix = "rules_k8s-0.5",
-    urls = ["https://github.com/bazelbuild/rules_k8s/archive/v0.5.tar.gz"],
+    sha256 = "51f0977294699cd547e139ceff2396c32588575588678d2054da167691a227ef",
+    strip_prefix = "rules_k8s-0.6",
+    urls = ["https://github.com/bazelbuild/rules_k8s/archive/v0.6.tar.gz"],
 )
 
 load("@io_bazel_rules_k8s//k8s:k8s.bzl", "k8s_defaults", "k8s_repositories")
