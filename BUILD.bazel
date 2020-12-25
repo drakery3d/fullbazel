@@ -12,14 +12,14 @@ string_flag(
 config_setting(
     name = "env_prod",
     flag_values = {
-        ":env": "prod",
+        "env": "prod",
     },
 )
 
 config_setting(
     name = "env_dev",
     flag_values = {
-        ":env": "dev",
+        "env": "dev",
     },
 )
 

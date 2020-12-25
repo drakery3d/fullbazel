@@ -41,7 +41,7 @@ $(location :{TMPL_bin}) $@ $(location {TMPL_conf})
         name = name,
         outs = [out],
         srcs = [src, config, index_html],
-        tools = [":" + ngsw_config_name],
+        tools = [ngsw_config_name],
         cmd = cmd,
         **kwargs
     )

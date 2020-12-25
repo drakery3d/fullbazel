@@ -4,10 +4,10 @@ package(default_visibility = ["//visibility:public"])
 
 k8s_deploy(
     name = "certificate_issuer",
-    template = ":certificate-issuer.yaml",
+    template = "certificate-issuer.yaml",
 )
 
 k8s_deploy(
     name = "ingress",
-    template = ":ingress.yaml",
+    template = "ingress.yaml",
 )

@@ -16,7 +16,7 @@ def pkg_pwa(
 
     _ngsw_config(
         name = name,
-        src = ":%s_web" % name,
+        src = "%s_web" % name,
         config = ngsw_config,
         index_html = index_html,
         tags = ["app"],

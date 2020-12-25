@@ -11,7 +11,7 @@ exports_files([
 filegroup(
     name = "rxjs_umd_modules",
     srcs = [
-        ":rxjs_shims.js",
+        "rxjs_shims.js",
         "@npm//:node_modules/rxjs/bundles/rxjs.umd.js",
     ],
 )

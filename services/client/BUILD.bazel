@@ -63,11 +63,11 @@ insert_html_assets(
         "./_/ts_scripts.js",
     ],
     data = [
-        ":main.html",
-        ":styles.css",
+        "main.html",
+        "styles.css",
         "@npm//:node_modules/zone.js/dist/zone.min.js",
     ],
-    html_file = ":main.html",
+    html_file = "main.html",
 )
 
 concatjs_devserver(
@@ -83,9 +83,9 @@ concatjs_devserver(
     static_files = [
         "@npm//:node_modules/zone.js/dist/zone.min.js",
         "//services/client/assets",
-        ":inject_scripts_for_dev",
-        ":styles.css",
-        ":favicon.ico",
+        "inject_scripts_for_dev",
+        "styles.css",
+        "favicon.ico",
     ],
     deps = ["//services/client:dev_src"],
 )
@@ -105,11 +105,11 @@ rollup_bundle(
     name = "bundle-es2015",
     config_file = "//tools:rollup.config.js",
     entry_points = {
-        ":main.prod.ts": "index.es2015",
+        "main.prod.ts": "index.es2015",
     },
     output_dir = True,
     deps = [
-        ":prod_src",
+        "prod_src",
         "@npm//rollup-plugin-commonjs",
         "@npm//rollup-plugin-node-resolve",
     ],
@@ -126,7 +126,7 @@ babel(
         "$(@D)",
     ],
     data = [
-        ":bundle-es2015",
+        "bundle-es2015",
         "@npm//@babel/preset-env",
     ],
     output_dir = True,
@@ -134,13 +134,13 @@ babel(
 
 terser_minified(
     name = "bundle-es2015.min",
-    src = ":bundle-es2015",
+    src = "bundle-es2015",
     config_file = "//tools:terser.config.json",
 )
 
 terser_minified(
     name = "bundle-es5.min",
-    src = ":bundle-es5",
+    src = "bundle-es5",
     config_file = "//tools:terser.config.json",
 )
 
@@ -154,25 +154,25 @@ insert_html_assets(
         "$(execpath bundle-es5.min)/index.es2015.js",
     ],
     data = [
-        ":bundle-es2015.min",
-        ":bundle-es5.min",
-        ":main.html",
-        ":styles.css",
+        "bundle-es2015.min",
+        "bundle-es5.min",
+        "main.html",
+        "styles.css",
         "@npm//:node_modules/zone.js/dist/zone.min.js",
     ],
-    html_file = ":main.html",
+    html_file = "main.html",
 )
 
 pkg_web(
     name = "web_app",
     srcs = [
+        "asset_injected_index_html",
+        "bundle-es2015.min",
+        "bundle-es5.min",
+        "favicon.ico",
         "main.html",
-        ":asset_injected_index_html",
-        ":bundle-es2015.min",
-        ":bundle-es5.min",
-        ":favicon.ico",
-        ":robots.txt",
-        ":styles.css",
+        "robots.txt",
+        "styles.css",
         "//services/client/assets",
         "@npm//:node_modules/zone.js/dist/zone.min.js",
     ],
@@ -180,7 +180,7 @@ pkg_web(
 
 history_server(
     name = "app_server",
-    data = [":web_app"],
+    data = ["web_app"],
     templated_args = ["-a $$(rlocation $(rootpath :web_app))"],
 )
 
@@ -194,33 +194,33 @@ insert_html_assets(
         "$(execpath bundle-es5.min)/index.es2015.js",
     ],
     data = [
-        ":bundle-es2015.min",
-        ":bundle-es5.min",
-        ":main.html",
-        ":styles.css",
+        "bundle-es2015.min",
+        "bundle-es5.min",
+        "main.html",
+        "styles.css",
         "@npm//:node_modules/zone.js/dist/zone.min.js",
     ],
-    html_file = ":main.html",
+    html_file = "main.html",
 )
 
 pkg_pwa(
     name = "web_pwa",
     srcs = [
-        ":asset_injected_pwa_index_html",
-        ":bundle-es2015.min",
-        ":favicon.ico",
-        ":manifest.webmanifest",
-        ":robots.txt",
-        ":styles.css",
+        "asset_injected_pwa_index_html",
+        "bundle-es2015.min",
+        "favicon.ico",
+        "manifest.webmanifest",
+        "robots.txt",
+        "styles.css",
         "//services/client/assets",
     ],
-    index_html = ":asset_injected_pwa_index_html",
-    ngsw_config = ":ngsw-config.json",
+    index_html = "asset_injected_pwa_index_html",
+    ngsw_config = "ngsw-config.json",
 )
 
 history_server(
     name = "pwa_server",
-    data = [":web_pwa"],
+    data = ["web_pwa"],
     templated_args = ["-a $$(rlocation $(rootpath :web_pwa))"],
 )
 
@@ -241,25 +241,25 @@ ts_library(
 nodejs_binary(
     name = "client",
     data = [
-        ":server_lib",
-        ":web_pwa",
+        "server_lib",
+        "web_pwa",
     ],
-    entry_point = ":server.ts",
+    entry_point = "server.ts",
     templated_args = ["--bazel_patch_module_resolver"],
 )
 
 nodejs_image(
     name = "prod_server_image",
     data = [
-        ":server_lib",
-        ":web_pwa",
+        "server_lib",
+        "web_pwa",
     ],
-    entry_point = ":server.ts",
+    entry_point = "server.ts",
     templated_args = ["--bazel_patch_module_resolver"],
 )
 
 k8s_deploy(
     name = "kubernetes",
-    images = {"client:placeholder_name": ":prod_server_image"},
-    template = ":client.yaml",
+    images = {"client:placeholder_name": "prod_server_image"},
+    template = "client.yaml",
 )

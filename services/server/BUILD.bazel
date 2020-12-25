@@ -29,12 +29,12 @@ ts_library(
 
 nodejs_image(
     name = "image",
-    data = [":lib"],
+    data = ["lib"],
     entry_point = "index.ts",
 )
 
 k8s_deploy(
     name = "kubernetes",
-    images = {"server:placeholder_name": ":image"},
-    template = ":server.yaml",
+    images = {"server:placeholder_name": "image"},
+    template = "server.yaml",
 )

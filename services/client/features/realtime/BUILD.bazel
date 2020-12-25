@@ -11,7 +11,7 @@ sass_binary(
 ng_ts_library(
     name = "realtime",
     srcs = glob(["*.ts"]),
-    angular_assets = [":styles"],
+    angular_assets = ["styles"],
     tsconfig = "//services/client:tsconfig.json",
     deps = [
         "//libs/schema",

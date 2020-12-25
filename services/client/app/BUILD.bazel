@@ -47,7 +47,7 @@ ng_ts_library(
     srcs = ["app-dev.module.ts"],
     tsconfig = "//services/client:tsconfig.json",
     deps = [
-        ":base",
+        "base",
         "//services/client/environment",
         "//services/client/store",
         "@npm//@angular/core",
@@ -61,7 +61,7 @@ ng_ts_library(
     srcs = ["app-prod.module.ts"],
     tsconfig = "//services/client:tsconfig.json",
     deps = [
-        ":base",
+        "base",
         "//services/client/environment",
         "//services/client/store",
         "@npm//@angular/common",
@@ -76,8 +76,8 @@ ng_ts_library(
     srcs = ["app.server.module.ts"],
     tsconfig = "//services/client:tsconfig.json",
     deps = [
-        ":base",
-        ":prod",
+        "base",
+        "prod",
         "@npm//@angular/core",
         "@npm//@angular/platform-server",
     ],

@@ -25,8 +25,7 @@ ts_library(
     tsconfig = "tsconfig",
     visibility = ["//services:__subpackages__"],
     deps = [
-        # NOW remove or keep all ':'?
-        ":flat_config_keys",
+        "flat_config_keys",
         "@npm//@types/node",
     ],
 )
@@ -68,8 +67,8 @@ filegroup(
 nodejs_binary(
     name = "generate_k8s_configs_bin",
     data = [
-        ":config_jsons",
-        ":generate_lib",
+        "config_jsons",
+        "generate_lib",
     ],
     entry_point = "generate-k8s-configs.ts",
     templated_args = ["--bazel_patch_module_resolver"],
@@ -79,20 +78,20 @@ genrule(
     name = "generate_k8s_configs",
     outs = ["%s.config.yaml" % s for s in ENVIRONMENTS],
     cmd = "$(location generate_k8s_configs_bin) $(RULEDIR)",
-    tools = [":generate_k8s_configs_bin"],
+    tools = ["generate_k8s_configs_bin"],
 )
 
 k8s_deploy(
     name = "config",
-    template = ":prod.config.yaml",
+    template = "prod.config.yaml",
 )
 
 # KUBERNETES SECRETS
 nodejs_binary(
     name = "generate_k8s_secrets_bin",
     data = [
-        ":generate_lib",
-        ":secrets_jsons",
+        "generate_lib",
+        "secrets_jsons",
     ],
     entry_point = "generate-k8s-secrets.ts",
     templated_args = ["--bazel_patch_module_resolver"],
@@ -102,20 +101,20 @@ genrule(
     name = "generate_k8s_secrets",
     outs = ["%s.secrets.yaml" % s for s in ENVIRONMENTS],
     cmd = "$(location generate_k8s_secrets_bin) $(RULEDIR)",
-    tools = [":generate_k8s_secrets_bin"],
+    tools = ["generate_k8s_secrets_bin"],
 )
 
 k8s_deploy(
     name = "secrets",
-    template = ":prod.secrets.yaml",
+    template = "prod.secrets.yaml",
 )
 
 # CLIENT ENVIRONMENT
 nodejs_binary(
     name = "generate_client_env_bin",
     data = [
-        ":config_jsons",
-        ":generate_lib",
+        "config_jsons",
+        "generate_lib",
     ],
     entry_point = "generate-client-env.ts",
     templated_args = ["--bazel_patch_module_resolver"],
@@ -130,7 +129,7 @@ genrule(
         "//:env_prod": CLIENT_ENV_CMD % "prod",
         "//:env_dev": CLIENT_ENV_CMD % "dev",
     }),
-    tools = [":generate_client_env_bin"],
+    tools = ["generate_client_env_bin"],
 )
 
 ts_library(
@@ -144,9 +143,9 @@ ts_library(
 nodejs_binary(
     name = "generate_docker_compose_env_bin",
     data = [
-        ":config_jsons",
-        ":generate_lib",
-        ":secrets_jsons",
+        "config_jsons",
+        "generate_lib",
+        "secrets_jsons",
     ],
     entry_point = "generate-dc-env.ts",
     templated_args = ["--bazel_patch_module_resolver"],
@@ -156,16 +155,16 @@ genrule(
     name = "generate_docker_compose_env",
     outs = ["docker-compose.env"],
     cmd = "$(location generate_docker_compose_env_bin) $@",
-    tools = [":generate_docker_compose_env_bin"],
+    tools = ["generate_docker_compose_env_bin"],
 )
 
 # FLAT CONFIG KEYS TYPE
 nodejs_binary(
     name = "generate_flat_config_keys_bin",
     data = [
-        ":config_jsons",
-        ":generate_lib",
-        ":secrets_jsons",
+        "config_jsons",
+        "generate_lib",
+        "secrets_jsons",
     ],
     entry_point = "generate-flat-config-keys.ts",
     templated_args = ["--bazel_patch_module_resolver"],
@@ -180,7 +179,7 @@ genrule(
         "//:env_prod": FLAT_CONFIG_KEYS_CMD % "prod",
         "//:env_dev": FLAT_CONFIG_KEYS_CMD % "dev",
     }),
-    tools = [":generate_flat_config_keys_bin"],
+    tools = ["generate_flat_config_keys_bin"],
 )
 
 ts_library(
