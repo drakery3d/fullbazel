@@ -1,11 +1,11 @@
 <div align="center">
-  <a href="https://github.com/flolu/angular-bazel-starter">
+  <a href="https://github.com/flolu/fullstack-bazel">
     <img width="180px" height="auto" src="./services/client/assets/icons/icon-192x192.png" />
   </a>
   <br>
-  <h1>Angular Bazel Starter</h1>
+  <h1>Fullstack Bazel</h1>
   <p>
-    Full stack starter Monorepo for building modern web apps with <a href="https://angular.io">Angular</a> and <a href="https://bazel.build">Bazel</a> deployed to a Kubernetes Cluster
+    Fullstack starter Monorepo for building modern web apps with built with <a href="https://bazel.build">Bazel</a>
   </p>
 </div>
 
@@ -67,7 +67,7 @@
 # Future Ideas
 
 - Building into a Desktop App (e.g. with Electron)
-- Static website example
+- Static website example (e.g docs or homepage)
 - Other frontend frameworks
 - Other server languages (e.g. Go, Python)
 

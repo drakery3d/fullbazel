@@ -10,17 +10,17 @@ metadata:
 spec:
   tls:
     - hosts:
-        - abs.flolu.com
-        - api.abs.flolu.com
-      secretName: angular-bazel-starter-tls
+        - fullstack-bazel.flolu.com
+        - api.fullstack-bazel.flolu.com
+      secretName: fullstack-bazel-tls
   rules:
-    - host: abs.flolu.com
+    - host: fullstack-bazel.flolu.com
       http:
         paths:
           - backend:
               serviceName: client
               servicePort: 8080
-    - host: api.abs.flolu.com
+    - host: api.fullstack-bazel.flolu.com
       http:
         paths:
           - backend:

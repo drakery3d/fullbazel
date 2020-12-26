@@ -2,7 +2,7 @@ version: '3'
 services:
   server:
     image: node:lts-alpine
-    container_name: abs_server
+    container_name: fullstack-bazek_server
     volumes:
       - ./package.json:/package.json
       - ./tsconfig.json:/tsconfig.json

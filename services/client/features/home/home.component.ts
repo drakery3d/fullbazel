@@ -3,7 +3,7 @@ import {Component} from '@angular/core'
 import {Tags} from '@libs/enums'
 
 @Component({
-  selector: 'abs-home',
+  selector: 'app-home',
   template: `
     <div class="container">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="logo">
@@ -16,7 +16,7 @@ import {Tags} from '@libs/enums'
         <path style="fill:#004300;" d="M256 368 l112 -112 v112 l-112 112z" />
       </svg>
 
-      <h1>Angular Bazel Starter</h1>
+      <h1>Fullstack Bazel</h1>
       <p>Let's build something great!</p>
       <span class="line"></span>
       <div class="tags">

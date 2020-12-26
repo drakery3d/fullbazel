@@ -5,7 +5,7 @@ import {QuoteActions} from './quote.actions'
 import {QuoteSeletors} from './quote.selectors'
 
 @Component({
-  selector: 'abs-realtime',
+  selector: 'app-realtime',
   template: `
     <div class="container">
       <h1>Realtime</h1>
@@ -14,7 +14,7 @@ import {QuoteSeletors} from './quote.selectors'
         NgRx.
       </p>
       <span class="line"></span>
-      <abs-button (click)="removeAll()">Remove All</abs-button>
+      <app-button (click)="removeAll()">Remove All</app-button>
       <div
         *ngFor="let q of (quotes$ | async).slice().reverse()"
         class="quote"

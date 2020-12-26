@@ -8,11 +8,11 @@ import {PushNotificationService} from './push-notification.service'
 import {ServiceWorkerService} from './service-worker.service'
 
 @Component({
-  selector: 'abs-root',
+  selector: 'app-root',
   template: `
     <div class="connectivity" *ngIf="offline$ | async">You are offline!</div>
 
-    <abs-nav></abs-nav>
+    <app-nav></app-nav>
 
     <div *ngIf="availableSwUpdate" (click)="onUpdateServiceWorker()" id="update_banner">
       <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24">

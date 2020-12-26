@@ -5,9 +5,9 @@
 ```bash
 gcloud auth login
 
-gcloud config set project angular-bazel-starter
+gcloud config set project fullstack-bazel
 
-gcloud beta container --project "angular-bazel-starter" clusters create "cluster"\
+gcloud beta container --project "fullstack-bazel" clusters create "cluster"\
   --zone "europe-west3-b" \
   --no-enable-basic-auth \
   --machine-type "n1-standard-1" \
@@ -18,7 +18,7 @@ gcloud beta container --project "angular-bazel-starter" clusters create "cluster
   --min-nodes "0" \
   --max-nodes "3"
 
-gcloud container clusters get-credentials cluster --zone europe-west3-b --project angular-bazel-starter
+gcloud container clusters get-credentials cluster --zone europe-west3-b --project fullstack-bazel
 ```
 
 **[Helm][2]**
@@ -40,10 +40,10 @@ helm install nginx-ingress stable/nginx-ingress
 
 Go to the created [Load Balancer][4] and point your domain to this IP address via an "A" record.
 
-| Record Type | Domain            | Value        |
-| ----------- | ----------------- | ------------ |
-| A           | abs.flolu.com     | <ip-address> |
-| A           | api.abs.flolu.com | <ip-address> |
+| Record Type | Domain                        | Value        |
+| ----------- | ----------------------------- | ------------ |
+| A           | fullstack-bazel.flolu.com     | <ip-address> |
+| A           | api.fullstack-bazel.flolu.com | <ip-address> |
 
 **Setup [Cert Manager][5]**
 

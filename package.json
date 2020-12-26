@@ -1,6 +1,6 @@
 {
-  "name": "abs",
-  "repository": "git@github.com:flolu/angular-bazel-starter.git",
+  "name": "fullstack-bazel",
+  "repository": "git@github.com:flolu/fullstack-bazel.git",
   "private": true,
   "scripts": {
     "bazel": "bazelisk",

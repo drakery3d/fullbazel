@@ -1,6 +1,6 @@
 {
-  "name": "Angular Bazel Starter",
-  "short_name": "ABS",
+  "name": "Fullstack Bazel",
+  "short_name": "Fullstack Bazel",
   "theme_color": "#4d9f4e",
   "background_color": "#fff",
   "display": "standalone",

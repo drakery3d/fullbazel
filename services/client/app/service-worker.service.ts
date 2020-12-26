@@ -6,7 +6,7 @@ import {isPlatformBrowser} from '@angular/common'
 
 @Injectable()
 export class ServiceWorkerService {
-  private readonly updateDiscoveredAtKey = '@abs/sw_update_discovered_at'
+  private readonly updateDiscoveredAtKey = '@fullstack-bazel/sw_update_discovered_at'
 
   constructor(
     private appRef: ApplicationRef,

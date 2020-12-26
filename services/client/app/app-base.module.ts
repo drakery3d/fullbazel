@@ -9,7 +9,7 @@ import {NavigationComopnent} from './navigation.component'
 import {PushNotificationService} from './push-notification.service'
 
 @NgModule({
-  imports: [BrowserModule.withServerTransition({appId: 'abs'}), AppRoutingModule],
+  imports: [BrowserModule.withServerTransition({appId: 'fullstack-bazel'}), AppRoutingModule],
   declarations: [AppComponent, NavigationComopnent],
   providers: [
     ServiceWorkerService,

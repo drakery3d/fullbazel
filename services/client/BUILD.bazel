@@ -73,7 +73,7 @@ insert_html_assets(
 concatjs_devserver(
     name = "dev_server",
     additional_root_paths = ["services/client/dev"],
-    entry_module = "abs/services/client/main.dev",
+    entry_module = "fullstack-bazel/services/client/main.dev",
     port = 4200,
     scripts = [
         "@npm//:node_modules/tslib/tslib.js",

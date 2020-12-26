@@ -4,7 +4,7 @@ import {PushNotificationService} from './push-notification.service'
 import {ServiceWorkerService} from './service-worker.service'
 
 @Component({
-  selector: 'abs-nav',
+  selector: 'app-nav',
   template: `
     <nav class="navbar">
       <ul>
@@ -85,7 +85,7 @@ import {ServiceWorkerService} from './service-worker.service'
 
         <li class="secondary">
           <a
-            href="https://github.com/flolu/angular-bazel-starter"
+            href="https://github.com/flolu/fullstack-bazel"
             target="_blank"
             rel="noopener noreferrer"
           >
