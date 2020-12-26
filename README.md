@@ -54,11 +54,22 @@
 # TODO
 
 - Differential Loading
-- Tests
-- Documentation
+- Unit tests
+- Integration tests
+- Documentation + Code comments
 - Upgrade from NgRx v9 to v10 ([rules_nodejs/issues/2320](https://github.com/bazelbuild/rules_nodejs/issues/2320))
-- Second client without server side rendering (also add loading screen back in)
+- Second client without server side rendering
+- Client dark and light theme
 - Do we need systemjs and corejs for older browsers? like [here](https://github.com/bazelbuild/rules_nodejs/blob/c344401524dd29882bccd1123e3691b1e27b5c82/examples/angular/src/BUILD.bazel#L254)
+- API with Database
+- Find a better solution than `string_flag` for multiple environments (https://www.youtube.com/watch?t=1859&v=keT8ixRS6Fk)
+
+# Future Ideas
+
+- Building into a Desktop App (e.g. with Electron)
+- Static website example
+- Other frontend frameworks
+- Other server languages (e.g. Go, Python)
 
 ## Thanks to all the people listed below!
 
