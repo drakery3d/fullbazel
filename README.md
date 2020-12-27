@@ -63,6 +63,7 @@
 - Do we need systemjs and corejs for older browsers? like [here](https://github.com/bazelbuild/rules_nodejs/blob/c344401524dd29882bccd1123e3691b1e27b5c82/examples/angular/src/BUILD.bazel#L254)
 - API with Database
 - Find a better solution than `string_flag` for multiple environments (https://www.youtube.com/watch?t=1859&v=keT8ixRS6Fk)
+- Deploy app to local Kubernetes cluster
 
 # Future Ideas
 

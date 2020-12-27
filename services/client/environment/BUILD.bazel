@@ -8,7 +8,7 @@ ts_library(
     module_name = "@client/environment",
     tsconfig = "//services/client:tsconfig.json",
     deps = [
-        "//libs/config:client_environment",
+        "//libs/config:client_environments",
         "@npm//@angular/core",
     ],
 )

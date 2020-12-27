@@ -6,7 +6,7 @@ import {flattenObject} from './flatten-object'
 import {readConfig, readSecrets} from './utils'
 
 const ruleDir = process.argv[2]
-const environment = process.argv[3]
+const environment = 'prod'
 
 async function main() {
   const [config, secrets] = await Promise.all([readConfig(environment), readSecrets(environment)])

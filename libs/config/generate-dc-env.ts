@@ -5,7 +5,6 @@ import {flattenObject} from './flatten-object'
 import {readConfig, readSecrets} from './utils'
 
 const outFile = process.argv[2]
-
 const environment = 'dev'
 
 async function main() {

@@ -1,9 +1,8 @@
 import {FlatConfigKeys} from '@generated/config/flat-config-keys'
 
 /**
- * Only use this class on backend services
- * It depends on environment variables only available
- * on the server!
+ * Only use this class in backend services
+ * It depends on environment variables!
  */
 export class Config {
   constructor(private config: Record<FlatConfigKeys | string, string> = {}) {}

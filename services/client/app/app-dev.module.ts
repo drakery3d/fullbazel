@@ -2,7 +2,7 @@ import {Inject, NgModule} from '@angular/core'
 import {ServiceWorkerModule} from '@angular/service-worker'
 import {StoreDevtoolsModule} from '@ngrx/store-devtools'
 
-import {ENVIRONMENT, ClientEnvironment} from '@client/environment'
+import {ENVIRONMENT, ClientEnvironment, dev} from '@client/environment'
 import {RootStoreModule} from '@client/store'
 import {AppBaseModule} from './app-base.module'
 import {AppComponent} from './app.component'
@@ -15,6 +15,7 @@ import {AppComponent} from './app.component'
     RootStoreModule,
   ],
   bootstrap: [AppComponent],
+  providers: [{provide: ENVIRONMENT, useValue: dev}],
 })
 export class AppDevModule {
   constructor(@Inject(ENVIRONMENT) private environment: ClientEnvironment) {

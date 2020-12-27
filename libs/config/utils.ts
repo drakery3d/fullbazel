@@ -5,17 +5,21 @@ export const configsDir = 'configs'
 export const secretsDir = 'secrets'
 
 const configSuffix = '.config.json'
+const secretsSuffix = '.secrets.json'
+
 export const readConfig = async (env: string) => {
   const filepath = path.join(__dirname, configsDir, env + configSuffix)
-  const str = await fs.promises.readFile(filepath)
-  const {$schema, ...config} = JSON.parse(str.toString()) as Record<string, string>
+  const {$schema, ...config} = await readFileAsJson(filepath)
   return config
 }
 
-const secretsSuffix = '.secrets.json'
 export const readSecrets = async (env: string) => {
   const filepath = path.join(__dirname, secretsDir, env + secretsSuffix)
-  const str = await fs.promises.readFile(filepath)
-  const {$schema, ...secrets} = JSON.parse(str.toString()) as Record<string, string>
+  const {$schema, ...secrets} = await readFileAsJson(filepath)
   return secrets
+}
+
+const readFileAsJson = async (filepath: string) => {
+  const str = await fs.promises.readFile(filepath)
+  return JSON.parse(str.toString()) as any
 }

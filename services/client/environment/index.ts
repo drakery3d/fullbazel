@@ -1,7 +1,13 @@
 import {InjectionToken} from '@angular/core'
 
-import {env} from '@generated/config/client.environment'
+/**
+ * Fortunately, Rollup is smart enough to remove the
+ * environment which is not needed when bundling the code
+ */
+import prod from '@generated/config/client.environment.prod'
+import dev from '@generated/config/client.environment.dev'
 
-export type ClientEnvironment = typeof env
-export const environment = env
-export const ENVIRONMENT = new InjectionToken<ClientEnvironment>('CLIENT_ENVIRONMENT')
+type ClientEnvironment = typeof prod
+const ENVIRONMENT = new InjectionToken<ClientEnvironment>('CLIENT_ENVIRONMENT')
+
+export {ClientEnvironment, dev, prod, ENVIRONMENT}

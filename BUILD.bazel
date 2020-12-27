@@ -1,27 +1,7 @@
-load("@bazel_skylib//rules:common_settings.bzl", "string_flag")
 load("@io_bazel_rules_k8s//k8s:objects.bzl", "k8s_objects")
 load("@npm//@bazel/typescript:index.bzl", "ts_config")
 
 package(default_visibility = ["//:__subpackages__"])
-
-string_flag(
-    name = "env",
-    build_setting_default = "dev",
-)
-
-config_setting(
-    name = "env_prod",
-    flag_values = {
-        "env": "prod",
-    },
-)
-
-config_setting(
-    name = "env_dev",
-    flag_values = {
-        "env": "dev",
-    },
-)
 
 ts_config(
     name = "tsconfig",
