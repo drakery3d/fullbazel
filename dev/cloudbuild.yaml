@@ -1,7 +1,7 @@
 steps:
   - name: node
     entrypoint: yarn
-    args: ["install"]
+    args: ["install", "--ignore-engines"]
 
   - name: gcr.io/cloud-builders/bazel
     args: ['build', '--google_default_credentials', '--remote_http_cache=https://storage.googleapis.com/abs-bazel-cache', '//...']

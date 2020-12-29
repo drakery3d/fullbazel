@@ -38,7 +38,7 @@ $(location :{TMPL_bin}) $@ $(location {TMPL_conf})
     )
 
     native.genrule(
-        name = name,
+        name = "generate_%s" % name,
         outs = [out],
         srcs = [src, config, index_html],
         tools = [ngsw_config_name],
