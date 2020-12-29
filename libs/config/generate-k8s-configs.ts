@@ -1,8 +1,8 @@
 import * as fs from 'fs'
 import * as yaml from 'yaml'
+import * as flatten from 'flat'
 
 import {Environment} from '@libs/enums'
-import {flattenObject} from './flatten-object'
 import {readConfig} from './utils'
 
 const outfile = process.argv[2]
@@ -10,8 +10,7 @@ const environment = Environment.Production
 
 async function main() {
   const config = await readConfig(environment)
-  const flat = flattenObject(config)
-  const content = yaml.stringify(k8sConfig(flat))
+  const content = yaml.stringify(k8sConfig(flatten(config)))
   await fs.promises.writeFile(outfile, content)
 }
 

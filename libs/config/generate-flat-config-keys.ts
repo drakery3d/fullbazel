@@ -1,8 +1,8 @@
 import * as fs from 'fs'
 import {Project} from 'ts-morph'
+import * as flatten from 'flat'
 
 import {Environment} from '@libs/enums'
-import {flattenObject} from './flatten-object'
 import {readConfig, readSecrets} from './utils'
 
 const outfile = process.argv[2]
@@ -11,7 +11,7 @@ const environment = Environment.Production
 async function main() {
   const [config, secrets] = await Promise.all([readConfig(environment), readSecrets(environment)])
   const merged = {...config, secrets}
-  const flat: any = flattenObject(merged)
+  const flat: any = flatten(merged)
 
   const project = new Project()
   const tsFile = project.createSourceFile('file.ts', `export type FlatConfigKeys = '';`)

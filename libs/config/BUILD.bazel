@@ -112,7 +112,6 @@ ts_library(
 ts_library(
     name = "generate_lib",
     srcs = [
-        "flatten-object.ts",
         "generate-client-envs.ts",
         "generate-dc-env.ts",
         "generate-flat-config-keys.ts",
@@ -125,7 +124,9 @@ ts_library(
         "config_schema",
         "secret_schema",
         "//libs/enums",
+        "@npm//@types/flat",
         "@npm//@types/node",
+        "@npm//flat",
         "@npm//json-schema-to-typescript",
         "@npm//ts-morph",
         "@npm//yaml",
