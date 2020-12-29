@@ -6,6 +6,7 @@ import {switchMap} from 'rxjs/operators'
 import * as socketIO from 'socket.io-client'
 
 import {Quote} from '@libs/schema'
+import {Environment} from '@libs/enums'
 
 import {ClientEnvironment, ENVIRONMENT} from '@client/environment'
 import {QuoteActions} from './quote.actions'
@@ -19,7 +20,8 @@ export class QuoteEffects {
     @Inject(PLATFORM_ID) private platform: string,
   ) {
     if (isPlatformBrowser(this.platform)) {
-      const options = this.environment.env === 'prod' ? {transports: ['websocket']} : {}
+      const options =
+        this.environment.env === Environment.Production ? {transports: ['websocket']} : {}
       this.io = socketIO.io(this.environment.api, options)
     }
   }

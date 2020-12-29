@@ -31,20 +31,102 @@ filegroup(
     ),
 )
 
+# Generate a Typescript interface from the config JSON schema
+CONFIG_SCHEMA_FILE = "config.schema.ts"
+
+ts_library(
+    name = "generate_config_schema_lib",
+    srcs = ["generate-config-schema.ts"],
+    tsconfig = "tsconfig",
+    deps = [
+        "@npm//@types/node",
+        "@npm//json-schema-to-typescript",
+    ],
+)
+
+nodejs_binary(
+    name = "generate_config_schema_bin",
+    data = [
+        "configs/config.schema.json",
+        "generate_config_schema_lib",
+    ],
+    entry_point = "generate-config-schema.ts",
+    templated_args = ["--bazel_patch_module_resolver"],
+)
+
+genrule(
+    name = "generate_config_schema",
+    outs = [CONFIG_SCHEMA_FILE],
+    cmd = "$(location generate_config_schema_bin) $@",
+    tools = ["generate_config_schema_bin"],
+)
+
+ts_library(
+    name = "config_schema",
+    srcs = [CONFIG_SCHEMA_FILE],
+    data = ["generate_config_schema"],
+    module_name = "@generated/config",
+    tsconfig = "tsconfig",
+)
+
+# Generate a Typescript interface from the secret JSON schema
+SECRET_SCHEMA_FILE = "secret.schema.ts"
+
+ts_library(
+    name = "generate_secret_schema_lib",
+    srcs = ["generate-secrets-schema.ts"],
+    tsconfig = "tsconfig",
+    deps = [
+        "@npm//@types/node",
+        "@npm//json-schema-to-typescript",
+    ],
+)
+
+nodejs_binary(
+    name = "generate_secret_schema_bin",
+    data = [
+        "generate_secret_schema_lib",
+        "secrets/secret.schema.json",
+    ],
+    entry_point = "generate-secrets-schema.ts",
+    templated_args = ["--bazel_patch_module_resolver"],
+)
+
+genrule(
+    name = "generate_secret_schema",
+    outs = [SECRET_SCHEMA_FILE],
+    cmd = "$(location generate_secret_schema_bin) $@",
+    tools = ["generate_secret_schema_bin"],
+)
+
+ts_library(
+    name = "secret_schema",
+    srcs = [SECRET_SCHEMA_FILE],
+    data = ["generate_secret_schema"],
+    module_name = "@generated/config",
+    tsconfig = "tsconfig",
+)
+
 # Typescript library containing the code used by many
 # of the targets in this file
 ts_library(
     name = "generate_lib",
-    srcs = glob(
-        include = ["**/*.ts"],
-        exclude = [
-            "index.ts",
-            "config.ts",
-        ],
-    ),
+    srcs = [
+        "flatten-object.ts",
+        "generate-client-envs.ts",
+        "generate-dc-env.ts",
+        "generate-flat-config-keys.ts",
+        "generate-k8s-configs.ts",
+        "generate-k8s-secrets.ts",
+        "utils.ts",
+    ],
     tsconfig = "tsconfig",
     deps = [
+        "config_schema",
+        "secret_schema",
+        "//libs/enums",
         "@npm//@types/node",
+        "@npm//json-schema-to-typescript",
         "@npm//ts-morph",
         "@npm//yaml",
     ],
@@ -52,6 +134,10 @@ ts_library(
 
 # Generate a Kubernetes ConfigMap and a Secret for production
 # The generated yaml files are then fed into a k8s_deploy rule
+K8S_CONFIG_FILE = "prod.config.yaml"
+
+K8S_SECRETS_FILE = "prod.secrets.yaml"
+
 nodejs_binary(
     name = "generate_k8s_configs_bin",
     data = [
@@ -64,14 +150,14 @@ nodejs_binary(
 
 genrule(
     name = "generate_k8s_configs",
-    outs = ["prod.config.yaml"],
-    cmd = "$(location generate_k8s_configs_bin) $(RULEDIR)",
+    outs = [K8S_CONFIG_FILE],
+    cmd = "$(location generate_k8s_configs_bin) $@",
     tools = ["generate_k8s_configs_bin"],
 )
 
 k8s_deploy(
     name = "config",
-    template = "prod.config.yaml",
+    template = K8S_CONFIG_FILE,
 )
 
 nodejs_binary(
@@ -86,14 +172,14 @@ nodejs_binary(
 
 genrule(
     name = "generate_k8s_secrets",
-    outs = ["prod.secrets.yaml"],
-    cmd = "$(location generate_k8s_secrets_bin) $(RULEDIR)",
+    outs = [K8S_SECRETS_FILE],
+    cmd = "$(location generate_k8s_secrets_bin) $@",
     tools = ["generate_k8s_secrets_bin"],
 )
 
 k8s_deploy(
     name = "secrets",
-    template = "prod.secrets.yaml",
+    template = K8S_SECRETS_FILE,
 )
 
 # Generate a ".env" file with key value pairs of
@@ -120,6 +206,8 @@ genrule(
 # We take the configs and secrets and generate
 # a Typescript type for all the available keys
 # This enables intellisense when getting config values
+FLAT_CONFIG_KEYS_FILE = "flat-config-keys.ts"
+
 nodejs_binary(
     name = "generate_flat_config_keys_bin",
     data = [
@@ -133,14 +221,15 @@ nodejs_binary(
 
 genrule(
     name = "generate_flat_config_keys",
-    outs = ["flat-config-keys.ts"],
-    cmd = "$(location generate_flat_config_keys_bin) $(RULEDIR)",
+    outs = [FLAT_CONFIG_KEYS_FILE],
+    cmd = "$(location generate_flat_config_keys_bin) $@",
     tools = ["generate_flat_config_keys_bin"],
 )
 
 ts_library(
     name = "flat_config_keys",
-    srcs = ["flat-config-keys.ts"],
+    srcs = [FLAT_CONFIG_KEYS_FILE],
+    data = ["generate_flat_config_keys"],
     module_name = "@generated/config",
     tsconfig = "tsconfig",
 )
@@ -169,6 +258,7 @@ genrule(
 ts_library(
     name = "client_environments",
     srcs = CLIENT_ENV_FILES,
+    data = ["generate_client_env"],
     module_name = "@generated/config",
     tsconfig = "tsconfig",
 )

@@ -1,25 +1,18 @@
 import * as fs from 'fs'
-import * as path from 'path'
 import * as yaml from 'yaml'
 
+import {Environment} from '@libs/enums'
 import {flattenObject} from './flatten-object'
-import {configsDir, readConfig} from './utils'
+import {readConfig} from './utils'
 
-const ruleDir = process.argv[2]
-const configSuffix = '.config.yaml'
+const outfile = process.argv[2]
+const environment = Environment.Production
 
 async function main() {
-  const files = await fs.promises.readdir(path.join(__dirname, configsDir))
-  await Promise.all(
-    files.map(async file => {
-      const environment = file.split('.')[0]
-      const config = await readConfig(environment)
-      const flat = flattenObject(config)
-      const content = yaml.stringify(k8sConfig(flat))
-      const outFile = `${environment}${configSuffix}`
-      await fs.promises.writeFile(path.join(ruleDir, outFile), content)
-    }),
-  )
+  const config = await readConfig(environment)
+  const flat = flattenObject(config)
+  const content = yaml.stringify(k8sConfig(flat))
+  await fs.promises.writeFile(outfile, content)
 }
 
 function k8sConfig(data: object) {

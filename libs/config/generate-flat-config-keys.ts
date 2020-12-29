@@ -1,12 +1,12 @@
 import * as fs from 'fs'
-import * as path from 'path'
 import {Project} from 'ts-morph'
 
+import {Environment} from '@libs/enums'
 import {flattenObject} from './flatten-object'
 import {readConfig, readSecrets} from './utils'
 
-const ruleDir = process.argv[2]
-const environment = 'prod'
+const outfile = process.argv[2]
+const environment = Environment.Production
 
 async function main() {
   const [config, secrets] = await Promise.all([readConfig(environment), readSecrets(environment)])
@@ -24,7 +24,7 @@ async function main() {
     }
   })
 
-  await fs.promises.writeFile(path.join(ruleDir, 'flat-config-keys.ts'), tsFile.getFullText())
+  await fs.promises.writeFile(outfile, tsFile.getFullText())
 }
 
 main()

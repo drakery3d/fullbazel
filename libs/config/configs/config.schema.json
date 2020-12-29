@@ -18,6 +18,6 @@
       "type": "string"
     }
   },
-  "required": ["environment", "api", "vapidPublicKey"],
+  "required": ["environment", "api", "client", "vapidPublicKey"],
   "additionalProperties": false
 }
