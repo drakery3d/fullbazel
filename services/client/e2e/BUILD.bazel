@@ -1,0 +1,50 @@
+load("@npm//@bazel/protractor:index.bzl", "protractor_web_test_suite")
+load("@npm//@bazel/typescript:index.bzl", "ts_library")
+
+ts_library(
+    name = "e2e",
+    testonly = 1,
+    srcs = [
+        "app.e2e-spec.ts",
+        "app.po.ts",
+    ],
+    tsconfig = "//services/client:tsconfig_test",
+    deps = [
+        "@npm//@types/jasmine",
+        "@npm//jasmine",
+        "@npm//protractor",
+    ],
+)
+
+ts_library(
+    name = "on_prepare",
+    testonly = 1,
+    srcs = ["on-prepare.ts"],
+    tsconfig = "//services/client:tsconfig_test",
+    deps = [
+        "@npm//@bazel/protractor",
+        "@npm//@types/node",
+        "@npm//protractor",
+    ],
+)
+
+protractor_web_test_suite(
+    name = "pwa_server",
+    on_prepare = "on_prepare",
+    server = "//services/client:pwa_server",
+    deps = [":e2e"],
+)
+
+protractor_web_test_suite(
+    name = "dev_server",
+    on_prepare = "on_prepare",
+    server = "//services/client:dev_server",
+    deps = [":e2e"],
+)
+
+protractor_web_test_suite(
+    name = "universal_server",
+    on_prepare = "on_prepare",
+    server = "//services/client:client",
+    deps = [":e2e"],
+)
