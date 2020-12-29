@@ -67,6 +67,7 @@
 - Deploy app to local Kubernetes cluster
 - Lighthouse benchmarking
 - Prerendering
+- Upgrade core-js and systemjs
 
 # Issues
 

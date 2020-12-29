@@ -10,16 +10,11 @@ load("@k8s_deploy//:defaults.bzl", "k8s_deploy")
 load("@npm//@babel/cli:index.bzl", "babel")
 load("//tools:angular_ts_library.bzl", "ng_ts_library")
 load("//tools:insert_html_assets.bzl", "insert_html_assets")
-load("//tools:pkg_pwa.bzl", "pkg_pwa")
+load("//tools:ngsw_config.bzl", "ngsw_config")
 
 package(default_visibility = ["//visibility:public"])
 
 exports_files(["ngsw-config.json"])
-
-sass_binary(
-    name = "styles",
-    src = "styles.sass",
-)
 
 ts_config(
     name = "tsconfig",
@@ -37,6 +32,11 @@ ts_config(
     name = "tsconfig_test",
     src = "tsconfig.test.json",
     deps = ["//services/client:tsconfig"],
+)
+
+sass_binary(
+    name = "styles",
+    src = "styles.sass",
 )
 
 ts_library(
@@ -155,6 +155,7 @@ insert_html_assets(
     outs = ["index.html"],
     asset_paths = [
         "$(execpath styles.css)",
+        "$(execpath manifest.webmanifest)",
         "$(execpath @npm//:node_modules/zone.js/dist/zone.min.js)",
         "$(execpath bundle-es2015.min)/index.es2015.js",
         "$(execpath bundle-es5.min)/index.es2015.js",
@@ -163,6 +164,7 @@ insert_html_assets(
         "bundle-es2015.min",
         "bundle-es5.min",
         "main.html",
+        "manifest.webmanifest",
         "styles.css",
         "@npm//:node_modules/zone.js/dist/zone.min.js",
     ],
@@ -191,43 +193,69 @@ history_server(
 )
 
 insert_html_assets(
-    name = "asset_injected_pwa_index_html",
-    outs = ["_/index.html"],
+    name = "inject_scripts_for_prod",
+    outs = ["prod/index.html"],
     asset_paths = [
         "$(execpath styles.css)",
         "$(execpath @npm//:node_modules/zone.js/dist/zone.min.js)",
-        "$(execpath bundle-es2015.min)/index.es2015.js",
-        "$(execpath bundle-es5.min)/index.es2015.js",
+        "$(execpath manifest.webmanifest)",
     ],
     data = [
         "bundle-es2015.min",
         "bundle-es5.min",
         "main.html",
+        "manifest.webmanifest",
         "styles.css",
+        "@npm//:node_modules/core-js/client/core.min.js",
+        "@npm//:node_modules/systemjs/dist/system.js",
         "@npm//:node_modules/zone.js/dist/zone.min.js",
     ],
     html_file = "main.html",
+    nomodule_scripts = [
+        "$(execpath @npm//:node_modules/systemjs/dist/system.js)",
+        "$(execpath @npm//:node_modules/core-js/client/core.min.js)",
+        "$(execpath bundle-es5.min)/index.es2015.js",
+    ],
+    scripts = [
+        "$(execpath bundle-es2015.min)/index.es2015.js",
+    ],
 )
 
-pkg_pwa(
-    name = "web_pwa",
+pkg_web(
+    name = "pwa_web",
     srcs = [
-        "asset_injected_pwa_index_html",
         "bundle-es2015.min",
+        "bundle-es5.min",
+        "inject_scripts_for_prod",
         "favicon.ico",
         "manifest.webmanifest",
         "robots.txt",
         "styles.css",
         "//services/client/assets",
+        "@npm//:node_modules/zone.js/dist/zone.min.js",
+        "@npm//:node_modules/@angular/service-worker/ngsw-worker.js",
+        # Include polyfills that will be requested by old browsers
+        "@npm//:node_modules/systemjs/dist/system.js",
+        "@npm//:node_modules/core-js/client/core.min.js",
     ],
-    index_html = "asset_injected_pwa_index_html",
-    ngsw_config = "ngsw-config.json",
+    additional_root_paths = [
+        "npm/node_modules/core-js/client",
+        "npm/node_modules/systemjs/dist",
+        "npm/node_modules/@angular/service-worker",
+    ],
+)
+
+ngsw_config(
+    name = "pwa",
+    src = ":pwa_web",
+    config = "ngsw-config.json",
+    index_html = "inject_scripts_for_prod",
 )
 
 history_server(
     name = "pwa_server",
-    data = ["web_pwa"],
-    templated_args = ["-a $$(rlocation $(rootpath :web_pwa))"],
+    data = ["pwa"],
+    templated_args = ["-a $$(rlocation $(rootpath :pwa))"],
 )
 
 ts_library(
@@ -247,8 +275,8 @@ ts_library(
 nodejs_binary(
     name = "client",
     data = [
+        "pwa",
         "server_lib",
-        "web_pwa",
     ],
     entry_point = "server.ts",
     templated_args = ["--bazel_patch_module_resolver"],
@@ -257,8 +285,8 @@ nodejs_binary(
 nodejs_image(
     name = "prod_server_image",
     data = [
+        "pwa",
         "server_lib",
-        "web_pwa",
     ],
     entry_point = "server.ts",
     templated_args = ["--bazel_patch_module_resolver"],

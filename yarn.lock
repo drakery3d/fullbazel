@@ -2000,6 +2000,11 @@ core-js-compat@^3.8.0:
     browserslist "^4.15.0"
     semver "7.0.0"
 
+core-js@2.6.9:
+  version "2.6.9"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.9.tgz#6b4b214620c834152e179323727fc19741b084f2"
+  integrity sha512-HOpZf6eXmnl7la+cUdMnLvUxKNqLUzJvgIziQ0DiF3JwSImNphIqdGqzj6hIKyX04MmV0poclQ7+wjWvxQyR2A==
+
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
@@ -4993,6 +4998,11 @@ supports-color@^5.3.0:
   integrity sha512-QjVjwdXIt408MIiAqCX4oUKsgU2EqAGzs2Ppkm4aQYbjm+ZEWEcW4SfFNTr4uMNZma0ey4f5lgLrkB0aX0QMow==
   dependencies:
     has-flag "^3.0.0"
+
+systemjs@6.1.2:
+  version "6.1.2"
+  resolved "https://registry.yarnpkg.com/systemjs/-/systemjs-6.1.2.tgz#5b15020c1934d9e8f96a5c95b7a4a5e60b6d0ec3"
+  integrity sha512-QN0E62xEGCjp4+Wwg5o50CgdlMkQdUkiw5rHKQNJ454iKJCsFmQjPBoCEs1xq8mM/J+eYtLkZS0JCcay/gaEFw==
 
 terser@^5.3.4:
   version "5.5.1"

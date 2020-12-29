@@ -1,5 +1,5 @@
 import {AppPage} from './app.po'
-// import {browser, logging} from 'protractor'
+import {browser, logging} from 'protractor'
 
 describe('Angular Client', () => {
   let page: AppPage
@@ -14,13 +14,12 @@ describe('Angular Client', () => {
     expect(title).toEqual('Fullstack Bazel')
   })
 
-  // TODO fix error in browser console
-  /* afterEach(async () => {
+  afterEach(async () => {
     const logs = await browser.manage().logs().get(logging.Type.BROWSER)
     expect(logs).not.toContain(
       jasmine.objectContaining({
         level: logging.Level.SEVERE,
       } as logging.Entry),
     )
-  }) */
+  })
 })
