@@ -25,6 +25,8 @@
 - Deployment to Kubernetes
 - Configuration and Secret management for different environments
 - Docker compose for local development with hot reload
+- Differential Loading
+- Angular Unit Tests
 
 # Requirements
 
@@ -53,17 +55,23 @@
 
 # TODO
 
-- Differential Loading
-- Unit tests
-- Integration tests
+- Angular integration tests
+- Fullstack integration tests
+- Backend unit tests
 - Documentation + Code comments
-- Upgrade from NgRx v9 to v10 ([rules_nodejs/issues/2320](https://github.com/bazelbuild/rules_nodejs/issues/2320))
 - Second client without server side rendering
 - Client dark and light theme
 - Do we need systemjs and corejs for older browsers? like [here](https://github.com/bazelbuild/rules_nodejs/blob/c344401524dd29882bccd1123e3691b1e27b5c82/examples/angular/src/BUILD.bazel#L254)
 - API with Database
 - Find a better solution than `string_flag` for multiple environments (https://www.youtube.com/watch?t=1859&v=keT8ixRS6Fk)
 - Deploy app to local Kubernetes cluster
+- Lighthouse benchmarking
+- Prerendering
+
+# Issues
+
+- Upgrade from NgRx v9 to v10 ([rules_nodejs/issues/2320](https://github.com/bazelbuild/rules_nodejs/issues/2320))
+- Upgrade from Karma v4 to v5 ([rules_nodejs/issues/2093](https://github.com/bazelbuild/rules_nodejs/issues/2093))
 
 # Future Ideas
 

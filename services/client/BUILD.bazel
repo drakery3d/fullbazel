@@ -28,9 +28,15 @@ ts_config(
 )
 
 ts_config(
-    name = "tsconfig-server",
+    name = "tsconfig_server",
     src = "tsconfig.server.json",
     deps = ["//:tsconfig"],
+)
+
+ts_config(
+    name = "tsconfig_test",
+    src = "tsconfig.test.json",
+    deps = ["//services/client:tsconfig"],
 )
 
 ts_library(
@@ -227,7 +233,7 @@ history_server(
 ts_library(
     name = "server_lib",
     srcs = ["server.ts"],
-    tsconfig = "tsconfig-server",
+    tsconfig = "tsconfig_server",
     deps = [
         "//services/client/app:server",
         "@npm//@angular/core",
