@@ -27,6 +27,8 @@
 - Docker compose for local development with hot reload
 - Differential Loading
 - Angular Unit Tests
+- Angular integration tests
+- Lighthouse benchmarking (Performance score is not 100 because the locally served content is not compressed. But it will be when deployed to Kubernetes)
 
 # Requirements
 
@@ -55,7 +57,6 @@
 
 # TODO
 
-- Angular integration tests
 - Fullstack integration tests
 - Backend unit tests
 - Documentation + Code comments
@@ -65,14 +66,15 @@
 - API with Database
 - Find a better solution than `string_flag` for multiple environments (https://www.youtube.com/watch?t=1859&v=keT8ixRS6Fk)
 - Deploy app to local Kubernetes cluster
-- Lighthouse benchmarking
 - Prerendering
 - Upgrade core-js and systemjs
+- Minify html
 
 # Issues
 
 - Upgrade from NgRx v9 to v10 ([rules_nodejs/issues/2320](https://github.com/bazelbuild/rules_nodejs/issues/2320))
 - Upgrade from Karma v4 to v5 ([rules_nodejs/issues/2093](https://github.com/bazelbuild/rules_nodejs/issues/2093))
+- Insert Manifest with html-insert-assets ([html-insert-assets/issues/17](https://github.com/jbedard/html-insert-assets/issues/17))
 
 # Future Ideas
 

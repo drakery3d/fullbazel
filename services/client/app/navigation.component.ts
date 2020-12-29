@@ -9,7 +9,7 @@ import {ServiceWorkerService} from './service-worker.service'
     <nav class="navbar">
       <ul>
         <li>
-          <a routerLink="/">
+          <div class="link" routerLink="/">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path d="M0 0h24v24H0V0z" fill="none" />
               <path
@@ -18,11 +18,11 @@ import {ServiceWorkerService} from './service-worker.service'
               <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3" />
             </svg>
             <span>Home</span>
-          </a>
+          </div>
         </li>
 
         <li>
-          <a routerLink="/realtime">
+          <div class="link" routerLink="/realtime">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path d="M0 0h24v24H0V0z" fill="none" />
               <path d="M8 7.5l4 4 4-4V4H8zm0 9V20h8v-3.5l-4-4z" opacity=".3" />
@@ -31,11 +31,11 @@ import {ServiceWorkerService} from './service-worker.service'
               />
             </svg>
             <span>Realtime</span>
-          </a>
+          </div>
         </li>
 
         <li>
-          <a routerLink="/about">
+          <div class="link" routerLink="/about">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path d="M0 0h24v24H0V0z" fill="none" />
               <path
@@ -47,11 +47,11 @@ import {ServiceWorkerService} from './service-worker.service'
               />
             </svg>
             <span>About</span>
-          </a>
+          </div>
         </li>
 
         <li class="bottom secondary hide-small">
-          <a (click)="checkUpdates()">
+          <div class="link" (click)="checkUpdates()">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               enable-background="new 0 0 24 24"
@@ -67,11 +67,11 @@ import {ServiceWorkerService} from './service-worker.service'
               </g>
             </svg>
             <span>Check for SW updates</span>
-          </a>
+          </div>
         </li>
 
         <li class="secondary hide-small">
-          <a (click)="sendNotification()">
+          <div class="link" (click)="sendNotification()">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path d="M0 0h24v24H0V0z" fill="none" />
               <path d="M12 6.5c-2.49 0-4 2.02-4 4.5v6h8v-6c0-2.48-1.51-4.5-4-4.5z" opacity=".3" />
@@ -80,11 +80,12 @@ import {ServiceWorkerService} from './service-worker.service'
               />
             </svg>
             <span>Test Notification</span>
-          </a>
+          </div>
         </li>
 
         <li class="secondary">
-          <a
+          <div
+            class="link"
             href="https://github.com/flolu/fullstack-bazel"
             target="_blank"
             rel="noopener noreferrer"
@@ -96,7 +97,7 @@ import {ServiceWorkerService} from './service-worker.service'
               />
             </svg>
             <span>Source Code</span>
-          </a>
+          </div>
         </li>
       </ul>
     </nav>

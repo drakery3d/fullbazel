@@ -6,3 +6,5 @@ dist
 services/client/environment/environment.ts
 libs/config/secrets/dev.secrets.json
 libs/config/secrets/prod.secrets.json
+
+lighthouse.html
