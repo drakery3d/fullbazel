@@ -198,7 +198,6 @@ insert_html_assets(
     asset_paths = [
         "$(execpath styles.css)",
         "$(execpath @npm//:node_modules/zone.js/dist/zone.min.js)",
-        "$(execpath manifest.webmanifest)",
     ],
     data = [
         "bundle-es2015.min",
@@ -211,6 +210,7 @@ insert_html_assets(
         "@npm//:node_modules/zone.js/dist/zone.min.js",
     ],
     html_file = "main.html",
+    manifest = "manifest.webmanifest",
     nomodule_scripts = [
         "$(execpath @npm//:node_modules/systemjs/dist/system.js)",
         "$(execpath @npm//:node_modules/core-js/client/core.min.js)",

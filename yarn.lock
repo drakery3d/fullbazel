@@ -3218,10 +3218,10 @@ hosted-git-info@^2.1.4:
   resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.8.8.tgz#7539bd4bc1e0e0a895815a2e0262420b12858488"
   integrity sha512-f/wzC2QaWBs7t9IYqB4T3sR1xviIViXJRJTWBlx2Gf3g0Xi5vI7Yy4koXQ1c9OYDGHN9sBy1DQ2AB8fqZBWhUg==
 
-html-insert-assets@^0.12.0:
-  version "0.12.2"
-  resolved "https://registry.yarnpkg.com/html-insert-assets/-/html-insert-assets-0.12.2.tgz#c7b03b3e335061dae8ff23ffc7cc880f7f4f357f"
-  integrity sha512-oPhzxovR9OYsVANMc42DWKjzvKP5llvLTgiQuU9dmI1Xj+yQa5Udd6betX7+LP5KOaTGAdjaKKmqrYMlmgI/tg==
+html-insert-assets@^0.14.1:
+  version "0.14.1"
+  resolved "https://registry.yarnpkg.com/html-insert-assets/-/html-insert-assets-0.14.1.tgz#262c0f0d0a9969ca9476657ae7819a89e3fc1089"
+  integrity sha512-bYvMvLkZrsdQKwq/fbHfL5STOA85iMzQ1BXyJcWsPDkEG/gH2z4KD0MLWAy5yvYAraNEZiRMcLu294nGOla38Q==
   dependencies:
     mkdirp "^1.0.3"
     parse5 "^6.0.0"

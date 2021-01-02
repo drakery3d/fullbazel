@@ -1,9 +1,15 @@
 steps:
+  - name: node
+    entrypoint: yarn
+    args: ["install", "--ignore-engines"]
+
   - name: eu.gcr.io/fullstack-bazel/cloudbuild
     args: [
-      'test',
-      '--test_output=all',
-      '//services/client/features/home/...',
+      'build',
+      '//...'
+      # 'test',
+      # '--test_output=all',
+      # '//services/client/features/home/...',
       # '--google_default_credentials',
       # '--remote_http_cache=https://storage.googleapis.com/abs-bazel-cache',
       # '//...'
