@@ -10,7 +10,7 @@ const environment = Environment.Production
 
 async function main() {
   const secrets = await readSecrets(environment)
-  const flat: any = flatten({secrets})
+  const flat: any = flatten({secrets}, {delimiter: '_'})
   const content = yaml.stringify(k8sSecrets(flat))
   await fs.promises.writeFile(outfile, content)
 }

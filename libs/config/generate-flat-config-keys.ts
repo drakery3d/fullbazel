@@ -11,7 +11,7 @@ const environment = Environment.Production
 async function main() {
   const [config, secrets] = await Promise.all([readConfig(environment), readSecrets(environment)])
   const merged = {...config, secrets}
-  const flat: any = flatten(merged)
+  const flat: any = flatten(merged, {delimiter: '_'})
 
   const project = new Project()
   const tsFile = project.createSourceFile('file.ts', `export type FlatConfigKeys = '';`)

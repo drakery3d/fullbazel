@@ -1,7 +1,7 @@
 version: '3'
 services:
   server:
-    image: node:lts-alpine
+    image: node:lts
     container_name: fullstack-bazek_server
     volumes:
       - ./package.json:/package.json

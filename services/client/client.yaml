@@ -30,11 +30,11 @@ spec:
             periodSeconds: 20
           resources:
             requests:
-              memory: 10Mi
-              cpu: 10m
+              memory: 300Mi
+              cpu: 100m
             limits:
-              memory: 500Mi
-              cpu: 500m
+              memory: 1000Mi
+              cpu: 300m
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:

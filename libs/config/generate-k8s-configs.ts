@@ -10,7 +10,7 @@ const environment = Environment.Production
 
 async function main() {
   const config = await readConfig(environment)
-  const content = yaml.stringify(k8sConfig(flatten(config)))
+  const content = yaml.stringify(k8sConfig(flatten(config, {delimiter: '_'})))
   await fs.promises.writeFile(outfile, content)
 }
 
