@@ -11,7 +11,7 @@ gcloud beta container --project "fullstack-bazel" clusters create "cluster"\
   --zone "europe-west3-b" \
   --no-enable-basic-auth \
   --machine-type "n1-standard-1" \
-  --disk-size "30" \
+  --disk-size "10" \
   --preemptible \
   --num-nodes "1" \
   --enable-autoscaling \
@@ -33,7 +33,7 @@ helm repo update
 
 ```bash
 kubectl create clusterrolebinding cluster-admin-binding --clusterrole cluster-admin --user $(gcloud config get-value account) && \
-helm install nginx-ingress stable/nginx-ingress
+helm install nginx-ingress stable/nginx-ingress -n nginx-ingress --create-namespace
 ```
 
 **Setup Domain**
@@ -48,18 +48,27 @@ Go to the created [Load Balancer][4] and point your domain to this IP address vi
 **Setup [Cert Manager][5]**
 
 ```bash
-helm install \
-  cert-manager jetstack/cert-manager \
-  --namespace cert-manager \
-  --create-namespace \
-  --version v0.16.1 \
-  --set installCRDs=true
+helm install cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace --version v0.16.1 --set installCRDs=true
 ```
 
 **Deploy**
 
 ```bash
 yarn deploy
+```
+
+# Helpful Commands
+
+**Remove cert-manager**
+
+```
+helm uninstall cert-manager -n cert-manager
+```
+
+**Delete cluster**
+
+```
+gcloud container clusters delete designer --zone europe-west3-b
 ```
 
 [1]: https://cloud.google.com/kubernetes-engine
