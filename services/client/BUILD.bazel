@@ -271,6 +271,7 @@ ts_library(
         "@npm//@types/express",
         "@npm//@types/node",
         "@npm//express",
+        "@npm//tslib",
     ],
 )
 
