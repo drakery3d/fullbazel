@@ -1,6 +1,6 @@
 import * as fs from 'fs'
-import * as path from 'path'
 import {compile} from 'json-schema-to-typescript'
+import * as path from 'path'
 
 const outfile = process.argv[2]
 

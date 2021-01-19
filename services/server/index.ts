@@ -1,12 +1,12 @@
 import * as faker from 'faker'
-import {Server, Socket} from 'socket.io'
+import * as http from 'http'
 import {interval} from 'rxjs'
 import {takeWhile, tap} from 'rxjs/operators'
+import {Server, Socket} from 'socket.io'
 import {v4 as uuidv4} from 'uuid'
-import * as http from 'http'
 
-import {Quote} from '@libs/schema'
 import {Config} from '@libs/config'
+import {Quote} from '@libs/schema'
 
 const config = new Config()
 const client = config.get('client')

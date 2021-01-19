@@ -1,14 +1,14 @@
-import {NgModule} from '@angular/core'
 import {CommonModule} from '@angular/common'
+import {NgModule} from '@angular/core'
 import {RouterModule} from '@angular/router'
 import {EffectsModule} from '@ngrx/effects'
 import {StoreModule} from '@ngrx/store'
 
 import {UiElementsModule} from '@libs/ui-elements'
 
-import {RealtimeComponent} from './realtime.component'
-import {quoteReducer} from './quote.reducer'
 import {QuoteEffects} from './quote.effects'
+import {quoteReducer} from './quote.reducer'
+import {RealtimeComponent} from './realtime.component'
 
 @NgModule({
   imports: [

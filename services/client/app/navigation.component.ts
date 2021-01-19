@@ -1,6 +1,6 @@
 import {Component} from '@angular/core'
-import {PushNotificationService} from './push-notification.service'
 
+import {PushNotificationService} from './push-notification.service'
 import {ServiceWorkerService} from './service-worker.service'
 
 @Component({

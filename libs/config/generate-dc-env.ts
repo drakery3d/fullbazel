@@ -1,8 +1,9 @@
+import * as flatten from 'flat'
 import * as fs from 'fs'
 import * as path from 'path'
-import * as flatten from 'flat'
 
 import {Environment} from '@libs/enums'
+
 import {readConfig, readSecrets} from './utils'
 
 const outFile = process.argv[2]

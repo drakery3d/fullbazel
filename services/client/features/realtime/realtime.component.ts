@@ -1,5 +1,5 @@
-import {Store} from '@ngrx/store'
 import {Component} from '@angular/core'
+import {Store} from '@ngrx/store'
 
 import {QuoteActions} from './quote.actions'
 import {QuoteSeletors} from './quote.selectors'

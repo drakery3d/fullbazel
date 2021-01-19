@@ -1,6 +1,6 @@
 import {Component, Inject} from '@angular/core'
 
-import {ENVIRONMENT, ClientEnvironment} from '@client/environment'
+import {ClientEnvironment, ENVIRONMENT} from '@client/environment'
 
 @Component({
   selector: 'app-about',

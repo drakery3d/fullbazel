@@ -2,8 +2,9 @@ import {Inject, NgModule} from '@angular/core'
 import {ServiceWorkerModule} from '@angular/service-worker'
 import {StoreDevtoolsModule} from '@ngrx/store-devtools'
 
-import {ENVIRONMENT, ClientEnvironment, dev} from '@client/environment'
+import {ClientEnvironment, dev, ENVIRONMENT} from '@client/environment'
 import {RootStoreModule} from '@client/store'
+
 import {AppBaseModule} from './app-base.module'
 import {AppComponent} from './app.component'
 

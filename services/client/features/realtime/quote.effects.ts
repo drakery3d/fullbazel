@@ -5,10 +5,10 @@ import {Observable, of} from 'rxjs'
 import {switchMap} from 'rxjs/operators'
 import * as socketIO from 'socket.io-client'
 
-import {Quote} from '@libs/schema'
-import {Environment} from '@libs/enums'
-
 import {ClientEnvironment, ENVIRONMENT} from '@client/environment'
+import {Environment} from '@libs/enums'
+import {Quote} from '@libs/schema'
+
 import {QuoteActions} from './quote.actions'
 
 @Injectable()

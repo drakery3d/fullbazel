@@ -1,8 +1,7 @@
+import {Config} from '@generated/config/config.schema'
 import * as fs from 'fs'
 import * as path from 'path'
 import {Project, ts} from 'ts-morph'
-
-import {Config} from '@generated/config/config.schema'
 
 import {configsDir, readConfig} from './utils'
 

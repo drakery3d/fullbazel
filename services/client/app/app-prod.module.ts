@@ -1,11 +1,12 @@
+import {isPlatformBrowser} from '@angular/common'
 import {Inject, NgModule, PLATFORM_ID} from '@angular/core'
 import {ServiceWorkerModule} from '@angular/service-worker'
-import {isPlatformBrowser} from '@angular/common'
 
-import {ENVIRONMENT, ClientEnvironment, prod} from '@client/environment'
+import {ClientEnvironment, ENVIRONMENT, prod} from '@client/environment'
 import {RootStoreModule} from '@client/store'
-import {AppComponent} from './app.component'
+
 import {AppBaseModule} from './app-base.module'
+import {AppComponent} from './app.component'
 
 @NgModule({
   imports: [AppBaseModule, ServiceWorkerModule.register('ngsw-worker.js'), RootStoreModule],

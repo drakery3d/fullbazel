@@ -1,8 +1,8 @@
-import {Injectable, OnDestroy, Inject, PLATFORM_ID} from '@angular/core'
-import {tap, takeWhile} from 'rxjs/operators'
-import {SwPush} from '@angular/service-worker'
-import {Router} from '@angular/router'
 import {isPlatformBrowser} from '@angular/common'
+import {Inject, Injectable, OnDestroy, PLATFORM_ID} from '@angular/core'
+import {Router} from '@angular/router'
+import {SwPush} from '@angular/service-worker'
+import {takeWhile, tap} from 'rxjs/operators'
 
 import {ClientEnvironment, ENVIRONMENT} from '@client/environment'
 

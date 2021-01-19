@@ -8,6 +8,7 @@
     "test": "bazel test --test_output=errors //...",
     "test:verbose": "bazel test --test_output=all //...",
     "client": "ibazel run //services/client:dev_server",
+    "client:pwa": "bazel run //services/client:pwa_server",
     "client:ssr": "bazel run //services/client:prod_server_image",
     "client:benchmark": "lighthouse http://localhost:8080 --preset=desktop --output-path=lighthouse.html --view",
     "server": "bazelisk build //libs/config:generate_docker_compose_env && docker-compose -f docker-compose.yaml up --build",

@@ -1,8 +1,9 @@
+import * as flatten from 'flat'
 import * as fs from 'fs'
 import {Project} from 'ts-morph'
-import * as flatten from 'flat'
 
 import {Environment} from '@libs/enums'
+
 import {readConfig, readSecrets} from './utils'
 
 const outfile = process.argv[2]

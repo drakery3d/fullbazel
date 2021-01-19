@@ -1,6 +1,6 @@
 import {createFeatureSelector, createSelector} from '@ngrx/store'
-import {QuoteReducerSelectors} from './quote.reducer'
 
+import {QuoteReducerSelectors} from './quote.reducer'
 import {QuoteReducer} from './quote.state'
 
 interface State {

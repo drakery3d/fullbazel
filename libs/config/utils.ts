@@ -1,8 +1,7 @@
-import * as fs from 'fs'
-import * as path from 'path'
-
 import {Config} from '@generated/config/config.schema'
 import {Secrets} from '@generated/config/secret.schema'
+import * as fs from 'fs'
+import * as path from 'path'
 
 const configsDir = 'configs'
 const secretsDir = 'secrets'

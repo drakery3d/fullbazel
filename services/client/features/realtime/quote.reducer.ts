@@ -1,10 +1,10 @@
-import {createReducer, on} from '@ngrx/store'
 import {createEntityAdapter, EntityAdapter} from '@ngrx/entity'
+import {createReducer, on} from '@ngrx/store'
 
 import {Quote} from '@libs/schema'
 
-import {QuoteReducer} from './quote.state'
 import {QuoteActions} from './quote.actions'
+import {QuoteReducer} from './quote.state'
 
 const adapter: EntityAdapter<Quote> = createEntityAdapter({
   selectId: (quote: Quote) => quote.id,

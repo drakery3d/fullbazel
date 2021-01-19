@@ -152,7 +152,9 @@ terser_minified(
 
 insert_html_assets(
     name = "asset_injected_index_html",
-    outs = ["index.html"],
+    # pkg_web rule will re-root paths that start with _{name} by default
+    # _web_app/services/client/index.html -> index.html in the web package
+    outs = ["_web_app/services/client/index.html"],
     asset_paths = [
         "$(execpath styles.css)",
         "$(execpath manifest.webmanifest)",

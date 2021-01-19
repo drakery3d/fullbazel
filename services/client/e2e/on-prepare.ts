@@ -1,6 +1,6 @@
 import {runServer} from '@bazel/protractor/protractor-utils'
-import {browser} from 'protractor'
 import * as path from 'path'
+import {browser} from 'protractor'
 
 module.exports = async function (config: any) {
   const bazelTargetName = path.basename(config.server, path.extname(config.server))

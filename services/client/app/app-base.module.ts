@@ -1,11 +1,11 @@
-import {BrowserModule} from '@angular/platform-browser'
 import {NgModule} from '@angular/core'
+import {BrowserModule} from '@angular/platform-browser'
 
-import {AppComponent} from './app.component'
 import {AppRoutingModule} from './app-routing.module'
-import {ServiceWorkerService} from './service-worker.service'
+import {AppComponent} from './app.component'
 import {NavigationComopnent} from './navigation.component'
 import {PushNotificationService} from './push-notification.service'
+import {ServiceWorkerService} from './service-worker.service'
 
 @NgModule({
   imports: [BrowserModule.withServerTransition({appId: 'fullstack-bazel'}), AppRoutingModule],
