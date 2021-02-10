@@ -1,15 +1,4 @@
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @fileoverview these provide named UMD modules so that we can bundle
- * the application along with rxjs using the concatjs bundler.
- */
+/* eslint-disable prettier/prettier */
 
 // rxjs/operators
 (function (factory) {

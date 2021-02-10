@@ -11,11 +11,12 @@ const environment = Environment.Production
 
 async function main() {
   const secrets = await readSecrets(environment)
-  const flat: any = flatten({secrets}, {delimiter: '_'})
+  const flat: Record<string, string> = flatten({secrets}, {delimiter: '_'})
   const content = yaml.stringify(k8sSecrets(flat))
   await fs.promises.writeFile(outfile, content)
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 function k8sSecrets(data: object) {
   return {
     apiVersion: 'v1',

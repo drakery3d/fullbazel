@@ -1,5 +1,7 @@
-const node = require('rollup-plugin-node-resolve');
-const commonjs = require('rollup-plugin-commonjs');
+/* eslint-disable @typescript-eslint/no-var-requires */
+
+const node = require('rollup-plugin-node-resolve')
+const commonjs = require('rollup-plugin-commonjs')
 
 module.exports = {
   plugins: [
@@ -11,9 +13,9 @@ module.exports = {
 
   // https://stackoverflow.com/a/43556986/8586803
   onwarn: function (warning) {
-    if (warning.code === 'THIS_IS_UNDEFINED') return;
-    console.warn(warning.message);
+    if (warning.code === 'THIS_IS_UNDEFINED') return
+    console.warn(warning.message)
   },
 
-  preserveEntrySignatures: 'strict'
-};
+  preserveEntrySignatures: 'strict',
+}

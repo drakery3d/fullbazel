@@ -2,6 +2,7 @@ import {runServer} from '@bazel/protractor/protractor-utils'
 import * as path from 'path'
 import {browser} from 'protractor'
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 module.exports = async function (config: any) {
   const bazelTargetName = path.basename(config.server, path.extname(config.server))
   let portFlag: string

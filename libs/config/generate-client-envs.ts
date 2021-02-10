@@ -34,6 +34,7 @@ async function main() {
       objLiteral.addPropertyAssignments(
         Object.keys(env).map(key => ({
           name: key,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           initializer: writer => writer.quote((env as any)[key]),
         })),
       )

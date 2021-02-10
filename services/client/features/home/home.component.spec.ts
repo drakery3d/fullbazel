@@ -25,7 +25,9 @@ describe('HomeComponent', () => {
     const tags: HTMLElement = fixture.debugElement.query(By.css('.tags')).nativeElement
     fixture.detectChanges()
     comp.tags.forEach((tag, index) => {
-      expect(tags.children.item(index)!.textContent).toEqual(tag)
+      const child = tags.children.item(index)
+      if (!child) throw new Error()
+      expect(child.textContent).toEqual(tag)
     })
   })
 })

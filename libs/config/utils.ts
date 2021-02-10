@@ -10,19 +10,21 @@ const secretsSuffix = '.secrets.json'
 
 const readConfig = async (env: string) => {
   const filepath = path.join(__dirname, configsDir, env + configSuffix)
-  const {$schema, ...config}: Config = await readFileAsJson(filepath)
+  const config = (await readFileAsJson(filepath)) as Config
+  delete config.$schema
   return config
 }
 
 const readSecrets = async (env: string) => {
   const filepath = path.join(__dirname, secretsDir, env + secretsSuffix)
-  const {$schema, ...secrets}: Secrets = await readFileAsJson(filepath)
+  const secrets = (await readFileAsJson(filepath)) as Secrets
+  delete secrets.$schema
   return secrets
 }
 
 const readFileAsJson = async (filepath: string) => {
   const fileBuffer = await fs.promises.readFile(filepath)
-  return JSON.parse(fileBuffer.toString()) as any
+  return JSON.parse(fileBuffer.toString()) as unknown
 }
 
 export {configsDir, readConfig, readSecrets}

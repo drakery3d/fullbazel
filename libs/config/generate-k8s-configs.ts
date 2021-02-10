@@ -15,6 +15,7 @@ async function main() {
   await fs.promises.writeFile(outfile, content)
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 function k8sConfig(data: object) {
   return {
     apiVersion: 'v1',

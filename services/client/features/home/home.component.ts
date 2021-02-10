@@ -27,5 +27,6 @@ import {Tags} from '@libs/enums'
   styleUrls: ['home.component.sass'],
 })
 export class HomeComponent {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   tags = Object.keys(Tags).map(key => (Tags as any)[key])
 }

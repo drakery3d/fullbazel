@@ -12,7 +12,7 @@ const environment = Environment.Development
 async function main() {
   const [config, secrets] = await Promise.all([readConfig(environment), readSecrets(environment)])
   const merged = {...config, secrets}
-  const flat: any = flatten(merged, {delimiter: '_'})
+  const flat: Record<string, string> = flatten(merged, {delimiter: '_'})
   let content = ''
   for (const key in flat) {
     content += key + '=' + flat[key] + '\n'

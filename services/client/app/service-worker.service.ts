@@ -31,7 +31,7 @@ export class ServiceWorkerService {
     })
   }
 
-  launchUpdateHandler(callback: (event: UpdateAvailableEvent) => any) {
+  launchUpdateHandler(callback: (event: UpdateAvailableEvent) => void) {
     if (!this.isAvailable) return
     this.swUpdate.available.subscribe(event => {
       callback(event)
