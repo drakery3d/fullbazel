@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "bazelbuild.vscode-bazel",
+    "ms-azuretools.vscode-docker",
+    "dbaeumer.vscode-eslint",
+    "eamodio.gitlens",
+    "esbenp.prettier-vscode",
+    "gruntfuggly.todo-tree",
+    "mike-co.import-sorter",
+    "redhat.vscode-yaml"
+  ]
+}

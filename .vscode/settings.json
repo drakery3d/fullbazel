@@ -1,0 +1,32 @@
+{
+  "editor.tabSize": 2,
+  "files.watcherExclude": {
+    "**/bazel-**/**": true,
+    "**/dist/**": true,
+    "**/node_modules/**": true
+  },
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+
+  /* Import Sorter Extension */
+  "importSorter.generalConfiguration.sortOnBeforeSave": true,
+  "importSorter.importStringConfiguration.hasSemicolon": false,
+  "importSorter.importStringConfiguration.spacingPerImportExpression.afterStartingBracket": 0,
+  "importSorter.importStringConfiguration.spacingPerImportExpression.beforeEndingBracket": 0,
+  "importSorter.importStringConfiguration.maximumNumberOfImportExpressionsPerLine.type": "newLineEachExpressionAfterCountLimitExceptIfOnlyOne",
+  "importSorter.importStringConfiguration.tabSize": 2,
+  "importSorter.importStringConfiguration.trailingComma": "multiLine",
+  "importSorter.sortConfiguration.removeUnusedImports": true,
+  "importSorter.sortConfiguration.customOrderingRules.rules": [
+    {"type": "importMember", "regex": "^$", "orderLevel": 10, "disableSort": true},
+    {"regex": "^(@libs|@client)", "orderLevel": 30},
+    {"regex": "^[.]", "orderLevel": 50}
+  ],
+
+  /* Todo Tree Extension */
+  "todo-tree.regex.regex": "(//|/\\*\\*|/\\*|\\*|<!--|#)\\s*($TAGS).*(\\n\\s*//\\s{2,}.*)*",
+  "todo-tree.tree.showCountsInTree": true,
+  "todo-tree.general.tags": ["FIXME", "TODO", "NOW"]
+}
