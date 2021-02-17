@@ -14,5 +14,8 @@
       "@client/store": ["./store"],
       "@client/environment": ["./environment"]
     }
+  },
+  "angularCompilerOptions": {
+    "strictTemplates": true
   }
 }
