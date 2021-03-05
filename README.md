@@ -77,7 +77,6 @@ Read [docs/gke-deployment.md](docs/gke-deployment.md)
 - Upgrade core-js and systemjs
 - Minify html
 - README image with all used technologies' logos
-- Don't use Socket.IO, use ws instead
 
 **Issues**
 

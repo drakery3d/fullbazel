@@ -40,10 +40,10 @@ helm install nginx-ingress stable/nginx-ingress -n nginx-ingress --create-namesp
 
 Go to the created [Load Balancer][4] and point your domain to this IP address via an "A" record.
 
-| Record Type | Domain                        | Value        |
-| ----------- | ----------------------------- | ------------ |
-| A           | fullstack-bazel.flolu.com     | <ip-address> |
-| A           | api.fullstack-bazel.flolu.com | <ip-address> |
+| Record Type | Domain                          | Value        |
+| ----------- | ------------------------------- | ------------ |
+| A           | fullstack-bazel.drakery.com     | <ip-address> |
+| A           | api.fullstack-bazel.drakery.com | <ip-address> |
 
 **Setup [Cert Manager][5]**
 

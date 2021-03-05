@@ -25,6 +25,5 @@ ng_ts_library(
         "@npm//@ngrx/entity",
         "@npm//@ngrx/store",
         "@npm//rxjs",
-        "@npm//socket.io-client",
     ],
 )

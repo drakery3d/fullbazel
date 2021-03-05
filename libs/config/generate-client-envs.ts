@@ -11,6 +11,7 @@ function buildEnv(config: Config, environment: string) {
   return {
     env: environment,
     api: config.api,
+    websocket: config.websocket,
     vapidPublicKey: config.vapidPublicKey,
   }
 }

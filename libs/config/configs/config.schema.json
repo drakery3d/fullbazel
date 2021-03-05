@@ -11,6 +11,9 @@
     "api": {
       "type": "string"
     },
+    "websocket": {
+      "type": "string"
+    },
     "client": {
       "type": "string"
     },

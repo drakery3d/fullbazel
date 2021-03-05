@@ -10,17 +10,17 @@ metadata:
 spec:
   tls:
     - hosts:
-        - fullstack-bazel.flolu.com
-        - api.fullstack-bazel.flolu.com
+        - fullstack-bazel.drakery.com
+        - api.fullstack-bazel.drakery.com
       secretName: fullstack-bazel-tls
   rules:
-    - host: fullstack-bazel.flolu.com
+    - host: fullstack-bazel.drakery.com
       http:
         paths:
           - backend:
               serviceName: client
               servicePort: 8080
-    - host: api.fullstack-bazel.flolu.com
+    - host: api.fullstack-bazel.drakery.com
       http:
         paths:
           - backend:

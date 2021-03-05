@@ -3,26 +3,26 @@ import {Inject, Injectable, PLATFORM_ID} from '@angular/core'
 import {createEffect} from '@ngrx/effects'
 import {Observable, of} from 'rxjs'
 import {switchMap} from 'rxjs/operators'
-import * as socketIO from 'socket.io-client'
 
 import {ClientEnvironment, ENVIRONMENT} from '@client/environment'
-import {Environment} from '@libs/enums'
 import {Quote} from '@libs/schema'
 
 import {QuoteActions} from './quote.actions'
 
 @Injectable()
 export class QuoteEffects {
-  private io: socketIO.Socket
+  private websocket: WebSocket
 
   constructor(
     @Inject(ENVIRONMENT) public environment: ClientEnvironment,
     @Inject(PLATFORM_ID) private platform: string,
   ) {
     if (isPlatformBrowser(this.platform)) {
-      const options =
-        this.environment.env === Environment.Production ? {transports: ['websocket']} : {}
-      this.io = socketIO.io(this.environment.api, options)
+      console.log('create web socket', this.environment.websocket)
+      this.websocket = new WebSocket(this.environment.websocket)
+      this.websocket.onclose = () => console.log('closed')
+      this.websocket.onopen = () => console.log('opened')
+      this.websocket.onerror = error => console.log('error', error)
     }
   }
 
@@ -33,10 +33,10 @@ export class QuoteEffects {
   private quotesStream() {
     return new Observable<Quote>(observer => {
       if (!isPlatformBrowser(this.platform)) return
-      this.io.on('quotes', (quote: Quote) => {
+      this.websocket.onmessage = event => {
+        const quote = JSON.parse(event.data) as Quote
         observer.next(quote)
-      })
-      return () => this.io.off('quotes')
+      }
     })
   }
 }

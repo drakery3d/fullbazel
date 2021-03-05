@@ -20,10 +20,11 @@ ts_library(
         "@npm//@types/faker",
         "@npm//@types/node",
         "@npm//@types/uuid",
+        "@npm//@types/ws",
         "@npm//faker",
         "@npm//rxjs",
-        "@npm//socket.io",
         "@npm//uuid",
+        "@npm//ws",
     ],
 )
 

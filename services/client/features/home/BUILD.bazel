@@ -47,6 +47,8 @@ karma_web_test_suite(
     ],
     browsers = [
         "@io_bazel_rules_webtesting//browsers:chromium-local",
+        # TODO this fails in cloud build with this error:
+        # /builder/home/.cache/bazel/_bazel_root/eab0d61a99b6696edb3d2aff87b585e8/external/io_bazel_rules_webtesting/third_party/geckodriver/BUILD.bazel:23:17: Extracting ../org_mozilla_geckodriver/file/geckodriver-v0.24.0-linux64.tar.gz failed (Exit 2): extract.sh failed: error executing command external/io_bazel_rules_webtesting/web/internal/extract.sh external/org_mozilla_geckodriver/file/geckodriver-v0.24.0-linux64.tar.gz ... (remaining 2 argument(s) skipped)
         # "@io_bazel_rules_webtesting//browsers:firefox-local",
     ],
     tags = ["native"],
