@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
-TAG=eu.gcr.io/fullstack-bazel/cloudbuild
+TAG=gcr.io/fullstack-bazel-306720/cloudbuild
 
 docker run \
-  -v ~/Desktop/fullstack-bazel:/workspace \
+  -v ~/Desktop/fullstack-bazel-306720:/workspace \
   $TAG
-
-# docker run -v ~/Desktop/fullstack-bazel:/workspace  eu.gcr.io/fullstack-bazel/cloudbuild test --test_output=all //...

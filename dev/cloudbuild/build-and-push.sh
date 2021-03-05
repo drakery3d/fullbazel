@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-TAG=eu.gcr.io/fullstack-bazel/cloudbuild
+TAG=gcr.io/fullstack-bazel-306720/cloudbuild
 
 cd ../../ && \
 docker build -t $TAG -f dev/cloudbuild/Dockerfile . && \
