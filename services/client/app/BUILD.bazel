@@ -30,7 +30,6 @@ ng_ts_library(
     tsconfig = "//services/client:tsconfig.json",
     deps = [
         "//services/client/environment",
-        "//services/client/features/about",
         "//services/client/features/home",
         "//services/client/features/realtime",
         "@npm//@angular/common",

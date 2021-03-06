@@ -20,6 +20,7 @@ ng_ts_library(
     tsconfig = "//services/client:tsconfig",
     deps = [
         "//libs/enums",
+        "//libs/ui-elements",
         "@npm//@angular/common",
         "@npm//@angular/core",
         "@npm//@angular/router",

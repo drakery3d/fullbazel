@@ -10,5 +10,3 @@ steps:
   - name: node
     entrypoint: yarn
     args: ['run', 'check-deps']
-
-timeout: 3600s

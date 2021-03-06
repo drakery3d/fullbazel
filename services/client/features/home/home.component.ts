@@ -22,6 +22,7 @@ import {Tags} from '@libs/enums'
       <div class="tags">
         <span *ngFor="let tag of tags">{{ tag }}</span>
       </div>
+      <a routerLink="/realtime"><app-button>Realtime</app-button></a>
     </div>
   `,
   styleUrls: ['home.component.sass'],

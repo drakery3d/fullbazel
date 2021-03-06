@@ -18,7 +18,7 @@
     "upsert-secrets": "shx cp -n libs/config/secrets/example.secrets.json libs/config/secrets/dev.secrets.json && shx cp -n libs/config/secrets/example.secrets.json libs/config/secrets/prod.secrets.json",
     "up": "yarn upgrade-interactive",
     "up-bazel": "yarn add -D @bazel/concatjs @bazel/rollup @bazel/terser @bazel/typescript",
-    "check-deps": "depcheck --ignores=\"core-js,engine.io-parser,systemjs,tslib,@babel/*,@bazel/*,@types/jasmine,history-server,html-insert-assets,jasmine,karma,karma-*,requirejs,terser,ts-node-dev,tsconfig-paths\" --skip-missing=true",
+    "check-deps": "depcheck --ignores=\"core-js,systemjs,tslib,@babel/*,@bazel/*,@types/jasmine,history-server,html-insert-assets,jasmine,karma,karma-*,requirejs,terser,ts-node-dev,tsconfig-paths\" --skip-missing=true",
     "patch": "patch-package --patch-dir dev/patches",
     "postinstall": "yarn run patch && yarn run upsert-secrets && ngcc"
   },
@@ -37,7 +37,6 @@
     "@ngrx/store": "9.1.2",
     "@nguniversal/express-engine": "^11.0.1",
     "core-js": "2.6.9",
-    "engine.io-parser": "^4.0.2",
     "express": "^4.17.1",
     "faker": "^5.1.0",
     "rxjs": "^6.6.3",
