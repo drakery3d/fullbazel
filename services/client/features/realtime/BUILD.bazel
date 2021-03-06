@@ -17,6 +17,7 @@ ng_ts_library(
         "//libs/enums",
         "//libs/schema",
         "//libs/ui-elements",
+        "//libs/websocket-store",
         "//services/client/environment",
         "@npm//@angular/common",
         "@npm//@angular/core",

@@ -1,0 +1,26 @@
+load("@npm//@bazel/typescript:index.bzl", "ts_config")
+load("//tools:angular_ts_library.bzl", "ng_ts_library")
+
+package(default_visibility = [
+    "//services/client:__subpackages__",
+])
+
+ts_config(
+    name = "tsconfig",
+    src = "tsconfig.json",
+    deps = ["//:tsconfig"],
+)
+
+ng_ts_library(
+    name = "websocket-store",
+    srcs = glob(["**/*.ts"]),
+    module_name = "@libs/websocket-store",
+    tsconfig = "tsconfig",
+    deps = [
+        "//libs/schema",
+        "@npm//@angular/core",
+        "@npm//@ngrx/effects",
+        "@npm//@ngrx/store",
+        "@npm//rxjs",
+    ],
+)

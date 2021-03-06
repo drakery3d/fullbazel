@@ -65,7 +65,6 @@ Read [docs/gke-deployment.md](docs/gke-deployment.md)
 
 **TODO's**
 
-- Run tests in Google Cloud Build
 - Fullstack integration tests
 - Backend unit tests
 - Documentation + Code comments

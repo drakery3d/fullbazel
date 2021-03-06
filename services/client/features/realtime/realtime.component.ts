@@ -1,5 +1,7 @@
-import {Component} from '@angular/core'
+import {Component, OnDestroy} from '@angular/core'
 import {Store} from '@ngrx/store'
+
+import {WebSocketActions} from '@libs/websocket-store'
 
 import {QuoteActions} from './quote.actions'
 import {QuoteSeletors} from './quote.selectors'
@@ -15,22 +17,30 @@ import {QuoteSeletors} from './quote.selectors'
       </p>
       <span class="line"></span>
       <app-button (click)="removeAll()">Remove All</app-button>
-      <div
-        *ngFor="let q of (quotes$ | async).slice().reverse()"
-        class="quote"
-        (click)="remove(q.id)"
-      >
-        <p class="content">{{ q.content }}</p>
-        <p class="author">{{ q.author }}</p>
-      </div>
+      <ng-container *ngIf="(quotes$ | async)?.length">
+        <div
+          *ngFor="let q of (quotes$ | async)!.slice().reverse()"
+          class="quote"
+          (click)="remove(q.id)"
+        >
+          <p class="content">{{ q.content }}</p>
+          <p class="author">{{ q.author }}</p>
+        </div>
+      </ng-container>
     </div>
   `,
   styleUrls: ['realtime.component.sass'],
 })
-export class RealtimeComponent {
+export class RealtimeComponent implements OnDestroy {
   quotes$ = this.store.select(QuoteSeletors.quotes)
 
-  constructor(private store: Store) {}
+  constructor(private store: Store) {
+    this.store.dispatch(WebSocketActions.connect())
+  }
+
+  ngOnDestroy() {
+    this.store.dispatch(WebSocketActions.disconnect())
+  }
 
   remove(id: string) {
     this.store.dispatch(QuoteActions.removeOne({id}))

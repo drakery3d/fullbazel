@@ -1,12 +1,12 @@
 import * as faker from 'faker'
 import * as http from 'http'
-import {interval} from 'rxjs'
+import {timer} from 'rxjs'
 import {takeWhile, tap} from 'rxjs/operators'
 import {v4 as uuidv4} from 'uuid'
 import * as WebSocket from 'ws'
 
 import {Config} from '@libs/config'
-import {Quote} from '@libs/schema'
+import {Quote, SocketMessage} from '@libs/schema'
 
 const config = new Config()
 const client = config.get('client')
@@ -24,25 +24,21 @@ server.on('connection', (socket: WebSocket) => {
     isConnected = false
   })
 
-  socket.emit('quotes', makeQuote())
-
-  interval(2000)
+  timer(0, 3000)
     .pipe(
       takeWhile(() => isConnected),
       tap(() => {
-        socket.send(JSON.stringify(makeQuote()))
+        const quote: Quote = {
+          content: faker.lorem.sentence(),
+          author: faker.name.firstName(),
+          id: uuidv4(),
+        }
+        const message: SocketMessage = {name: 'quote', payload: quote}
+        socket.send(JSON.stringify(message))
       }),
     )
     .subscribe()
 })
 
-const makeQuote = (): Quote => ({
-  content: faker.lorem.sentence(),
-  author: faker.name.firstName(),
-  id: uuidv4(),
-})
-
 // For k8s health checks
-http
-  .createServer((_req, res) => res.writeHead(200).end('Anagular Bazel Starter Server'))
-  .listen(8080)
+http.createServer((_req, res) => res.writeHead(200).end()).listen(8080)
