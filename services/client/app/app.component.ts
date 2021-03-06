@@ -1,8 +1,9 @@
 import {isPlatformBrowser} from '@angular/common'
 import {Component, Inject, PLATFORM_ID} from '@angular/core'
+import {ActivatedRoute} from '@angular/router'
 import {UpdateAvailableEvent} from '@angular/service-worker'
 import {fromEvent, merge, Observable, of} from 'rxjs'
-import {mapTo} from 'rxjs/operators'
+import {first, map, mapTo, skipWhile} from 'rxjs/operators'
 
 import {PushNotificationService} from './push-notification.service'
 import {ServiceWorkerService} from './service-worker.service'
@@ -41,17 +42,31 @@ export class AppComponent {
   constructor(
     private serviceWorkerService: ServiceWorkerService,
     private notificationService: PushNotificationService,
+    private route: ActivatedRoute,
     @Inject(PLATFORM_ID) private platform: string,
   ) {
     if (isPlatformBrowser(this.platform)) {
       this.notificationService.initialize()
       this.handleConnectivity()
       this.handleSwUpdates()
+      this.handleSignIn()
     }
   }
 
   onUpdateServiceWorker() {
     this.serviceWorkerService.forceUpdateNow()
+  }
+
+  private handleSignIn() {
+    this.route.queryParams
+      .pipe(
+        skipWhile(value => !value.code),
+        map(value => value.code),
+        first(),
+      )
+      .subscribe(code => {
+        console.log({code})
+      })
   }
 
   private handleSwUpdates() {
