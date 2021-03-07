@@ -1,7 +1,5 @@
 import {Component} from '@angular/core'
 
-import {Tags} from '@libs/enums'
-
 @Component({
   selector: 'app-home',
   template: `
@@ -62,6 +60,20 @@ export class HomeComponent {
   signInUrl =
     'https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?access_type=offline&client_id=98599563044-jj7e91t651ugd1cjs9ftrp5m5hc6mso7.apps.googleusercontent.com&prompt=consent&redirect_uri=http%3A%2F%2Flocalhost%3A4200&response_type=code&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&flowName=GeneralOAuthFlow'
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  tags = Object.keys(Tags).map(key => (Tags as any)[key])
+  tags = [
+    'nodejs',
+    'mysql',
+    'docker',
+    'kubernetes',
+    'angular',
+    'typescript',
+    'kafka',
+    'progressive-web-app',
+    'websockets',
+    'google-cloud',
+    'bazel',
+    'monorepo',
+    'server-side-rendering',
+    'docker-comopse',
+  ]
 }
