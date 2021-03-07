@@ -1,6 +1,6 @@
 import {createAction, props} from '@ngrx/store'
 
-const connect = createAction('websocket.connect')
+const connect = createAction('websocket.connect', props<{url: string}>())
 const opened = createAction('websocket.connected')
 const closed = createAction('websocket.closed', props<{reason: string}>())
 const error = createAction('websocket.error')

@@ -11,10 +11,10 @@
     "api": {
       "type": "string"
     },
-    "websocket": {
+    "client": {
       "type": "string"
     },
-    "client": {
+    "websocket": {
       "type": "string"
     },
     "vapidPublicKey": {
@@ -35,6 +35,14 @@
       "additionalProperties": false
     }
   },
-  "required": ["environment", "api", "client", "vapidPublicKey", "googleClientId", "mysqlDatabase"],
+  "required": [
+    "environment",
+    "api",
+    "client",
+    "websocket",
+    "vapidPublicKey",
+    "googleClientId",
+    "mysqlDatabase"
+  ],
   "additionalProperties": false
 }

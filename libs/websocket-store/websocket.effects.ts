@@ -10,8 +10,6 @@ import {WebSocketActions} from './websocket.actions'
 
 @Injectable()
 export class WebSocketEffects {
-  // TODO don't hardcode url
-  private url = 'ws://localhost:3000'
   private websocket!: WebSocket
 
   constructor(private actions$: Actions) {}
@@ -19,9 +17,9 @@ export class WebSocketEffects {
   connect$ = createEffect(() =>
     this.actions$.pipe(
       ofType(WebSocketActions.connect),
-      switchMap(() => {
+      switchMap(({url}) => {
         return new Observable<Action>(observer => {
-          this.websocket = new WebSocket(this.url)
+          this.websocket = new WebSocket(url)
 
           this.websocket.onopen = () => observer.next(WebSocketActions.opened())
           this.websocket.onclose = event =>

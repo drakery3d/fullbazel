@@ -3,6 +3,8 @@ import {APP_INITIALIZER, NgModule} from '@angular/core'
 import {BrowserModule} from '@angular/platform-browser'
 import {Store} from '@ngrx/store'
 
+import {ENVIRONMENT} from '@client/environment'
+
 import {initApplication} from './app-initializer'
 import {AppRoutingModule} from './app-routing.module'
 import {AppComponent} from './app.component'
@@ -26,7 +28,7 @@ import {ServiceWorkerService} from './service-worker.service'
       provide: APP_INITIALIZER,
       useFactory: initApplication,
       multi: true,
-      deps: [AuthService, Store],
+      deps: [AuthService, Store, ENVIRONMENT],
     },
   ],
 })
