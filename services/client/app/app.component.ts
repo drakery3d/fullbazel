@@ -2,10 +2,12 @@ import {isPlatformBrowser} from '@angular/common'
 import {Component, Inject, PLATFORM_ID} from '@angular/core'
 import {ActivatedRoute, Router} from '@angular/router'
 import {UpdateAvailableEvent} from '@angular/service-worker'
+import {Store} from '@ngrx/store'
 import {fromEvent, merge, Observable, of} from 'rxjs'
-import {catchError, first, map, mapTo, skipWhile, take} from 'rxjs/operators'
+import {first, map, mapTo, skipWhile} from 'rxjs/operators'
 
-import {AuthService} from './auth.service'
+import {AuthActions} from '@client/store'
+
 import {PushNotificationService} from './push-notification.service'
 import {ServiceWorkerService} from './service-worker.service'
 
@@ -44,8 +46,8 @@ export class AppComponent {
     private serviceWorkerService: ServiceWorkerService,
     private notificationService: PushNotificationService,
     private route: ActivatedRoute,
+    private store: Store,
     private router: Router,
-    private authService: AuthService,
     @Inject(PLATFORM_ID) private platform: string,
   ) {
     if (isPlatformBrowser(this.platform)) {
@@ -68,21 +70,8 @@ export class AppComponent {
         first(),
       )
       .subscribe(code => {
-        // TODO implement this with ngrx
-        this.authService
-          .signIn(code)
-          .pipe(
-            take(1),
-            catchError(err => {
-              console.log({err})
-              return of(err)
-            }),
-          )
-          .subscribe(response => {
-            console.log(response)
-            // NOW connect to websocket
-            this.router.navigate([])
-          })
+        this.store.dispatch(AuthActions.signIn({code}))
+        this.router.navigate([], {relativeTo: this.route, queryParams: {code: undefined}})
       })
   }
 

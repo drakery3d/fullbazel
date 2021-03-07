@@ -8,11 +8,15 @@ ng_ts_library(
     module_name = "@client/store",
     tsconfig = "//services/client:tsconfig.json",
     deps = [
+        "//libs/schema",
         "//libs/websocket-store",
+        "//services/client/environment",
         "//services/client/store/router",
+        "@npm//@angular/common",
         "@npm//@angular/core",
         "@npm//@ngrx/effects",
         "@npm//@ngrx/router-store",
         "@npm//@ngrx/store",
+        "@npm//rxjs",
     ],
 )

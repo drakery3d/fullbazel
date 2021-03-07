@@ -10,6 +10,7 @@ const isConnecting = createSelector(connection, s => s.connecting)
 const connectionError = createSelector(connection, s => s.error)
 
 export const WebSocketSelectors = {
+  connection,
   isConnected,
   isConnecting,
   connectionError,

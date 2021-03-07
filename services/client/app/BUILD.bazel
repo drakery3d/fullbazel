@@ -18,9 +18,7 @@ ng_ts_library(
     srcs = [
         "app.component.ts",
         "app-base.module.ts",
-        "app-initializer.ts",
         "app-routing.module.ts",
-        "auth.service.ts",
         "navigation.component.ts",
         "push-notification.service.ts",
         "service-worker.service.ts",
@@ -36,6 +34,7 @@ ng_ts_library(
         "//services/client/environment",
         "//services/client/features/home",
         "//services/client/features/realtime",
+        "//services/client/store",
         "@npm//@angular/common",
         "@npm//@angular/core",
         "@npm//@angular/platform-browser",

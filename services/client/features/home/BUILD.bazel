@@ -20,9 +20,11 @@ ng_ts_library(
     tsconfig = "//services/client:tsconfig",
     deps = [
         "//libs/ui-elements",
+        "//services/client/store",
         "@npm//@angular/common",
         "@npm//@angular/core",
         "@npm//@angular/router",
+        "@npm//@ngrx/store",
     ],
 )
 
