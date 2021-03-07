@@ -1,3 +1,4 @@
+// TODO update tags and convert to array and move to client
 export enum Tags {
   Angular = 'angular',
   Bazel = 'bazel',

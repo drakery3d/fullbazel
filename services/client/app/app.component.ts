@@ -4,7 +4,7 @@ import {Component, Inject, PLATFORM_ID} from '@angular/core'
 import {ActivatedRoute, Router} from '@angular/router'
 import {UpdateAvailableEvent} from '@angular/service-worker'
 import {fromEvent, merge, Observable, of} from 'rxjs'
-import {first, map, mapTo, skipWhile, take} from 'rxjs/operators'
+import {catchError, first, map, mapTo, skipWhile, take} from 'rxjs/operators'
 
 import {ClientEnvironment, ENVIRONMENT} from '@client/environment'
 
@@ -73,8 +73,14 @@ export class AppComponent {
       .subscribe(code => {
         // TODO implement this with ngrx
         this.http
-          .post(`${this.environment.api}/signin`, {code})
-          .pipe(take(1))
+          .post(`${this.environment.api}/signin`, {code}, {withCredentials: true})
+          .pipe(
+            take(1),
+            catchError(err => {
+              console.log({err})
+              return of(err)
+            }),
+          )
           .subscribe(response => {
             console.log(response)
             this.router.navigate([])

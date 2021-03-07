@@ -68,9 +68,9 @@ import {ServiceWorkerService} from './service-worker.service'
         </li>
 
         <li class="secondary">
-          <div
+          <a
             class="link"
-            href="https://github.com/flolu/fullstack-bazel"
+            href="https://github.com/drakery3d/fullstack-bazel"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -81,7 +81,7 @@ import {ServiceWorkerService} from './service-worker.service'
               />
             </svg>
             <span>Source Code</span>
-          </div>
+          </a>
         </li>
       </ul>
     </nav>

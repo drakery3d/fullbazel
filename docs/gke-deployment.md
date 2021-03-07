@@ -1,3 +1,5 @@
+# TODO update deployment documentation
+
 # Deploy to Google Cloud
 
 **Create [GKE][1] cluster and connect to it**

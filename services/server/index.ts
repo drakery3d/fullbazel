@@ -13,7 +13,9 @@ import {v4 as uuidv4} from 'uuid'
 import * as WebSocket from 'ws'
 
 import {Config} from '@libs/config'
+import {CookieNames, Environment, TokenExpiration} from '@libs/enums'
 import {Quote, SocketMessage, User} from '@libs/schema'
+import {AccessToken, RefreshToken} from '@libs/types'
 
 import {GoogleAdapter} from './google.adapter'
 import {UserRepository} from './user.repository'
@@ -29,6 +31,18 @@ const wss = new WebSocket.Server({server})
 const googleAdapter = container.get(GoogleAdapter)
 const config = container.get(Config)
 const userRepo = container.get(UserRepository)
+const isProd = config.get('environment') === Environment.Production
+
+const accessTokenSecret = config.get('secrets_tokens_access')
+const refreshTokenSecret = config.get('secrets_tokens_refresh')
+
+const refreshTokenCookieOptions: express.CookieOptions = {
+  httpOnly: true,
+  maxAge: TokenExpiration.Refresh * 1000,
+  sameSite: isProd ? 'strict' : 'lax',
+  secure: isProd ? true : false,
+  path: '/',
+}
 
 wss.on('connection', (socket: WebSocket) => {
   let isConnected = true
@@ -73,17 +87,62 @@ app.use(bodyParser.json())
 app.use(cookieParser())
 
 app.post('/signin', async (req, res) => {
-  const {code} = req.body
-  const accessToken = await googleAdapter.getAccessToken(code)
-  const {id, email, name, picture} = await googleAdapter.getUserInfo(accessToken)
+  try {
+    if (req.body.code) {
+      const googleToken = await googleAdapter.getAccessToken(req.body.code)
+      const {id, email, name, picture} = await googleAdapter.getUserInfo(googleToken)
 
-  let user: User | undefined
-  user = await userRepo.getById(id)
-  if (!user) user = await userRepo.create(id, email, name, picture)
+      let user: User | undefined
+      user = await userRepo.getById(id)
+      if (!user) user = await userRepo.create(id, email, name, picture)
 
-  console.log({user})
-  // TODO set refresh token cookie
-  res.json(user)
+      const refreshToken = new RefreshToken(user.id, user.tokenRefreshCount)
+      const accessToken = new AccessToken(user.id)
+
+      res.cookie(
+        CookieNames.RefreshToken,
+        refreshToken.sign(refreshTokenSecret),
+        refreshTokenCookieOptions,
+      )
+      res.json({user, accessToken: accessToken.sign(accessTokenSecret)})
+      return
+    }
+
+    let currentRefreshToken: RefreshToken | undefined
+    if (req.cookies[CookieNames.RefreshToken]) {
+      try {
+        currentRefreshToken = RefreshToken.fromString(
+          req.cookies[CookieNames.RefreshToken],
+          refreshTokenSecret,
+        )
+      } catch (err) {}
+    }
+
+    if (currentRefreshToken) {
+      const user = await userRepo.getById(currentRefreshToken.userId)
+      if (user) {
+        if (user.tokenRefreshCount !== currentRefreshToken.count) {
+          res.status(400).send('Token has been invalidated')
+          return
+        }
+        const refreshToken = new RefreshToken(user.id, user.tokenRefreshCount)
+        const accessToken = new AccessToken(user.id)
+
+        res.cookie(
+          CookieNames.RefreshToken,
+          refreshToken.sign(refreshTokenSecret),
+          refreshTokenCookieOptions,
+        )
+        res.json({user, accessToken: accessToken.sign(accessTokenSecret)})
+        return
+      }
+    }
+
+    res.status(400).send('Not authenticated')
+  } catch (err) {
+    res.cookie(CookieNames.RefreshToken, '')
+    res.status(500).send('Something went wrong')
+  }
 })
 
 server.listen(3000, () => console.log('server started on port 3000'))

@@ -1,7 +1,8 @@
 export interface User {
-  id: number
+  id: string
   email: string
   name: string
   picture: string
+  tokenRefreshCount: number
   createdAt: string
 }

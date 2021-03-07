@@ -16,6 +16,7 @@ ts_library(
     tsconfig = "tsconfig",
     deps = [
         "//libs/config:config_lib",
+        "//libs/enums",
         "//libs/schema",
         "//libs/types",
         "@npm//@types/async-retry",

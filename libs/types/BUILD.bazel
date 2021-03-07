@@ -17,6 +17,11 @@ ts_library(
     ),
     module_name = "@libs/types",
     tsconfig = "tsconfig",
+    deps = [
+        "//libs/enums",
+        "@npm//@types/jsonwebtoken",
+        "@npm//jsonwebtoken",
+    ],
 )
 
 ts_library(
@@ -25,7 +30,9 @@ ts_library(
     deps = [
         "types",
         "@npm//@types/jasmine",
+        "@npm//@types/jsonwebtoken",
         "@npm//jasmine",
+        "@npm//jsonwebtoken",
     ],
 )
 

@@ -12,6 +12,7 @@ enum Column {
   Name = 'name',
   Picture = 'picture',
   CreatedAt = 'created_at',
+  TokenRefreshCount = 'token_refresh_count',
 }
 
 // TODO integration test for user repository with testcontainers
@@ -50,6 +51,7 @@ export class UserRepository {
         ${Column.Name} VARCHAR(255) NOT NULL,
         ${Column.Picture} VARCHAR(255) NOT NULL,
         ${Column.CreatedAt} BIGINT NOT NULL,
+        ${Column.TokenRefreshCount} INT NOT NULL,
         PRIMARY KEY (${Column.Id}),
         INDEX (${Column.Email})
       ) ENGINE=InnoDB;
@@ -64,12 +66,12 @@ export class UserRepository {
   async create(id: string, email: string, name: string, picture: string) {
     const query = `
       INSERT INTO \`${this.tableName}\`
-        (${Column.Id}, ${Column.Email}, ${Column.Name}, ${Column.Picture}, ${Column.CreatedAt})
+        (${Column.Id}, ${Column.Email}, ${Column.Name}, ${Column.Picture}, ${Column.CreatedAt}, ${Column.TokenRefreshCount})
       VALUES
-        (?, ?, ?, ?, ?);
+        (?, ?, ?, ?, ?, ?);
     `
     const connection = await this.getConnection()
-    await connection.query(query, [id, email, name, picture, Timestamp.now().toNumber()])
+    await connection.query(query, [id, email, name, picture, Timestamp.now().toNumber(), 0])
     return this.getByIdOrFail(id)
   }
 
@@ -108,6 +110,7 @@ export class UserRepository {
       name: row[Column.Name],
       picture: row[Column.Picture],
       createdAt: row[Column.CreatedAt],
+      tokenRefreshCount: row[Column.TokenRefreshCount],
     }
   }
 

@@ -5,7 +5,7 @@
   <br>
   <h1>Fullstack Bazel</h1>
   <p>
-    Fullstack starter Monorepo for <strong>building</strong> modern web apps with built with <a href="https://bazel.build">Bazel</a>
+    Fullstack example monorepo for building web apps with <a href="https://bazel.build">Bazel</a>
   </p>
 </div>
 
