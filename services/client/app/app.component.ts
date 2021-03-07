@@ -1,7 +1,7 @@
 import {isPlatformBrowser} from '@angular/common'
 import {HttpClient} from '@angular/common/http'
 import {Component, Inject, PLATFORM_ID} from '@angular/core'
-import {ActivatedRoute} from '@angular/router'
+import {ActivatedRoute, Router} from '@angular/router'
 import {UpdateAvailableEvent} from '@angular/service-worker'
 import {fromEvent, merge, Observable, of} from 'rxjs'
 import {first, map, mapTo, skipWhile, take} from 'rxjs/operators'
@@ -47,6 +47,7 @@ export class AppComponent {
     private notificationService: PushNotificationService,
     private route: ActivatedRoute,
     private http: HttpClient,
+    private router: Router,
     @Inject(ENVIRONMENT) private environment: ClientEnvironment,
     @Inject(PLATFORM_ID) private platform: string,
   ) {
@@ -76,6 +77,7 @@ export class AppComponent {
           .pipe(take(1))
           .subscribe(response => {
             console.log(response)
+            this.router.navigate([])
           })
       })
   }

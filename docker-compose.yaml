@@ -1,8 +1,17 @@
 version: '3'
 services:
+  mysql:
+    image: mysql:8
+    container_name: fullbazel_mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: db
+
   server:
     image: node:lts
-    container_name: fullstack-bazel_server
+    container_name: fullbazel_server
     volumes:
       - ./package.json:/package.json
       - ./tsconfig.json:/tsconfig.json
@@ -14,3 +23,5 @@ services:
       - '3000:3000'
     env_file: bazel-bin/libs/config/docker-compose.env
     command: yarn run ts-node-dev -r tsconfig-paths/register --project services/server/tsconfig.json services/server dev
+    depends_on:
+      - mysql

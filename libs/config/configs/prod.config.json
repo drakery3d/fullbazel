@@ -5,5 +5,11 @@
   "websocket": "wss://api.fullstack-bazel.drakery.com",
   "client": "https://fullstackk-bazel.drakery.com",
   "vapidPublicKey": "BKrGmhd1_CQ2TRZYAj9RRWZBT9S1fFUVPnPgFurEoIvq9j0pATf6gNK-1CkaOsWHYhd5C3HIAOv4AUI8H29SAFs",
-  "googleClientId": "98599563044-jj7e91t651ugd1cjs9ftrp5m5hc6mso7.apps.googleusercontent.com"
+  "googleClientId": "98599563044-jj7e91t651ugd1cjs9ftrp5m5hc6mso7.apps.googleusercontent.com",
+  "mysqlDatabase": {
+    "host": "fullbazel_mysql",
+    "port": 3306,
+    "user": "root",
+    "database": "db"
+  }
 }

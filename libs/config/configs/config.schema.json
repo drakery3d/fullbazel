@@ -22,8 +22,19 @@
     },
     "googleClientId": {
       "type": "string"
+    },
+    "mysqlDatabase": {
+      "type": "object",
+      "properties": {
+        "host": {"type": "string"},
+        "port": {"type": "number"},
+        "user": {"type": "string"},
+        "database": {"type": "string"}
+      },
+      "required": ["host", "port", "user", "database"],
+      "additionalProperties": false
     }
   },
-  "required": ["environment", "api", "client", "vapidPublicKey", "googleClientId"],
+  "required": ["environment", "api", "client", "vapidPublicKey", "googleClientId", "mysqlDatabase"],
   "additionalProperties": false
 }
