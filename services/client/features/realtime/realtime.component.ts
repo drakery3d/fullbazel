@@ -34,9 +34,7 @@ import {QuoteSeletors} from './quote.selectors'
 export class RealtimeComponent implements OnDestroy {
   quotes$ = this.store.select(QuoteSeletors.quotes)
 
-  constructor(private store: Store) {
-    this.store.dispatch(WebSocketActions.connect())
-  }
+  constructor(private store: Store) {}
 
   ngOnDestroy() {
     this.store.dispatch(WebSocketActions.disconnect())

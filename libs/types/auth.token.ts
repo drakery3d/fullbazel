@@ -2,19 +2,19 @@ import {TokenExpiration} from '@libs/enums'
 
 import {Token} from './token'
 
-interface RefreshTokenPayload {
+interface AuthTokenPayload {
   userId: string
   count: number
 }
 
-export class RefreshToken extends Token<RefreshTokenPayload> {
+export class AuthToken extends Token<AuthTokenPayload> {
   constructor(public readonly userId: string, public readonly count: number) {
-    super(TokenExpiration.Refresh)
+    super(TokenExpiration.Auth)
   }
 
   static fromString(token: string, secret: string) {
-    const decoded = Token.decode<RefreshTokenPayload>(token, secret)
-    return new RefreshToken(decoded.userId, decoded.count)
+    const decoded = Token.decode<AuthTokenPayload>(token, secret)
+    return new AuthToken(decoded.userId, decoded.count)
   }
 
   protected get serializedPayload() {

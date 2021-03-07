@@ -10,6 +10,7 @@ import {WebSocketActions} from './websocket.actions'
 
 @Injectable()
 export class WebSocketEffects {
+  // TODO don't hardcode url
   private url = 'ws://localhost:3000'
   private websocket!: WebSocket
 

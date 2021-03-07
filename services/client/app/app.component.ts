@@ -1,13 +1,11 @@
 import {isPlatformBrowser} from '@angular/common'
-import {HttpClient} from '@angular/common/http'
 import {Component, Inject, PLATFORM_ID} from '@angular/core'
 import {ActivatedRoute, Router} from '@angular/router'
 import {UpdateAvailableEvent} from '@angular/service-worker'
 import {fromEvent, merge, Observable, of} from 'rxjs'
 import {catchError, first, map, mapTo, skipWhile, take} from 'rxjs/operators'
 
-import {ClientEnvironment, ENVIRONMENT} from '@client/environment'
-
+import {AuthService} from './auth.service'
 import {PushNotificationService} from './push-notification.service'
 import {ServiceWorkerService} from './service-worker.service'
 
@@ -46,9 +44,8 @@ export class AppComponent {
     private serviceWorkerService: ServiceWorkerService,
     private notificationService: PushNotificationService,
     private route: ActivatedRoute,
-    private http: HttpClient,
     private router: Router,
-    @Inject(ENVIRONMENT) private environment: ClientEnvironment,
+    private authService: AuthService,
     @Inject(PLATFORM_ID) private platform: string,
   ) {
     if (isPlatformBrowser(this.platform)) {
@@ -72,8 +69,8 @@ export class AppComponent {
       )
       .subscribe(code => {
         // TODO implement this with ngrx
-        this.http
-          .post(`${this.environment.api}/signin`, {code}, {withCredentials: true})
+        this.authService
+          .signIn(code)
           .pipe(
             take(1),
             catchError(err => {
@@ -83,6 +80,7 @@ export class AppComponent {
           )
           .subscribe(response => {
             console.log(response)
+            // NOW connect to websocket
             this.router.navigate([])
           })
       })

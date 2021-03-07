@@ -18,7 +18,9 @@ ng_ts_library(
     srcs = [
         "app.component.ts",
         "app-base.module.ts",
+        "app-initializer.ts",
         "app-routing.module.ts",
+        "auth.service.ts",
         "navigation.component.ts",
         "push-notification.service.ts",
         "service-worker.service.ts",
@@ -29,6 +31,8 @@ ng_ts_library(
     ],
     tsconfig = "//services/client:tsconfig.json",
     deps = [
+        "//libs/schema",
+        "//libs/websocket-store",
         "//services/client/environment",
         "//services/client/features/home",
         "//services/client/features/realtime",
@@ -37,6 +41,7 @@ ng_ts_library(
         "@npm//@angular/platform-browser",
         "@npm//@angular/router",
         "@npm//@angular/service-worker",
+        "@npm//@ngrx/store",
         "@npm//rxjs",
     ],
 )

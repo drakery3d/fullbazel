@@ -1,3 +1,3 @@
 export enum CookieNames {
-  RefreshToken = 'refresh',
+  AuthToken = 'auth',
 }
