@@ -1,3 +1,4 @@
+import {HttpClientModule} from '@angular/common/http'
 import {NgModule} from '@angular/core'
 import {BrowserModule} from '@angular/platform-browser'
 
@@ -8,7 +9,11 @@ import {PushNotificationService} from './push-notification.service'
 import {ServiceWorkerService} from './service-worker.service'
 
 @NgModule({
-  imports: [BrowserModule.withServerTransition({appId: 'fullstack-bazel'}), AppRoutingModule],
+  imports: [
+    HttpClientModule,
+    BrowserModule.withServerTransition({appId: 'fullstack-bazel'}),
+    AppRoutingModule,
+  ],
   declarations: [AppComponent, NavigationComopnent],
   providers: [ServiceWorkerService, PushNotificationService],
 })

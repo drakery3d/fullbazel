@@ -278,5 +278,6 @@ ts_library(
     deps = [
         "flat_config_keys",
         "@npm//@types/node",
+        "@npm//inversify",
     ],
 )

@@ -13,4 +13,4 @@ services:
     ports:
       - '3000:3000'
     env_file: bazel-bin/libs/config/docker-compose.env
-    command: yarn run ts-node-dev -r tsconfig-paths/register services/server dev
+    command: yarn run ts-node-dev -r tsconfig-paths/register --project services/server/tsconfig.json services/server dev

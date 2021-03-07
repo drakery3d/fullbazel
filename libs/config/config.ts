@@ -1,9 +1,7 @@
 import {FlatConfigKeys} from '@generated/config/flat-config-keys'
+import {injectable} from 'inversify'
 
-/**
- * Only use this class in backend services
- * It depends on environment variables!
- */
+@injectable()
 export class Config {
   constructor(private config: Record<FlatConfigKeys | string, string> = {}) {}
 

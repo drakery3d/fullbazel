@@ -19,8 +19,11 @@
     },
     "vapidPublicKey": {
       "type": "string"
+    },
+    "googleClientId": {
+      "type": "string"
     }
   },
-  "required": ["environment", "api", "client", "vapidPublicKey"],
+  "required": ["environment", "api", "client", "vapidPublicKey", "googleClientId"],
   "additionalProperties": false
 }

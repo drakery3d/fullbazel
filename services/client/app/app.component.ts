@@ -1,9 +1,12 @@
 import {isPlatformBrowser} from '@angular/common'
+import {HttpClient} from '@angular/common/http'
 import {Component, Inject, PLATFORM_ID} from '@angular/core'
 import {ActivatedRoute} from '@angular/router'
 import {UpdateAvailableEvent} from '@angular/service-worker'
 import {fromEvent, merge, Observable, of} from 'rxjs'
-import {first, map, mapTo, skipWhile} from 'rxjs/operators'
+import {first, map, mapTo, skipWhile, take} from 'rxjs/operators'
+
+import {ClientEnvironment, ENVIRONMENT} from '@client/environment'
 
 import {PushNotificationService} from './push-notification.service'
 import {ServiceWorkerService} from './service-worker.service'
@@ -43,6 +46,8 @@ export class AppComponent {
     private serviceWorkerService: ServiceWorkerService,
     private notificationService: PushNotificationService,
     private route: ActivatedRoute,
+    private http: HttpClient,
+    @Inject(ENVIRONMENT) private environment: ClientEnvironment,
     @Inject(PLATFORM_ID) private platform: string,
   ) {
     if (isPlatformBrowser(this.platform)) {
@@ -65,7 +70,13 @@ export class AppComponent {
         first(),
       )
       .subscribe(code => {
-        console.log({code})
+        // TODO implement this with ngrx
+        this.http
+          .post(`${this.environment.api}/signin`, {code})
+          .pipe(take(1))
+          .subscribe(response => {
+            console.log(response)
+          })
       })
   }
 
