@@ -7,4 +7,16 @@ const tryToAuthenticate = createAction('auth.tryToAuthenticate')
 const authenticated = createAction('auth.authenticated', props<{user: User}>())
 const failedToAuthenticate = createAction('auth.failedToAuthenticate')
 
-export const AuthActions = {signIn, tryToAuthenticate, authenticated, failedToAuthenticate}
+const signOut = createAction('auth.signOut')
+const signedOut = createAction('auth.signedOut')
+const failedToSignOut = createAction('auth.failedToSignOut')
+
+export const AuthActions = {
+  signIn,
+  tryToAuthenticate,
+  authenticated,
+  failedToAuthenticate,
+  signOut,
+  signedOut,
+  failedToSignOut,
+}

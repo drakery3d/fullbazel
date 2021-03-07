@@ -1,7 +1,7 @@
 import {Component} from '@angular/core'
 import {Store} from '@ngrx/store'
 
-import {AuthSelectors} from '@client/store'
+import {AuthActions, AuthSelectors} from '@client/store'
 
 @Component({
   selector: 'app-home',
@@ -56,7 +56,11 @@ import {AuthSelectors} from '@client/store'
         </button>
       </a>
 
-      <p *ngIf="user$ | async as user">Hi {{ user.name }}</p>
+      <ng-container *ngIf="user$ | async as user">
+        <p>Hi {{ user.name }}</p>
+        <img [attr.src]="user.picture" />
+        <app-button (click)="signOut()">Sign out</app-button>
+      </ng-container>
     </div>
   `,
   styleUrls: ['home.component.sass'],
@@ -84,4 +88,8 @@ export class HomeComponent {
   user$ = this.store.select(AuthSelectors.user)
 
   constructor(private store: Store) {}
+
+  signOut() {
+    this.store.dispatch(AuthActions.signOut())
+  }
 }

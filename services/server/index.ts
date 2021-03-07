@@ -29,7 +29,6 @@ container.bind(UserRepository).toSelf().inSingletonScope()
 
 const app = express()
 const server = http.createServer(app)
-// const wss = new WebSocket.Server({server})
 const wss = new WebSocket.Server({noServer: true})
 const googleAdapter = container.get(GoogleAdapter)
 const config = container.get(Config)
@@ -155,6 +154,11 @@ app.post('/signin', async (req, res) => {
     res.cookie(CookieNames.AuthToken, '')
     res.status(500).send('Something went wrong')
   }
+})
+
+app.post('/signout', (req, res) => {
+  res.cookie(CookieNames.AuthToken, '')
+  res.send()
 })
 
 server.listen(3000, () => console.log('server started on port 3000'))

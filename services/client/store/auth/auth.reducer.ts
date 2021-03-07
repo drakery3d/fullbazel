@@ -13,4 +13,5 @@ export const authReducer = createReducer<AuthReducer>(
   {user: undefined, isInitialized: false},
   on(Actions.authenticated, (state, {user}) => ({...state, user, isInitialized: true})),
   on(Actions.failedToAuthenticate, state => ({...state, user: undefined, isInitialized: true})),
+  on(Actions.signedOut, state => ({...state, user: undefined, isInitialized: true})),
 )

@@ -54,4 +54,16 @@ export class AuthEffects {
       }),
     ),
   )
+
+  signOut$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.signOut),
+      switchMap(() => {
+        return this.http.post(`${this.environment.api}/signout`, {}, {withCredentials: true}).pipe(
+          map(() => AuthActions.signedOut()),
+          catchError(() => of(AuthActions.failedToSignOut())),
+        )
+      }),
+    ),
+  )
 }
