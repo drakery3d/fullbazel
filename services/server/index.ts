@@ -51,10 +51,10 @@ const authTokenCookieOptions: express.CookieOptions = {
   path: '/',
 }
 
-wss.on('connection', (socket: WebSocket, request: http.IncomingMessage, authToken: AuthToken) => {
+wss.on('connection', (socket: WebSocket, request: http.IncomingMessage, authToken?: AuthToken) => {
   let isConnected = true
   let timerSubscription: Subscription | undefined
-  console.log(`client connected`, authToken.userId)
+  console.log(`client connected`, authToken?.userId)
 
   socket.on('close', () => {
     console.log(`client disconnected`)
@@ -90,26 +90,23 @@ wss.on('connection', (socket: WebSocket, request: http.IncomingMessage, authToke
 
 server.on('upgrade', async (request: http.IncomingMessage, socket: Socket, head: Buffer) => {
   try {
-    if (!request.headers.cookie) return handleUnauthenticated(socket)
-
-    const cookies = cookie.parse(request.headers.cookie)
-    const authTokenStr = cookies[CookieNames.AuthToken]
-    if (!authTokenStr) return handleUnauthenticated(socket)
-
-    const authToken = AuthToken.fromString(authTokenStr, authTokenSecret)
+    let authToken: AuthToken | undefined
+    if (request.headers.cookie) {
+      const cookies = cookie.parse(request.headers.cookie)
+      const authTokenStr = cookies[CookieNames.AuthToken]
+      if (authTokenStr) {
+        authToken = AuthToken.fromString(authTokenStr, authTokenSecret)
+      }
+    }
 
     wss.handleUpgrade(request, socket, head, ws => {
       wss.emit('connection', ws, request, authToken)
     })
   } catch (err) {
-    return handleUnauthenticated(socket)
+    socket.write('HTTP/1.1 401 Unauthorized\r\n\r\n')
+    socket.destroy()
   }
 })
-
-const handleUnauthenticated = (socket: Socket) => {
-  socket.write('HTTP/1.1 401 Unauthorized\r\n\r\n')
-  socket.destroy()
-}
 
 app.get('*', (req, res) => res.status(200).send('Ok').end())
 

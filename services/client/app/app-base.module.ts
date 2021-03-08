@@ -4,8 +4,9 @@ import {BrowserModule} from '@angular/platform-browser'
 import {Store} from '@ngrx/store'
 import {first, skipWhile} from 'rxjs/operators'
 
+import {ClientEnvironment, ENVIRONMENT} from '@client/environment'
 import {AuthActions, AuthSelectors} from '@client/store'
-import {WebSocketSelectors} from '@libs/websocket-store'
+import {WebSocketActions, WebSocketSelectors} from '@libs/websocket-store'
 
 import {AppRoutingModule} from './app-routing.module'
 import {AppComponent} from './app.component'
@@ -26,8 +27,8 @@ import {ServiceWorkerService} from './service-worker.service'
     {
       provide: APP_INITIALIZER,
       multi: true,
-      deps: [Store],
-      useFactory: (store: Store) => {
+      deps: [Store, ENVIRONMENT],
+      useFactory: (store: Store, environment: ClientEnvironment) => {
         return async () => {
           store.dispatch(AuthActions.tryToAuthenticate())
           await store
@@ -37,6 +38,7 @@ import {ServiceWorkerService} from './service-worker.service'
               first(),
             )
             .toPromise()
+          store.dispatch(WebSocketActions.connect({url: environment.websocket}))
           return store
             .select(WebSocketSelectors.isConnecting)
             .pipe(

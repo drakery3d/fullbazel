@@ -6,7 +6,6 @@ import {catchError, map, switchMap} from 'rxjs/operators'
 
 import {ClientEnvironment, ENVIRONMENT} from '@client/environment'
 import {User} from '@libs/schema'
-import {WebSocketActions} from '@libs/websocket-store'
 
 import {AuthActions} from './auth.actions'
 
@@ -42,15 +41,6 @@ export class AuthEffects {
             map(({user}) => AuthActions.authenticated({user})),
             catchError(() => of(AuthActions.failedToAuthenticate())),
           )
-      }),
-    ),
-  )
-
-  authenticated$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(AuthActions.authenticated),
-      map(() => {
-        return WebSocketActions.connect({url: this.environment.websocket})
       }),
     ),
   )

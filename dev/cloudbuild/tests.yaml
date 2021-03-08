@@ -7,5 +7,6 @@ steps:
     args: ['test', '//...']
 
 timeout: 3600s
-# options:
-#   machineType: 'N1_HIGHCPU_8'
+
+options:
+  machineType: 'N1_HIGHCPU_8'
