@@ -17,13 +17,15 @@ import * as WebSocket from 'ws'
 import {Config} from '@libs/config'
 import {
   CookieNames,
+  DiscussionsMessagesIn,
+  DiscussionsMessagesOut,
   Environment,
   QuoteMessagesIn,
   QuoteMessagesOut,
   TokenExpiration,
 } from '@libs/enums'
-import {Quote, SocketMessage, User} from '@libs/schema'
-import {AuthToken} from '@libs/types'
+import {Message, Quote, SocketMessage, User} from '@libs/schema'
+import {AuthToken, Id, Timestamp} from '@libs/types'
 
 import {GoogleAdapter} from './google.adapter'
 import {UserRepository} from './user.repository'
@@ -51,6 +53,12 @@ const authTokenCookieOptions: express.CookieOptions = {
   path: '/',
 }
 
+const broadcast = (message: SocketMessage) => {
+  wss.clients.forEach(client => {
+    client.send(JSON.stringify(message))
+  })
+}
+
 wss.on('connection', (socket: WebSocket, request: http.IncomingMessage, authToken?: AuthToken) => {
   let isConnected = true
   let timerSubscription: Subscription | undefined
@@ -62,7 +70,19 @@ wss.on('connection', (socket: WebSocket, request: http.IncomingMessage, authToke
   })
 
   socket.on('message', message => {
-    const {name} = JSON.parse(message.toString()) as SocketMessage
+    const {name, payload} = JSON.parse(message.toString()) as SocketMessage
+
+    if (name === DiscussionsMessagesIn.SendMessage) {
+      if (!authToken) return
+      // TODO persist to db
+      const message: Message = {
+        id: Id.generate().toString(),
+        content: payload as string,
+        userId: authToken.userId,
+        createdAt: Timestamp.now().toString(),
+      }
+      broadcast({name: DiscussionsMessagesOut.ReceiveMessage, payload: message})
+    }
 
     if (name === QuoteMessagesIn.StartStreaming) {
       timerSubscription?.unsubscribe()
@@ -89,8 +109,8 @@ wss.on('connection', (socket: WebSocket, request: http.IncomingMessage, authToke
 })
 
 server.on('upgrade', async (request: http.IncomingMessage, socket: Socket, head: Buffer) => {
+  let authToken: AuthToken | undefined
   try {
-    let authToken: AuthToken | undefined
     if (request.headers.cookie) {
       const cookies = cookie.parse(request.headers.cookie)
       const authTokenStr = cookies[CookieNames.AuthToken]
@@ -98,13 +118,11 @@ server.on('upgrade', async (request: http.IncomingMessage, socket: Socket, head:
         authToken = AuthToken.fromString(authTokenStr, authTokenSecret)
       }
     }
-
+  } catch (err) {
+  } finally {
     wss.handleUpgrade(request, socket, head, ws => {
       wss.emit('connection', ws, request, authToken)
     })
-  } catch (err) {
-    socket.write('HTTP/1.1 401 Unauthorized\r\n\r\n')
-    socket.destroy()
   }
 })
 
