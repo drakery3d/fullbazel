@@ -23,6 +23,7 @@ ng_ts_library(
         "//services/client/store",
         "@npm//@angular/common",
         "@npm//@angular/core",
+        "@npm//@angular/forms",
         "@npm//@angular/router",
         "@npm//@ngrx/store",
     ],

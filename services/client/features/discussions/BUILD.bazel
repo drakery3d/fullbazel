@@ -1,0 +1,30 @@
+load("//tools:angular_ts_library.bzl", "ng_ts_library")
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+
+package(default_visibility = ["//services/client:__subpackages__"])
+
+sass_binary(
+    name = "styles",
+    src = "discussions.component.sass",
+)
+
+ng_ts_library(
+    name = "discussions",
+    srcs = glob(["*.ts"]),
+    angular_assets = ["styles"],
+    tsconfig = "//services/client:tsconfig.json",
+    deps = [
+        "//libs/enums",
+        "//libs/schema",
+        "//libs/ui-elements",
+        "//libs/websocket-store",
+        # "//services/client/environment",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//@angular/router",
+        "@npm//@ngrx/effects",
+        "@npm//@ngrx/entity",
+        "@npm//@ngrx/store",
+        "@npm//rxjs",
+    ],
+)

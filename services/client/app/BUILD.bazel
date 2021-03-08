@@ -32,6 +32,7 @@ ng_ts_library(
         "//libs/schema",
         "//libs/websocket-store",
         "//services/client/environment",
+        "//services/client/features/discussions",
         "//services/client/features/home",
         "//services/client/features/realtime",
         "//services/client/store",

@@ -1,4 +1,5 @@
 import {Component} from '@angular/core'
+import {FormControl, FormGroup} from '@angular/forms'
 import {Store} from '@ngrx/store'
 
 import {AuthActions, AuthSelectors} from '@client/store'
@@ -60,6 +61,11 @@ import {AuthActions, AuthSelectors} from '@client/store'
         <p>Hi {{ user.name }}</p>
         <img [attr.src]="user.picture" />
         <app-button (click)="signOut()">Sign out</app-button>
+
+        <form [formGroup]="form" (submit)="send()">
+          <input formControlName="input" />
+          <button>Send</button>
+        </form>
       </ng-container>
     </div>
   `,
@@ -85,11 +91,20 @@ export class HomeComponent {
     'server-side-rendering',
     'docker-comopse',
   ]
+  input = ''
   user$ = this.store.select(AuthSelectors.user)
+  form = new FormGroup({
+    input: new FormControl(''),
+  })
 
   constructor(private store: Store) {}
 
   signOut() {
     this.store.dispatch(AuthActions.signOut())
+  }
+
+  send() {
+    console.log(this.input)
+    this.input = ''
   }
 }
