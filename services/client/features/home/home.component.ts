@@ -67,9 +67,6 @@ import {AuthActions, AuthSelectors} from '@client/store'
   styleUrls: ['home.component.sass'],
 })
 export class HomeComponent {
-  // TODO consider reading from env?
-  signInUrl =
-    'https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?access_type=offline&client_id=98599563044-jj7e91t651ugd1cjs9ftrp5m5hc6mso7.apps.googleusercontent.com&prompt=consent&redirect_uri=http%3A%2F%2Flocalhost%3A4200&response_type=code&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&flowName=GeneralOAuthFlow'
   tags = [
     'nodejs',
     'mysql',
