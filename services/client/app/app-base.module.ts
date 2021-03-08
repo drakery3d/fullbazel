@@ -5,6 +5,7 @@ import {Store} from '@ngrx/store'
 import {first, skipWhile} from 'rxjs/operators'
 
 import {AuthActions, AuthSelectors} from '@client/store'
+import {WebSocketSelectors} from '@libs/websocket-store'
 
 import {AppRoutingModule} from './app-routing.module'
 import {AppComponent} from './app.component'
@@ -27,12 +28,19 @@ import {ServiceWorkerService} from './service-worker.service'
       multi: true,
       deps: [Store],
       useFactory: (store: Store) => {
-        return () => {
+        return async () => {
           store.dispatch(AuthActions.tryToAuthenticate())
-          return store
+          await store
             .select(AuthSelectors.isInitialized)
             .pipe(
               skipWhile(initialized => !initialized),
+              first(),
+            )
+            .toPromise()
+          return store
+            .select(WebSocketSelectors.isConnecting)
+            .pipe(
+              skipWhile(connecting => connecting),
               first(),
             )
             .toPromise()

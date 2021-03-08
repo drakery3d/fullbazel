@@ -1,8 +1,6 @@
 import {Component, OnDestroy} from '@angular/core'
 import {Store} from '@ngrx/store'
 
-import {WebSocketActions} from '@libs/websocket-store'
-
 import {QuoteActions} from './quote.actions'
 import {QuoteSeletors} from './quote.selectors'
 
@@ -34,10 +32,12 @@ import {QuoteSeletors} from './quote.selectors'
 export class RealtimeComponent implements OnDestroy {
   quotes$ = this.store.select(QuoteSeletors.quotes)
 
-  constructor(private store: Store) {}
+  constructor(private store: Store) {
+    this.store.dispatch(QuoteActions.startStreaming())
+  }
 
   ngOnDestroy() {
-    this.store.dispatch(WebSocketActions.disconnect())
+    this.store.dispatch(QuoteActions.stopStreaming())
   }
 
   remove(id: string) {

@@ -1,16 +1,11 @@
 steps:
-
   - name: node
     entrypoint: yarn
     args: ['install']
 
   - name: gcr.io/fullstack-bazel-306720/cloudbuild
-    args: [
-      'build',
-      '//...'
-    ]
+    args: ['test', '//...']
 
 timeout: 3600s
-
-options:
- machineType: 'N1_HIGHCPU_8'
+# options:
+#   machineType: 'N1_HIGHCPU_8'

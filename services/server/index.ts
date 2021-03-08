@@ -9,13 +9,19 @@ import * as faker from 'faker'
 import * as http from 'http'
 import {Container} from 'inversify'
 import {Socket} from 'net'
-import {timer} from 'rxjs'
+import {Subscription, timer} from 'rxjs'
 import {takeWhile, tap} from 'rxjs/operators'
 import {v4 as uuidv4} from 'uuid'
 import * as WebSocket from 'ws'
 
 import {Config} from '@libs/config'
-import {CookieNames, Environment, TokenExpiration} from '@libs/enums'
+import {
+  CookieNames,
+  Environment,
+  QuoteMessagesIn,
+  QuoteMessagesOut,
+  TokenExpiration,
+} from '@libs/enums'
 import {Quote, SocketMessage, User} from '@libs/schema'
 import {AuthToken} from '@libs/types'
 
@@ -47,6 +53,7 @@ const authTokenCookieOptions: express.CookieOptions = {
 
 wss.on('connection', (socket: WebSocket, request: http.IncomingMessage, authToken: AuthToken) => {
   let isConnected = true
+  let timerSubscription: Subscription | undefined
   console.log(`client connected`, authToken.userId)
 
   socket.on('close', () => {
@@ -54,20 +61,31 @@ wss.on('connection', (socket: WebSocket, request: http.IncomingMessage, authToke
     isConnected = false
   })
 
-  timer(0, 3000)
-    .pipe(
-      takeWhile(() => isConnected),
-      tap(() => {
-        const quote: Quote = {
-          content: faker.lorem.sentence(),
-          author: faker.name.firstName(),
-          id: uuidv4(),
-        }
-        const message: SocketMessage = {name: 'quote', payload: quote}
-        socket.send(JSON.stringify(message))
-      }),
-    )
-    .subscribe()
+  socket.on('message', message => {
+    const {name} = JSON.parse(message.toString()) as SocketMessage
+
+    if (name === QuoteMessagesIn.StartStreaming) {
+      timerSubscription?.unsubscribe()
+      timerSubscription = timer(0, 3000)
+        .pipe(
+          takeWhile(() => isConnected),
+          tap(() => {
+            const quote: Quote = {
+              content: faker.lorem.sentence(),
+              author: faker.name.firstName(),
+              id: uuidv4(),
+            }
+            const message: SocketMessage = {name: QuoteMessagesOut.Send, payload: quote}
+            socket.send(JSON.stringify(message))
+          }),
+        )
+        .subscribe()
+    }
+
+    if (name === QuoteMessagesIn.StopStreaming) {
+      if (timerSubscription) timerSubscription.unsubscribe()
+    }
+  })
 })
 
 server.on('upgrade', async (request: http.IncomingMessage, socket: Socket, head: Buffer) => {
