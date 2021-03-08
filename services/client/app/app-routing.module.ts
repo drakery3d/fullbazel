@@ -5,7 +5,7 @@ import {DiscussionsModule} from '../features/discussions/discussions.module'
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'home',
     loadChildren: () => import('../features/home/home.module').then(m => m.HomeModule),
   },
   {
@@ -13,10 +13,15 @@ const routes: Routes = [
     loadChildren: () => DiscussionsModule,
   },
   {
+    path: 'architecture',
+    loadChildren: () =>
+      import('../features/architecture/architecture.module').then(m => m.ArchitectureModule),
+  },
+  {
     path: 'realtime',
     loadChildren: () => import('../features/realtime/realtime.module').then(m => m.RealtimeModule),
   },
-  {path: '**', redirectTo: '', pathMatch: 'full'},
+  {path: '**', redirectTo: 'home', pathMatch: 'full'},
 ]
 
 @NgModule({

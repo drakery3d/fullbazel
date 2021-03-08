@@ -10,6 +10,8 @@ import {QuoteEffects} from './quote.effects'
 import {quoteReducer} from './quote.reducer'
 import {RealtimeComponent} from './realtime.component'
 
+// TODO remove this module
+
 @NgModule({
   imports: [
     CommonModule,

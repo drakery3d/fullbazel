@@ -1,43 +1,97 @@
+$max-width: 80rem
 
-#update_banner
-  position: fixed
-  display: flex
-  align-items: center
-  top: var(--space-med)
-  right: -4px
-  background: rgba(0,0,0,.75)
-  backdrop-filter: blur(.3rem)
-  border: 2px solid var(--text)
-  color: white
-  fill: white
-  padding: var(--space) var(--space-med)
-  border-radius: 3px
-  font-size: 1.5rem
-  animation: fadein var(--transition-speed) ease-in
-  cursor: pointer
-
-  svg
-    width: 2rem
-    height: 2rem
-
-  span
-    margin-left: var(--space)
-
-@keyframes fadein
-  from
-    transform: translateX(100%)
-  to
-    transform: translateX(0%)
-
-.connectivity
-  background: rgba(0,0,0,.75)
-  backdrop-filter: blur(.3rem)
+.header
   position: fixed
   top: 0
-  color: white
-  font-size: .8rem
-  padding: .4rem 0
   left: 0
   right: 0
-  text-align: center
-  z-index: 2
+  z-index: 10
+  padding: 1rem
+  font-size: 1rem
+  box-shadow: 0 0 5px rgb(0 0 0 / 25%)
+  background: var(--background)
+
+  nav
+    height: 3rem
+    max-width: $max-width
+    display: flex
+    align-items: center
+    margin: 0 auto
+    justify-content: space-between
+    width: 100%
+
+    .logo
+      width: 2.5rem
+      heigth: 2.5rem
+
+    .menu
+      flex: 1
+      display: flex
+      align-items: center
+      justify-content: space-between
+      flex-wrap: wrap
+      margin: 0 10rem
+      max-width: 25rem
+
+      .item
+        a
+          text-decoration: none
+          color: inherit
+        a.selected
+          font-weight: 500
+          color: var(--color)
+
+    .user
+      .signin
+        font-weight: 500
+        cursor: pointer
+
+.content
+  display: block
+  max-width: $max-width
+  margin: 0 auto
+  margin-top: 5rem
+  padding: 0 1rem
+
+// #update_banner
+//   position: fixed
+//   display: flex
+//   align-items: center
+//   top: var(--space-med)
+//   right: -4px
+//   background: rgba(0,0,0,.75)
+//   backdrop-filter: blur(.3rem)
+//   border: 2px solid var(--text)
+//   color: white
+//   fill: white
+//   padding: var(--space) var(--space-med)
+//   border-radius: 3px
+//   font-size: 1.5rem
+//   animation: fadein var(--transition-speed) ease-in
+//   cursor: pointer
+
+//   svg
+//     width: 2rem
+//     height: 2rem
+
+//   span
+//     margin-left: var(--space)
+
+// @keyframes fadein
+//   from
+//     transform: translateX(100%)
+//   to
+//     transform: translateX(0%)
+
+// .connectivity
+//   background: rgba(0,0,0,.75)
+//   backdrop-filter: blur(.3rem)
+//   position: fixed
+//   top: 0
+//   color: white
+//   font-size: .8rem
+//   padding: .4rem 0
+//   left: 0
+//   right: 0
+//   text-align: center
+//   z-index: 2

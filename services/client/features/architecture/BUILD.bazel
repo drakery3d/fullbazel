@@ -1,0 +1,24 @@
+load("//tools:angular_ts_library.bzl", "ng_ts_library")
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+
+package(default_visibility = ["//services/client:__subpackages__"])
+
+sass_binary(
+    name = "styles",
+    src = "architecture.component.sass",
+)
+
+ng_ts_library(
+    name = "architecture",
+    srcs = glob(
+        include = ["*.ts"],
+        exclude = ["*.spec.ts"],
+    ),
+    angular_assets = ["styles"],
+    tsconfig = "//services/client:tsconfig",
+    deps = [
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//@angular/router",
+    ],
+)

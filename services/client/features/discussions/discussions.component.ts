@@ -8,7 +8,8 @@ import {DiscussionsSeletors} from './discussions.selectors'
 @Component({
   selector: 'app-discussions',
   template: `
-    <div class="container">
+    <h1>Discussions</h1>
+    <!-- <div class="container">
       <h1>Discussions</h1>
 
       <form [formGroup]="form" (submit)="send()">
@@ -19,7 +20,7 @@ import {DiscussionsSeletors} from './discussions.selectors'
       <div *ngFor="let message of messages$ | async">
         {{ message.content }} by {{ message.userId }}
       </div>
-    </div>
+    </div> -->
   `,
   styleUrls: ['discussions.component.sass'],
 })

@@ -14,7 +14,39 @@ import {ServiceWorkerService} from './service-worker.service'
 @Component({
   selector: 'app-root',
   template: `
-    <div class="connectivity" *ngIf="offline$ | async">You are offline!</div>
+    <div class="header">
+      <nav>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="logo">
+          <path style="fill:#76D275;" d="M144 32 l112 112 -112 112 l-112 -112z" />
+          <path style="fill:#43A047;" d="M32 144 v112 l112 112 v-112z" />
+          <path style="fill:#76D275;" d="M368 32  l112 112 -112 112 -112 -112z" />
+          <path style="fill:#43A047;" d="M480 144 v112 l-112 112 v-112z" />
+          <path style="fill:#43A047;" d="M256 144 l112 112 -112 112 -112 -112z" />
+          <path style="fill:#00701A;" d="M256 368 v112 l-112 -112  v-112z" />
+          <path style="fill:#004300;" d="M256 368 l112 -112 v112 l-112 112z" />
+        </svg>
+
+        <div class="menu">
+          <div class="item"><a routerLink="/home" routerLinkActive="selected">Home</a></div>
+          <div class="item">
+            <a routerLink="/discussions" routerLinkActive="selected">Discussions</a>
+          </div>
+          <div class="item">
+            <a routerLink="/architecture" routerLinkActive="selected">Architecture</a>
+          </div>
+        </div>
+
+        <div class="user">
+          <div class="signin">Sign In</div>
+        </div>
+      </nav>
+    </div>
+
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+
+    <!-- <div class="connectivity" *ngIf="offline$ | async">You are offline!</div>
 
     <app-nav></app-nav>
 
@@ -34,7 +66,7 @@ import {ServiceWorkerService} from './service-worker.service'
 
     <div class="main">
       <router-outlet></router-outlet>
-    </div>
+    </div> -->
   `,
   styleUrls: ['app.component.sass'],
 })
