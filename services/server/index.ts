@@ -24,16 +24,18 @@ import {
   QuoteMessagesOut,
   TokenExpiration,
 } from '@libs/enums'
-import {Message, Quote, SocketMessage, User} from '@libs/schema'
-import {AuthToken, Id, Timestamp} from '@libs/types'
+import {Quote, SocketMessage, User} from '@libs/schema'
+import {AuthToken} from '@libs/types'
 
 import {GoogleAdapter} from './google.adapter'
+import {MessagesRepository} from './messages.repository'
 import {UserRepository} from './user.repository'
 
 const container = new Container()
 container.bind(Config).toSelf().inSingletonScope()
 container.bind(GoogleAdapter).toSelf().inSingletonScope()
 container.bind(UserRepository).toSelf().inSingletonScope()
+container.bind(MessagesRepository).toSelf().inSingletonScope()
 
 const app = express()
 const server = http.createServer(app)
@@ -41,6 +43,7 @@ const wss = new WebSocket.Server({noServer: true})
 const googleAdapter = container.get(GoogleAdapter)
 const config = container.get(Config)
 const userRepo = container.get(UserRepository)
+const messageRepo = container.get(MessagesRepository)
 const isProd = config.get('environment') === Environment.Production
 
 const authTokenSecret = config.get('secrets_tokens_auth')
@@ -59,54 +62,58 @@ const broadcast = (message: SocketMessage) => {
   })
 }
 
-wss.on('connection', (socket: WebSocket, request: http.IncomingMessage, authToken?: AuthToken) => {
-  let isConnected = true
-  let timerSubscription: Subscription | undefined
-  console.log(`client connected`, authToken?.userId)
+wss.on(
+  'connection',
+  async (socket: WebSocket, request: http.IncomingMessage, authToken?: AuthToken) => {
+    let isConnected = true
+    let timerSubscription: Subscription | undefined
+    console.log(`client connected`, authToken?.userId)
 
-  socket.on('close', () => {
-    console.log(`client disconnected`)
-    isConnected = false
-  })
+    socket.on('close', () => {
+      console.log(`client disconnected`)
+      isConnected = false
+    })
 
-  socket.on('message', message => {
-    const {name, payload} = JSON.parse(message.toString()) as SocketMessage
+    socket.on('message', async message => {
+      const {name, payload} = JSON.parse(message.toString()) as SocketMessage
 
-    if (name === DiscussionsMessagesIn.SendMessage) {
-      if (!authToken) return
-      // TODO persist to db
-      const message: Message = {
-        id: Id.generate().toString(),
-        content: payload as string,
-        userId: authToken.userId,
-        createdAt: Timestamp.now().toString(),
+      if (name === DiscussionsMessagesIn.SendMessage) {
+        if (!authToken) return
+        const message = await messageRepo.create(payload as string, authToken.userId)
+        broadcast({name: DiscussionsMessagesOut.ReceiveMessage, payload: message})
       }
-      broadcast({name: DiscussionsMessagesOut.ReceiveMessage, payload: message})
-    }
 
-    if (name === QuoteMessagesIn.StartStreaming) {
-      timerSubscription?.unsubscribe()
-      timerSubscription = timer(0, 3000)
-        .pipe(
-          takeWhile(() => isConnected),
-          tap(() => {
-            const quote: Quote = {
-              content: faker.lorem.sentence(),
-              author: faker.name.firstName(),
-              id: uuidv4(),
-            }
-            const message: SocketMessage = {name: QuoteMessagesOut.Send, payload: quote}
-            socket.send(JSON.stringify(message))
-          }),
-        )
-        .subscribe()
-    }
+      if (name === QuoteMessagesIn.StartStreaming) {
+        timerSubscription?.unsubscribe()
+        timerSubscription = timer(0, 3000)
+          .pipe(
+            takeWhile(() => isConnected),
+            tap(() => {
+              const quote: Quote = {
+                content: faker.lorem.sentence(),
+                author: faker.name.firstName(),
+                id: uuidv4(),
+              }
+              const message: SocketMessage = {name: QuoteMessagesOut.Send, payload: quote}
+              socket.send(JSON.stringify(message))
+            }),
+          )
+          .subscribe()
+      }
 
-    if (name === QuoteMessagesIn.StopStreaming) {
-      if (timerSubscription) timerSubscription.unsubscribe()
+      if (name === QuoteMessagesIn.StopStreaming) {
+        if (timerSubscription) timerSubscription.unsubscribe()
+      }
+    })
+
+    const messages = await messageRepo.getAll()
+    const message: SocketMessage = {
+      name: DiscussionsMessagesOut.ExistingMessages,
+      payload: messages,
     }
-  })
-})
+    socket.send(JSON.stringify(message))
+  },
+)
 
 server.on('upgrade', async (request: http.IncomingMessage, socket: Socket, head: Buffer) => {
   let authToken: AuthToken | undefined

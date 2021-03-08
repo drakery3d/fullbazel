@@ -28,4 +28,14 @@ export class DiscussionsEffects {
       map(({payload}) => DiscussionsActions.receivedMessage({message: payload as Message})),
     ),
   )
+
+  existingMessages$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(WebSocketActions.message),
+      filter(({name}) => name === DiscussionsMessagesOut.ExistingMessages),
+      map(({payload}) =>
+        DiscussionsActions.loadedExistingMessages({messages: payload as Message[]}),
+      ),
+    ),
+  )
 }

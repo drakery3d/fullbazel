@@ -11,4 +11,5 @@ export enum DiscussionsMessagesIn {
 }
 export enum DiscussionsMessagesOut {
   ReceiveMessage = 'discussions.receiveMessage',
+  ExistingMessages = 'discussions.existingMessages',
 }

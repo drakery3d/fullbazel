@@ -15,6 +15,9 @@ const initialState: DiscussionsReducer = adapter.getInitialState()
 export const discussionsReducer = createReducer(
   initialState,
   on(DiscussionsActions.receivedMessage, (state, {message}) => adapter.addOne(message, state)),
+  on(DiscussionsActions.loadedExistingMessages, (state, {messages}) =>
+    adapter.addMany(messages, state),
+  ),
 )
 
 export const DiscussionsReducerSelectors = {

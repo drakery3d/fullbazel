@@ -20,7 +20,9 @@ ts_library(
     deps = [
         "//libs/enums",
         "@npm//@types/jsonwebtoken",
+        "@npm//@types/uuid",
         "@npm//jsonwebtoken",
+        "@npm//uuid",
     ],
 )
 
