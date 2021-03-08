@@ -1,4 +1,5 @@
-import {Injectable} from '@angular/core'
+import {isPlatformBrowser} from '@angular/common'
+import {Inject, Injectable, PLATFORM_ID} from '@angular/core'
 import {Actions, createEffect, ofType} from '@ngrx/effects'
 import {Action} from '@ngrx/store'
 import {Observable} from 'rxjs'
@@ -12,22 +13,27 @@ import {WebSocketActions} from './websocket.actions'
 export class WebSocketEffects {
   private websocket!: WebSocket
 
-  constructor(private actions$: Actions) {}
+  constructor(private actions$: Actions, @Inject(PLATFORM_ID) private platform: string) {}
 
   connect$ = createEffect(() =>
     this.actions$.pipe(
       ofType(WebSocketActions.connect),
       switchMap(({url}) => {
         return new Observable<Action>(observer => {
-          this.websocket = new WebSocket(url)
-
-          this.websocket.onopen = () => observer.next(WebSocketActions.opened())
-          this.websocket.onclose = event =>
-            observer.next(WebSocketActions.closed({reason: event.reason}))
-          this.websocket.onerror = () => observer.next(WebSocketActions.error())
-          this.websocket.onmessage = event => {
-            const message = JSON.parse(event.data) as SocketMessage
-            observer.next(WebSocketActions.message({name: message.name, payload: message.payload}))
+          if (isPlatformBrowser(this.platform)) {
+            this.websocket = new WebSocket(url)
+            this.websocket.onopen = () => observer.next(WebSocketActions.opened())
+            this.websocket.onclose = event =>
+              observer.next(WebSocketActions.closed({reason: event.reason}))
+            this.websocket.onerror = () => observer.next(WebSocketActions.error())
+            this.websocket.onmessage = event => {
+              const message = JSON.parse(event.data) as SocketMessage
+              observer.next(
+                WebSocketActions.message({name: message.name, payload: message.payload}),
+              )
+            }
+          } else {
+            observer.next(WebSocketActions.error())
           }
         })
       }),

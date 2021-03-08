@@ -18,6 +18,7 @@ ng_ts_library(
     tsconfig = "tsconfig",
     deps = [
         "//libs/schema",
+        "@npm//@angular/common",
         "@npm//@angular/core",
         "@npm//@ngrx/effects",
         "@npm//@ngrx/store",

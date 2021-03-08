@@ -18,6 +18,7 @@ ng_ts_library(
         "//libs/schema",
         "//libs/ui-elements",
         "//libs/websocket-store",
+        "//services/client/store",
         "@npm//@angular/common",
         "@npm//@angular/core",
         "@npm//@angular/forms",

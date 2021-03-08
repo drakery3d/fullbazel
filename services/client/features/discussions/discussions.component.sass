@@ -1,14 +1,48 @@
-// :host
-//   display: block
-//   padding: var(--space)
-//   display: flex
-//   align-items: center
-//   justify-content: center
-//   text-align: center
+form
+  margin-top: 10rem
+  margin-bottom: 5rem
 
-// .container
-//   max-width: 40rem
-//   flex: 1
-//   display: flex
-//   flex-direction: column
-//   align-items: center
+input
+  display: block
+  width: 100%
+  font-family: inherit
+  background: transparent
+  color: var(--text)
+  border: none
+  outline: none
+  padding: 0px 0px 1rem
+  box-shadow: var(--text-light) 0px 1px
+  font-size: 1.5rem
+  appearance: none
+  line-height: unset
+  animation: 1ms ease 0s 1 normal none running native-autofill-in
+  transition: box-shadow 0.1s ease-out 0s
+
+  &:focus
+    box-shadow: var(--text) 0px 3px
+
+  &::placeholder
+    color: var(--text-light)
+
+.submission
+  display: flex
+  align-items: center
+  margin-top: 1rem
+  margin-left: auto
+  justify-content: flex-end
+
+  button
+    font-family: inherit
+    font-weight: 500
+    cursor: pointer
+    transition-duration: 0.1s
+    transition-property: background-color, color, border-color, opacity, box-shadow
+    transition-timing-function: ease-out
+    outline: none
+    box-shadow: rgb(0 0 0 / 10%) 0px 3px 12px 0px
+    border: none
+    padding: 6px 14px
+    background-color: var(--color-light)
+    color: var(--color)
+    margin-right: 1rem
+    font-size: 1.25rem

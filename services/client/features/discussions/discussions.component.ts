@@ -1,6 +1,8 @@
 import {Component} from '@angular/core'
-import {FormControl, FormGroup} from '@angular/forms'
+import {FormControl, FormGroup, Validators} from '@angular/forms'
 import {Store} from '@ngrx/store'
+
+import {AuthSelectors} from '@client/store'
 
 import {DiscussionsActions} from './discussions.actions'
 import {DiscussionsSeletors} from './discussions.selectors'
@@ -8,26 +10,25 @@ import {DiscussionsSeletors} from './discussions.selectors'
 @Component({
   selector: 'app-discussions',
   template: `
-    <h1>Discussions</h1>
-    <!-- <div class="container">
-      <h1>Discussions</h1>
-
-      <form [formGroup]="form" (submit)="send()">
-        <input formControlName="input" />
+    <form [formGroup]="form" (submit)="send()" *ngIf="user$ | async">
+      <input formControlName="input" placeholder="Say something" />
+      <div class="submission" *ngIf="form.valid">
         <button>Send</button>
-      </form>
-
-      <div *ngFor="let message of messages$ | async">
-        {{ message.content }} by {{ message.userId }}
+        <span>press Enter ↵</span>
       </div>
-    </div> -->
+    </form>
+
+    <div *ngFor="let message of messages$ | async">
+      {{ message.content }} by {{ message.userId }}
+    </div>
   `,
   styleUrls: ['discussions.component.sass'],
 })
 export class DiscussionsComponent {
+  user$ = this.store.select(AuthSelectors.user)
   messages$ = this.store.select(DiscussionsSeletors.messages)
   form = new FormGroup({
-    input: new FormControl(''),
+    input: new FormControl('', Validators.required),
   })
 
   constructor(private store: Store) {}
