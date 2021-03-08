@@ -11,5 +11,8 @@
     "port": 3306,
     "user": "root",
     "database": "db"
+  },
+  "kafka": {
+    "brokers": ["kafka:9092"]
   }
 }

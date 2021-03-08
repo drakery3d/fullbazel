@@ -48,6 +48,7 @@
     "faker": "^5.1.0",
     "inversify": "^5.0.5",
     "jsonwebtoken": "^8.5.1",
+    "kafkajs": "^1.15.0",
     "mysql2": "^2.2.5",
     "query-string": "^6.14.1",
     "reflect-metadata": "^0.1.13",

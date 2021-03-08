@@ -34,7 +34,6 @@ export class Timestamp {
     return this.date.toISOString()
   }
 
-  // FIXME is it a good idea to store timestamps as ints?
   toNumber() {
     return Number(this.date)
   }

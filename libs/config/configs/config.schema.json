@@ -33,6 +33,14 @@
       },
       "required": ["host", "port", "user", "database"],
       "additionalProperties": false
+    },
+    "kafka": {
+      "type": "object",
+      "properties": {
+        "brokers": {"type": "array"}
+      },
+      "required": ["brokers"],
+      "additionalProperties": false
     }
   },
   "required": [
@@ -42,7 +50,8 @@
     "websocket",
     "vapidPublicKey",
     "googleClientId",
-    "mysqlDatabase"
+    "mysqlDatabase",
+    "kafka"
   ],
   "additionalProperties": false
 }

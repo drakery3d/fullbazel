@@ -38,6 +38,7 @@ ts_library(
         "@npm//express",
         "@npm//faker",
         "@npm//inversify",
+        "@npm//kafkajs",
         "@npm//mysql2",
         "@npm//query-string",
         "@npm//reflect-metadata",

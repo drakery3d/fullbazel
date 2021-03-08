@@ -23,10 +23,13 @@ import {
   QuoteMessagesIn,
   QuoteMessagesOut,
   TokenExpiration,
+  Topics,
 } from '@libs/enums'
 import {Quote, SocketMessage, User} from '@libs/schema'
-import {AuthToken} from '@libs/types'
+import {AuthToken, Id} from '@libs/types'
 
+import {EventDispatcher} from './event-dispatcher'
+import {EventListener} from './event-listener'
 import {GoogleAdapter} from './google.adapter'
 import {MessagesRepository} from './messages.repository'
 import {UserRepository} from './user.repository'
@@ -36,6 +39,8 @@ container.bind(Config).toSelf().inSingletonScope()
 container.bind(GoogleAdapter).toSelf().inSingletonScope()
 container.bind(UserRepository).toSelf().inSingletonScope()
 container.bind(MessagesRepository).toSelf().inSingletonScope()
+container.bind(EventDispatcher).toSelf().inSingletonScope()
+container.bind(EventListener).toSelf().inSingletonScope()
 
 const app = express()
 const server = http.createServer(app)
@@ -45,6 +50,8 @@ const config = container.get(Config)
 const userRepo = container.get(UserRepository)
 const messageRepo = container.get(MessagesRepository)
 const isProd = config.get('environment') === Environment.Production
+const eventDispatcher = container.get(EventDispatcher)
+const eventListener = container.get(EventListener)
 
 const authTokenSecret = config.get('secrets_tokens_auth')
 
@@ -80,7 +87,9 @@ wss.on(
       if (name === DiscussionsMessagesIn.SendMessage) {
         if (!authToken) return
         const message = await messageRepo.create(payload as string, authToken.userId)
-        broadcast({name: DiscussionsMessagesOut.ReceiveMessage, payload: message})
+        await eventDispatcher.dispatch(Topics.Messages, [
+          {key: message.id, value: JSON.stringify(message)},
+        ])
       }
 
       if (name === QuoteMessagesIn.StartStreaming) {
@@ -114,6 +123,13 @@ wss.on(
     socket.send(JSON.stringify(message))
   },
 )
+
+eventListener.consume(Id.generate().toString(), Topics.Messages).then(stream => {
+  stream.subscribe(event => {
+    console.log('broadcast message', event)
+    broadcast({name: DiscussionsMessagesOut.ReceiveMessage, payload: event})
+  })
+})
 
 server.on('upgrade', async (request: http.IncomingMessage, socket: Socket, head: Buffer) => {
   let authToken: AuthToken | undefined
