@@ -5,11 +5,11 @@ package(default_visibility = ["//services/client:__subpackages__"])
 
 sass_binary(
     name = "styles",
-    src = "architecture.component.sass",
+    src = "docs.component.sass",
 )
 
 ng_ts_library(
-    name = "architecture",
+    name = "docs",
     srcs = glob(
         include = ["*.ts"],
         exclude = ["*.spec.ts"],

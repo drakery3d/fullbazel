@@ -13,9 +13,8 @@ const routes: Routes = [
     loadChildren: () => DiscussionsModule,
   },
   {
-    path: 'architecture',
-    loadChildren: () =>
-      import('../features/architecture/architecture.module').then(m => m.ArchitectureModule),
+    path: 'docs',
+    loadChildren: () => import('../features/docs/docs.module').then(m => m.DocsModule),
   },
   {
     path: 'realtime',

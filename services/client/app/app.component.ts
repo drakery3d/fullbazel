@@ -16,6 +16,8 @@ enum Theme {
   Dark = 'dark',
 }
 
+// TODO try auto-recognize google sign in
+
 @Component({
   selector: 'app-root',
   template: `
@@ -39,7 +41,7 @@ enum Theme {
             <a routerLink="/discussions" routerLinkActive="selected">Discussions</a>
           </div>
           <div class="item">
-            <a routerLink="/architecture" routerLinkActive="selected">Architecture</a>
+            <a routerLink="/docs" routerLinkActive="selected">Docs</a>
           </div>
         </div>
 
