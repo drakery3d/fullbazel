@@ -57,7 +57,6 @@ export class WebSocketEffects {
         ofType(WebSocketActions.send),
         tap(({name, payload}) => {
           const messsage: SocketMessage = {name, payload}
-          console.log('send', {name, payload})
           this.websocket.send(JSON.stringify(messsage))
         }),
       ),

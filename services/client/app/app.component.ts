@@ -6,7 +6,7 @@ import {Store} from '@ngrx/store'
 import {fromEvent, merge, Observable, of} from 'rxjs'
 import {first, map, mapTo, skipWhile} from 'rxjs/operators'
 
-import {AuthActions, AuthSelectors} from '@client/store'
+import {AuthActions, AuthSelectors, MessagesActions, MessagesSeletors} from '@client/store'
 
 import {PushNotificationService} from './push-notification.service'
 import {ServiceWorkerService} from './service-worker.service'
@@ -18,6 +18,8 @@ enum Theme {
 
 // TODO try auto-recognize google sign in
 // TODO new message count badge in navigation for discussions tab
+// TODO push notification on new message
+// TODO only icons in small screen nav
 
 @Component({
   selector: 'app-root',
@@ -40,6 +42,7 @@ enum Theme {
           <div class="item"><a routerLink="/home" routerLinkActive="selected">Home</a></div>
           <div class="item">
             <a routerLink="/discussions" routerLinkActive="selected">Discussions</a>
+            <span class="unread" *ngIf="unreadCount$ | async as count">{{ count }}</span>
           </div>
           <div class="item">
             <a routerLink="/docs" routerLinkActive="selected">Docs</a>
@@ -87,8 +90,8 @@ enum Theme {
       <router-outlet></router-outlet>
     </div>
 
-    <!-- <div class="connectivity" *ngIf="offline$ | async">You are offline!</div>
-
+    <!--  <div class="connectivity" *ngIf="offline$ | async">You are offline!</div> -->
+    <!--
     <app-nav></app-nav>
 
     <div *ngIf="availableSwUpdate" (click)="onUpdateServiceWorker()" id="update_banner">
@@ -114,6 +117,7 @@ enum Theme {
 export class AppComponent {
   offline$: Observable<boolean>
   user$ = this.store.select(AuthSelectors.user)
+  unreadCount$ = this.store.select(MessagesSeletors.unreadCount)
   availableSwUpdate: UpdateAvailableEvent
   // TODO consider reading from env?
   signInUrl =
@@ -135,6 +139,7 @@ export class AppComponent {
       this.handleSwUpdates()
       this.handleSignIn()
       this.setTheme()
+      this.store.dispatch(MessagesActions.loadExisting())
     }
   }
 
@@ -181,6 +186,7 @@ export class AppComponent {
       })
   }
 
+  // TODO show sw update in ui
   private handleSwUpdates() {
     this.serviceWorkerService.launchUpdateCheckingRoutine()
     this.serviceWorkerService.launchUpdateHandler(event => {
@@ -188,6 +194,7 @@ export class AppComponent {
     })
   }
 
+  // TODO show offline in ui (either permanent message or snackbar)
   private handleConnectivity() {
     this.offline$ = merge(
       of(!navigator.onLine),

@@ -6,16 +6,23 @@ import {StoreModule} from '@ngrx/store'
 import {WebsocketStoreModule} from '@libs/websocket-store'
 
 import {AuthEffects, authReducer} from './auth'
+import {MessagesEffects, messagesReducer} from './messages'
 import {CustomSerializer} from './router'
+import {usersReducer} from './users'
 
 @NgModule({
   imports: [
     WebsocketStoreModule,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    StoreModule.forRoot({router: routerReducer as any, auth: authReducer}),
-    EffectsModule.forRoot([AuthEffects]),
+    StoreModule.forRoot({
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      router: routerReducer as any,
+      auth: authReducer,
+      messages: messagesReducer,
+      users: usersReducer,
+    }),
+    EffectsModule.forRoot([AuthEffects, MessagesEffects]),
     StoreRouterConnectingModule.forRoot({serializer: CustomSerializer}),
   ],
-  providers: [AuthEffects],
+  providers: [AuthEffects, MessagesEffects],
 })
 export class RootStoreModule {}

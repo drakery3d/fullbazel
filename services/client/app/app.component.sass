@@ -35,12 +35,32 @@ $small-screen: 48rem
       max-width: 25rem
 
       .item
+        position: relative
+
         a
           text-decoration: none
           color: inherit
         a.selected
           font-weight: 500
           color: var(--color)
+
+        .unread
+          position: absolute
+          top: 0
+          right: 0
+          background: var(--color)
+          color: white
+          border-radius: 50%
+          font-size: 0.8rem
+          border-radius: 0.9rem
+          padding: 0.2rem 0.4rem
+          font-weight: 500
+          line-height: 1rem
+          min-width: 1rem
+          text-align: center
+          left: 100%
+          margin: -0.8rem 0 0 0.5rem
+          border: 2px solid var(--background)
 
     .misc
       display: flex

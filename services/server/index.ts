@@ -74,10 +74,8 @@ wss.on(
   async (socket: WebSocket, request: http.IncomingMessage, authToken?: AuthToken) => {
     let isConnected = true
     let timerSubscription: Subscription | undefined
-    console.log(`client connected`, authToken?.userId)
 
     socket.on('close', () => {
-      console.log(`client disconnected`)
       isConnected = false
     })
 
@@ -85,12 +83,9 @@ wss.on(
       try {
         const {name, payload} = JSON.parse(message.toString()) as SocketMessage
 
-        console.log(name, payload)
-
         if (name === DiscussionsMessagesIn.SendMessage) {
           if (!authToken) return
           const message = await messageRepo.create(payload as string, authToken.userId)
-          console.log('created message', message)
           await eventDispatcher.dispatch(Topics.Messages, [
             {key: message.id, value: JSON.stringify(message)},
           ])
@@ -137,7 +132,6 @@ wss.on(
 
 eventListener.consume(Id.generate().toString(), Topics.Messages).then(stream => {
   stream.subscribe(async (message: Message) => {
-    console.log('broadcast message', message)
     const user = await userRepo.getById(message.userId)
     if (!user) return
     broadcast({name: DiscussionsMessagesOut.ReceiveMessage, payload: {message, user}})
@@ -181,7 +175,6 @@ app.use(cookieParser())
 
 app.post('/signin', async (req, res) => {
   try {
-    console.log('/signin', req.body)
     if (req.body.code) {
       const googleToken = await googleAdapter.getAccessToken(req.body.code)
       const {id, email, name, picture} = await googleAdapter.getUserInfo(googleToken)

@@ -1,19 +1,22 @@
 import {Injectable} from '@angular/core'
+import {Router} from '@angular/router'
 import {Actions, createEffect, ofType} from '@ngrx/effects'
-import {filter, map} from 'rxjs/operators'
+import {Store} from '@ngrx/store'
+import {filter, map, switchMap, withLatestFrom} from 'rxjs/operators'
 
+import {AuthSelectors} from '@client/store'
 import {DiscussionsMessagesIn, DiscussionsMessagesOut} from '@libs/enums'
 import {WebSocketActions} from '@libs/websocket-store'
 
-import {DiscussionsActions} from './discussions.actions'
+import {MessagesActions} from './messages.actions'
 
 @Injectable()
-export class DiscussionsEffects {
-  constructor(private actions$: Actions) {}
+export class MessagesEffects {
+  constructor(private actions$: Actions, private store: Store, private router: Router) {}
 
   sendMessage$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(DiscussionsActions.sendMessage),
+      ofType(MessagesActions.send),
       map(({content}) =>
         WebSocketActions.send({name: DiscussionsMessagesIn.SendMessage, payload: content}),
       ),
@@ -22,7 +25,7 @@ export class DiscussionsEffects {
 
   loadExistingMessages$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(DiscussionsActions.loadExistingMessages),
+      ofType(MessagesActions.loadExisting),
       map(() =>
         WebSocketActions.send({name: DiscussionsMessagesIn.LoadMessages, payload: undefined}),
       ),
@@ -33,9 +36,15 @@ export class DiscussionsEffects {
     this.actions$.pipe(
       ofType(WebSocketActions.message),
       filter(({name}) => name === DiscussionsMessagesOut.ReceiveMessage),
-      map(({payload}) => {
+      withLatestFrom(this.store.select(AuthSelectors.user)),
+      switchMap(([{payload}, authenticatedUser]) => {
         const {message, user} = payload
-        return DiscussionsActions.receivedMessage({message, user})
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const actions: any[] = [MessagesActions.received({message, user})]
+        if (authenticatedUser?.id !== message.userId && this.router.url !== '/discussions') {
+          actions.push(MessagesActions.receivedUnread({messageId: message.id}))
+        }
+        return actions
       }),
     ),
   )
@@ -46,7 +55,7 @@ export class DiscussionsEffects {
       filter(({name}) => name === DiscussionsMessagesOut.ExistingMessages),
       map(({payload}) => {
         const {messages, users} = payload
-        return DiscussionsActions.loadedExistingMessages({messages, users})
+        return MessagesActions.loadedExisting({messages, users})
       }),
     ),
   )
