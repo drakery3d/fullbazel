@@ -84,7 +84,6 @@ concatjs_devserver(
     scripts = [
         "@npm//:node_modules/tslib/tslib.js",
         "//tools:rxjs_umd_modules",
-        "@npm//faker:faker.umd.js",
     ],
     static_files = [
         "@npm//:node_modules/zone.js/dist/zone.min.js",

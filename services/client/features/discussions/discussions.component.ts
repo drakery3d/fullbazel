@@ -1,7 +1,6 @@
 import {Component} from '@angular/core'
 import {FormControl, FormGroup, Validators} from '@angular/forms'
 import {Store} from '@ngrx/store'
-import * as faker from 'faker'
 
 import {AuthSelectors} from '@client/store'
 
@@ -19,7 +18,7 @@ import {UserssSeletors} from './users.selectors'
         (keyup.enter)="send()"
       ></textarea>
       <div class="submission" [class.disabled]="!form.valid">
-        <button (click)="lorem()">Lorem</button>
+        <button (click)="genLorem()">Lorem</button>
         <button [disabled]="!form.valid" (click)="send()">Send</button>
         <span class="enter">press Enter ↵</span>
       </div>
@@ -48,6 +47,7 @@ export class DiscussionsComponent {
   form = new FormGroup({
     input: new FormControl('', Validators.required),
   })
+  lorem = `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.`
 
   constructor(private store: Store) {}
 
@@ -56,7 +56,7 @@ export class DiscussionsComponent {
     this.form.patchValue({input: ''})
   }
 
-  lorem() {
-    this.form.patchValue({input: faker.lorem.paragraph()})
+  genLorem() {
+    this.form.patchValue({input: this.lorem})
   }
 }
