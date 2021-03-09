@@ -98,6 +98,20 @@ export class UserRepository {
     return this.deserialize(user)
   }
 
+  async getByIds(ids: string[]) {
+    const query = `
+      SELECT *
+      FROM \`${this.tableName}\`
+      WHERE ${Column.Id} in (${'?, '.repeat(ids.length - 1).slice(0, -2)});
+    `
+    const connection = await this.getConnection()
+    const result = await connection.query(query, [ids])
+    connection.release()
+
+    const rows = result[0] as RowDataPacket
+    return rows.map(this.deserialize) as User[]
+  }
+
   async isHealthy() {
     return this.isInitialized && this.isConnected
   }

@@ -20,6 +20,4 @@ export const discussionsReducer = createReducer(
   ),
 )
 
-export const DiscussionsReducerSelectors = {
-  selectAll: adapter.getSelectors().selectAll,
-}
+export const DiscussionsReducerSelectors = adapter.getSelectors()

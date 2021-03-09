@@ -3,7 +3,6 @@ import {Actions, createEffect, ofType} from '@ngrx/effects'
 import {filter, map} from 'rxjs/operators'
 
 import {DiscussionsMessagesIn, DiscussionsMessagesOut} from '@libs/enums'
-import {Message} from '@libs/schema'
 import {WebSocketActions} from '@libs/websocket-store'
 
 import {DiscussionsActions} from './discussions.actions'
@@ -25,7 +24,10 @@ export class DiscussionsEffects {
     this.actions$.pipe(
       ofType(WebSocketActions.message),
       filter(({name}) => name === DiscussionsMessagesOut.ReceiveMessage),
-      map(({payload}) => DiscussionsActions.receivedMessage({message: payload as Message})),
+      map(({payload}) => {
+        const {message, user} = payload
+        return DiscussionsActions.receivedMessage({message, user})
+      }),
     ),
   )
 
@@ -33,9 +35,10 @@ export class DiscussionsEffects {
     this.actions$.pipe(
       ofType(WebSocketActions.message),
       filter(({name}) => name === DiscussionsMessagesOut.ExistingMessages),
-      map(({payload}) =>
-        DiscussionsActions.loadedExistingMessages({messages: payload as Message[]}),
-      ),
+      map(({payload}) => {
+        const {messages, users} = payload
+        return DiscussionsActions.loadedExistingMessages({messages, users})
+      }),
     ),
   )
 }

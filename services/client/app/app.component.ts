@@ -17,6 +17,7 @@ enum Theme {
 }
 
 // TODO try auto-recognize google sign in
+// TODO new message count badge in navigation for discussions tab
 
 @Component({
   selector: 'app-root',

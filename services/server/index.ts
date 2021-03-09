@@ -25,7 +25,7 @@ import {
   TokenExpiration,
   Topics,
 } from '@libs/enums'
-import {Quote, SocketMessage, User} from '@libs/schema'
+import {Message, Quote, SocketMessage, User} from '@libs/schema'
 import {AuthToken, Id} from '@libs/types'
 
 import {EventDispatcher} from './event-dispatcher'
@@ -82,52 +82,63 @@ wss.on(
     })
 
     socket.on('message', async message => {
-      const {name, payload} = JSON.parse(message.toString()) as SocketMessage
+      try {
+        const {name, payload} = JSON.parse(message.toString()) as SocketMessage
 
-      if (name === DiscussionsMessagesIn.SendMessage) {
-        if (!authToken) return
-        const message = await messageRepo.create(payload as string, authToken.userId)
-        await eventDispatcher.dispatch(Topics.Messages, [
-          {key: message.id, value: JSON.stringify(message)},
-        ])
-      }
+        console.log(name, payload)
 
-      if (name === QuoteMessagesIn.StartStreaming) {
-        timerSubscription?.unsubscribe()
-        timerSubscription = timer(0, 3000)
-          .pipe(
-            takeWhile(() => isConnected),
-            tap(() => {
-              const quote: Quote = {
-                content: faker.lorem.sentence(),
-                author: faker.name.firstName(),
-                id: uuidv4(),
-              }
-              const message: SocketMessage = {name: QuoteMessagesOut.Send, payload: quote}
-              socket.send(JSON.stringify(message))
-            }),
-          )
-          .subscribe()
-      }
+        if (name === DiscussionsMessagesIn.SendMessage) {
+          if (!authToken) return
+          const message = await messageRepo.create(payload as string, authToken.userId)
+          console.log('created message', message)
+          await eventDispatcher.dispatch(Topics.Messages, [
+            {key: message.id, value: JSON.stringify(message)},
+          ])
+        }
 
-      if (name === QuoteMessagesIn.StopStreaming) {
-        if (timerSubscription) timerSubscription.unsubscribe()
+        if (name === QuoteMessagesIn.StartStreaming) {
+          timerSubscription?.unsubscribe()
+          timerSubscription = timer(0, 3000)
+            .pipe(
+              takeWhile(() => isConnected),
+              tap(() => {
+                const quote: Quote = {
+                  content: faker.lorem.sentence(),
+                  author: faker.name.firstName(),
+                  id: uuidv4(),
+                }
+                const message: SocketMessage = {name: QuoteMessagesOut.Send, payload: quote}
+                socket.send(JSON.stringify(message))
+              }),
+            )
+            .subscribe()
+        }
+
+        if (name === QuoteMessagesIn.StopStreaming) {
+          if (timerSubscription) timerSubscription.unsubscribe()
+        }
+      } catch (err) {
+        console.log('error while handling message', err)
       }
     })
 
     const messages = await messageRepo.getAll()
+    const userIds = [...new Set(messages.map(m => m.userId))]
+    const users = await userRepo.getByIds(userIds)
     const message: SocketMessage = {
       name: DiscussionsMessagesOut.ExistingMessages,
-      payload: messages,
+      payload: {messages, users},
     }
     socket.send(JSON.stringify(message))
   },
 )
 
 eventListener.consume(Id.generate().toString(), Topics.Messages).then(stream => {
-  stream.subscribe(event => {
-    console.log('broadcast message', event)
-    broadcast({name: DiscussionsMessagesOut.ReceiveMessage, payload: event})
+  stream.subscribe(async (message: Message) => {
+    console.log('broadcast message', message)
+    const user = await userRepo.getById(message.userId)
+    if (!user) return
+    broadcast({name: DiscussionsMessagesOut.ReceiveMessage, payload: {message, user}})
   })
 })
 
@@ -168,6 +179,7 @@ app.use(cookieParser())
 
 app.post('/signin', async (req, res) => {
   try {
+    console.log('/signin', req.body)
     if (req.body.code) {
       const googleToken = await googleAdapter.getAccessToken(req.body.code)
       const {id, email, name, picture} = await googleAdapter.getUserInfo(googleToken)
@@ -205,6 +217,7 @@ app.post('/signin', async (req, res) => {
       }
     }
 
+    res.cookie(CookieNames.AuthToken, '')
     res.status(400).send('Not authenticated')
   } catch (err) {
     res.cookie(CookieNames.AuthToken, '')

@@ -45,7 +45,7 @@ export class MessagesRepository {
     const upsertEventsTable = `
       CREATE TABLE IF NOT EXISTS \`${this.tableName}\` (
         ${Column.Id} VARCHAR(255) NOT NULL,
-        ${Column.Content} VARCHAR(255) NOT NULL UNIQUE,
+        ${Column.Content} TEXT NOT NULL,
         ${Column.UserId} VARCHAR(255) NOT NULL,
         ${Column.CreatedAt} BIGINT NOT NULL,
         PRIMARY KEY (${Column.Id})

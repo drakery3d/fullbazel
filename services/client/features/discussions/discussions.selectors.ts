@@ -1,14 +1,11 @@
 import {createFeatureSelector, createSelector} from '@ngrx/store'
 
 import {DiscussionsReducerSelectors} from './discussions.reducer'
-import {DiscussionsReducer} from './discussions.state'
+import {DiscussionsState} from './discussions.state'
 
-interface State {
-  discussions: DiscussionsReducer
-}
-
-const selectFeatureState = createFeatureSelector<State>('discussions')
-const state = createSelector(selectFeatureState, (state: State) => state.discussions)
+const feature = createFeatureSelector<DiscussionsState>('discussions')
+const state = createSelector(feature, (state: DiscussionsState) => state.discussions)
 const messages = createSelector(state, DiscussionsReducerSelectors.selectAll)
+const messagesReverse = createSelector(messages, msgs => msgs.reverse())
 
-export const DiscussionsSeletors = {messages}
+export const DiscussionsSeletors = {messages, messagesReverse}

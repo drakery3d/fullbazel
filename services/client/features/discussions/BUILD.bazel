@@ -26,6 +26,8 @@ ng_ts_library(
         "@npm//@ngrx/effects",
         "@npm//@ngrx/entity",
         "@npm//@ngrx/store",
+        "@npm//@types/faker",
+        "@npm//faker",
         "@npm//rxjs",
     ],
 )

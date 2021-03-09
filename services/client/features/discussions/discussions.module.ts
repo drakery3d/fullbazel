@@ -10,13 +10,14 @@ import {UiElementsModule} from '@libs/ui-elements'
 import {DiscussionsComponent} from './discussions.component'
 import {DiscussionsEffects} from './discussions.effects'
 import {discussionsReducer} from './discussions.reducer'
+import {usersReducer} from './users.reducer'
 
 @NgModule({
   imports: [
     CommonModule,
     UiElementsModule,
     RouterModule.forChild([{path: '', component: DiscussionsComponent}]),
-    StoreModule.forFeature('discussions', {discussions: discussionsReducer}),
+    StoreModule.forFeature('discussions', {discussions: discussionsReducer, users: usersReducer}),
     EffectsModule.forFeature([DiscussionsEffects]),
     FormsModule,
     ReactiveFormsModule,
