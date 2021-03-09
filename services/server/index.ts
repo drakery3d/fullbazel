@@ -5,13 +5,9 @@ import * as cookie from 'cookie'
 import * as cookieParser from 'cookie-parser'
 import * as cors from 'cors'
 import * as express from 'express'
-import * as faker from 'faker'
 import * as http from 'http'
 import {Container} from 'inversify'
 import {Socket} from 'net'
-import {Subscription, timer} from 'rxjs'
-import {takeWhile, tap} from 'rxjs/operators'
-import {v4 as uuidv4} from 'uuid'
 import * as WebSocket from 'ws'
 
 import {Config} from '@libs/config'
@@ -20,12 +16,10 @@ import {
   DiscussionsMessagesIn,
   DiscussionsMessagesOut,
   Environment,
-  QuoteMessagesIn,
-  QuoteMessagesOut,
   TokenExpiration,
   Topics,
 } from '@libs/enums'
-import {Message, Quote, SocketMessage, User} from '@libs/schema'
+import {Message, SocketMessage, User} from '@libs/schema'
 import {AuthToken, Id} from '@libs/types'
 
 import {EventDispatcher} from './event-dispatcher'
@@ -64,6 +58,7 @@ const authTokenCookieOptions: express.CookieOptions = {
 }
 
 const broadcast = (message: SocketMessage) => {
+  // TODO does wss.client automatically remove disconnected clients or do we need to handle this?
   wss.clients.forEach(client => {
     client.send(JSON.stringify(message))
   })
@@ -72,13 +67,6 @@ const broadcast = (message: SocketMessage) => {
 wss.on(
   'connection',
   async (socket: WebSocket, request: http.IncomingMessage, authToken?: AuthToken) => {
-    let isConnected = true
-    let timerSubscription: Subscription | undefined
-
-    socket.on('close', () => {
-      isConnected = false
-    })
-
     socket.on('message', async message => {
       try {
         const {name, payload} = JSON.parse(message.toString()) as SocketMessage
@@ -100,28 +88,6 @@ wss.on(
             payload: {messages, users},
           }
           socket.send(JSON.stringify(message))
-        }
-
-        if (name === QuoteMessagesIn.StartStreaming) {
-          timerSubscription?.unsubscribe()
-          timerSubscription = timer(0, 3000)
-            .pipe(
-              takeWhile(() => isConnected),
-              tap(() => {
-                const quote: Quote = {
-                  content: faker.lorem.sentence(),
-                  author: faker.name.firstName(),
-                  id: uuidv4(),
-                }
-                const message: SocketMessage = {name: QuoteMessagesOut.Send, payload: quote}
-                socket.send(JSON.stringify(message))
-              }),
-            )
-            .subscribe()
-        }
-
-        if (name === QuoteMessagesIn.StopStreaming) {
-          if (timerSubscription) timerSubscription.unsubscribe()
         }
       } catch (err) {
         console.log('error while handling message', err)

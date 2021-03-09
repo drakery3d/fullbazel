@@ -15,10 +15,6 @@ const routes: Routes = [
     path: 'docs',
     loadChildren: () => import('../features/docs/docs.module').then(m => m.DocsModule),
   },
-  {
-    path: 'realtime',
-    loadChildren: () => import('../features/realtime/realtime.module').then(m => m.RealtimeModule),
-  },
   {path: '**', redirectTo: 'home', pathMatch: 'full'},
 ]
 

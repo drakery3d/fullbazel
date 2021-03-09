@@ -35,7 +35,6 @@ ng_ts_library(
         "//services/client/features/discussions",
         "//services/client/features/docs",
         "//services/client/features/home",
-        "//services/client/features/realtime",
         "//services/client/store",
         "@npm//@angular/common",
         "@npm//@angular/core",
