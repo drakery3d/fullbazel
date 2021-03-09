@@ -1,10 +1,10 @@
 import {isPlatformBrowser} from '@angular/common'
-import {Component, Inject, PLATFORM_ID, Renderer2} from '@angular/core'
+import {Component, Inject, OnDestroy, PLATFORM_ID, Renderer2} from '@angular/core'
 import {ActivatedRoute, Router} from '@angular/router'
 import {UpdateAvailableEvent} from '@angular/service-worker'
 import {Store} from '@ngrx/store'
 import {fromEvent, merge, Observable, of} from 'rxjs'
-import {first, map, mapTo, skipWhile} from 'rxjs/operators'
+import {first, map, mapTo, skipWhile, takeWhile} from 'rxjs/operators'
 
 import {AuthActions, AuthSelectors, MessagesActions, MessagesSeletors} from '@client/store'
 
@@ -19,12 +19,11 @@ enum Theme {
 // TODO try auto-recognize google sign in
 // TODO new message count badge in navigation for discussions tab
 // TODO push notification on new message
-// TODO only icons in small screen nav
 
 @Component({
   selector: 'app-root',
   template: `
-    <div class="header">
+    <div class="header saturated">
       <nav>
         <a routerLink="/home">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="logo">
@@ -131,15 +130,11 @@ enum Theme {
         </g>
       </svg>
       <span class="unselectable">Update Available</span>
-    </div>
-
-    <div class="main">
-      <router-outlet></router-outlet>
-    </div> -->
+    </div>-->
   `,
   styleUrls: ['app.component.sass'],
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy {
   offline$: Observable<boolean>
   user$ = this.store.select(AuthSelectors.user)
   unreadCount$ = this.store.select(MessagesSeletors.unreadCount)
@@ -148,6 +143,7 @@ export class AppComponent {
   signInUrl =
     'https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?access_type=offline&client_id=98599563044-jj7e91t651ugd1cjs9ftrp5m5hc6mso7.apps.googleusercontent.com&prompt=consent&redirect_uri=http%3A%2F%2Flocalhost%3A4200&response_type=code&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&flowName=GeneralOAuthFlow'
   isDarkTheme = false
+  private alive = true
 
   constructor(
     private serviceWorkerService: ServiceWorkerService,
@@ -166,6 +162,10 @@ export class AppComponent {
       this.setTheme()
       this.store.dispatch(MessagesActions.loadExisting())
     }
+  }
+
+  ngOnDestroy() {
+    this.alive = false
   }
 
   onUpdateServiceWorker() {
@@ -219,12 +219,16 @@ export class AppComponent {
     })
   }
 
-  // TODO show offline in ui (either permanent message or snackbar)
   private handleConnectivity() {
     this.offline$ = merge(
       of(!navigator.onLine),
       fromEvent(window, 'online').pipe(mapTo(false)),
       fromEvent(window, 'offline').pipe(mapTo(true)),
     )
+
+    this.offline$.pipe(takeWhile(() => this.alive)).subscribe(isOffline => {
+      if (isOffline) this.renderer.addClass(document.body, 'offline')
+      else this.renderer.removeClass(document.body, 'offline')
+    })
   }
 }
