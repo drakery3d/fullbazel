@@ -10,7 +10,6 @@ import {WebSocketActions, WebSocketSelectors} from '@libs/websocket-store'
 
 import {AppRoutingModule} from './app-routing.module'
 import {AppComponent} from './app.component'
-import {NavigationComopnent} from './navigation.component'
 import {PushNotificationService} from './push-notification.service'
 import {ServiceWorkerService} from './service-worker.service'
 
@@ -20,7 +19,7 @@ import {ServiceWorkerService} from './service-worker.service'
     BrowserModule.withServerTransition({appId: 'fullstack-bazel'}),
     AppRoutingModule,
   ],
-  declarations: [AppComponent, NavigationComopnent],
+  declarations: [AppComponent],
   providers: [
     ServiceWorkerService,
     PushNotificationService,

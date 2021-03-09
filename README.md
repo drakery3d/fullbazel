@@ -69,8 +69,6 @@ Read [docs/gke-deployment.md](docs/gke-deployment.md)
 - Backend unit tests
 - Documentation + Code comments
 - Second client without server side rendering
-- Client dark and light theme
-- API with Database
 - Deploy app to local Kubernetes cluster
 - Prerendering
 - Upgrade core-js and systemjs

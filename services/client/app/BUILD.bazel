@@ -8,25 +8,16 @@ sass_binary(
     src = "app.component.sass",
 )
 
-sass_binary(
-    name = "navigation_styles",
-    src = "navigation.component.sass",
-)
-
 ng_ts_library(
     name = "base",
     srcs = [
         "app.component.ts",
         "app-base.module.ts",
         "app-routing.module.ts",
-        "navigation.component.ts",
         "push-notification.service.ts",
         "service-worker.service.ts",
     ],
-    angular_assets = [
-        "app_styles",
-        "navigation_styles",
-    ],
+    angular_assets = ["app_styles"],
     tsconfig = "//services/client:tsconfig.json",
     deps = [
         "//libs/schema",
