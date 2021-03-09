@@ -38,7 +38,7 @@ enum Theme {
           </svg>
         </a>
 
-        <div class="menu">
+        <div class="menu big">
           <div class="item"><a routerLink="/home" routerLinkActive="selected">Home</a></div>
           <div class="item">
             <a routerLink="/discussions" routerLinkActive="selected">Discussions</a>
@@ -46,6 +46,31 @@ enum Theme {
           </div>
           <div class="item">
             <a routerLink="/docs" routerLinkActive="selected">Docs</a>
+          </div>
+        </div>
+
+        <div class="menu small">
+          <div class="item">
+            <a routerLink="/home" routerLinkActive="selected"
+              ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M0 0h24v24H0V0z" fill="none" />
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5z" /></svg
+            ></a>
+          </div>
+          <div class="item">
+            <a routerLink="/discussions" routerLinkActive="selected"
+              ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M0 0h24v24H0V0z" fill="none" />
+                <path d="M22 6h-3v9H6v3h12l4 4V6zm-5 7V2H2v15l4-4h11z" /></svg
+            ></a>
+            <span class="unread" *ngIf="unreadCount$ | async as count">{{ count }}</span>
+          </div>
+          <div class="item">
+            <a routerLink="/docs" routerLinkActive="selected"
+              ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M0 0h24v24H0V0z" fill="none" />
+                <path d="M19 3H5v18l7-3 7 3V3z" /></svg
+            ></a>
           </div>
         </div>
 

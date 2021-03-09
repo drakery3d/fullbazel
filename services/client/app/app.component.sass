@@ -3,14 +3,15 @@ $small-screen: 48rem
 
 .header
   position: fixed
-  top: 0
+  top: 1px
   left: 0
   right: 0
   z-index: 10
   padding: 1rem
   font-size: 1rem
   box-shadow: 0 0 5px var(--shadow)
-  background: var(--background)
+  background: rgba(var(--background-rgb), 0.7)
+  backdrop-filter: blur(20px)
 
   nav
     height: 3rem
@@ -27,11 +28,9 @@ $small-screen: 48rem
 
     .menu
       flex: 1
-      display: flex
       align-items: center
       justify-content: space-between
       flex-wrap: wrap
-      margin: 0 10rem
       max-width: 25rem
 
       .item
@@ -61,6 +60,26 @@ $small-screen: 48rem
           left: 100%
           margin: -0.8rem 0 0 0.5rem
           border: 2px solid var(--background)
+
+    .menu.big
+      display: flex
+      margin: 0 10rem
+
+    .menu.small
+      display: none
+      margin: 0 2rem
+      max-width: 8rem
+      .item > a >svg
+        width: 1.5rem
+        height: 1.5rem
+        fill: var(--text-light)
+      .item > a.selected > svg
+        fill: var(--color)
+      .item > .unread
+        padding: 0.1rem 0.2rem
+        line-height: 0.8rem
+        min-width: 0.8rem
+        margin: -0.5rem 0 0 -0.5rem
 
     .misc
       display: flex
@@ -97,8 +116,11 @@ $small-screen: 48rem
 @media all and (max-width: $small-screen)
   .header
     nav
-      .menu
+      .menu.big
         display: none
+
+      .menu.small
+        display: flex
 
 // #update_banner
 //   position: fixed
