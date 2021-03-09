@@ -1,8 +1,6 @@
 import {NgModule} from '@angular/core'
 import {RouterModule, Routes} from '@angular/router'
 
-import {DiscussionsModule} from '../features/discussions/discussions.module'
-
 const routes: Routes = [
   {
     path: 'home',
@@ -10,7 +8,8 @@ const routes: Routes = [
   },
   {
     path: 'discussions',
-    loadChildren: () => DiscussionsModule,
+    loadChildren: () =>
+      import('../features/discussions/discussions.module').then(m => m.DiscussionsModule),
   },
   {
     path: 'docs',

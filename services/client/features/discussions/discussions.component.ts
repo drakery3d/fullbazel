@@ -49,7 +49,9 @@ export class DiscussionsComponent {
   })
   lorem = `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.`
 
-  constructor(private store: Store) {}
+  constructor(private store: Store) {
+    this.store.dispatch(DiscussionsActions.loadExistingMessages())
+  }
 
   send() {
     this.store.dispatch(DiscussionsActions.sendMessage({content: this.form.value.input}))

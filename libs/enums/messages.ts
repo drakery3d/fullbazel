@@ -8,6 +8,7 @@ export enum QuoteMessagesOut {
 
 export enum DiscussionsMessagesIn {
   SendMessage = 'discussions.sendMessage',
+  LoadMessages = 'discussions.loadMessages',
 }
 export enum DiscussionsMessagesOut {
   ReceiveMessage = 'discussions.receiveMessage',

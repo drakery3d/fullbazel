@@ -96,6 +96,17 @@ wss.on(
           ])
         }
 
+        if (name === DiscussionsMessagesIn.LoadMessages) {
+          const messages = await messageRepo.getAll()
+          const userIds = [...new Set(messages.map(m => m.userId))]
+          const users = await userRepo.getByIds(userIds)
+          const message: SocketMessage = {
+            name: DiscussionsMessagesOut.ExistingMessages,
+            payload: {messages, users},
+          }
+          socket.send(JSON.stringify(message))
+        }
+
         if (name === QuoteMessagesIn.StartStreaming) {
           timerSubscription?.unsubscribe()
           timerSubscription = timer(0, 3000)
@@ -121,15 +132,6 @@ wss.on(
         console.log('error while handling message', err)
       }
     })
-
-    const messages = await messageRepo.getAll()
-    const userIds = [...new Set(messages.map(m => m.userId))]
-    const users = await userRepo.getByIds(userIds)
-    const message: SocketMessage = {
-      name: DiscussionsMessagesOut.ExistingMessages,
-      payload: {messages, users},
-    }
-    socket.send(JSON.stringify(message))
   },
 )
 

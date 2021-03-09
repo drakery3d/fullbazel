@@ -20,6 +20,15 @@ export class DiscussionsEffects {
     ),
   )
 
+  loadExistingMessages$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(DiscussionsActions.loadExistingMessages),
+      map(() =>
+        WebSocketActions.send({name: DiscussionsMessagesIn.LoadMessages, payload: undefined}),
+      ),
+    ),
+  )
+
   receiveMessage$ = createEffect(() =>
     this.actions$.pipe(
       ofType(WebSocketActions.message),

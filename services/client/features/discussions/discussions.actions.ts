@@ -7,9 +7,15 @@ const receivedMessage = createAction(
   'discussions.receivedMessage',
   props<{message: Message; user: User}>(),
 )
+const loadExistingMessages = createAction('discussions.loadExistingMessages')
 const loadedExistingMessages = createAction(
   'discussions.loadedExistingMessages',
   props<{messages: Message[]; users: User[]}>(),
 )
 
-export const DiscussionsActions = {sendMessage, receivedMessage, loadedExistingMessages}
+export const DiscussionsActions = {
+  sendMessage,
+  receivedMessage,
+  loadExistingMessages,
+  loadedExistingMessages,
+}
