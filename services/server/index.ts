@@ -1,3 +1,5 @@
+// TODO clean up this file (split up)
+
 import 'reflect-metadata'
 
 import * as bodyParser from 'body-parser'
@@ -8,6 +10,7 @@ import * as express from 'express'
 import * as http from 'http'
 import {Container} from 'inversify'
 import {Socket} from 'net'
+import * as webpush from 'web-push'
 import * as WebSocket from 'ws'
 
 import {Config} from '@libs/config'
@@ -56,6 +59,12 @@ const authTokenCookieOptions: express.CookieOptions = {
   secure: isProd ? true : false,
   path: '/',
 }
+
+webpush.setVapidDetails(
+  'mailto:flo@drakery.com',
+  config.get('vapidPublicKey'),
+  config.get('secrets_vapidPrivateKey'),
+)
 
 const broadcast = (message: SocketMessage) => {
   // TODO does wss.client automatically remove disconnected clients or do we need to handle this?

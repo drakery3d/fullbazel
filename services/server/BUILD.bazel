@@ -27,6 +27,7 @@ ts_library(
         "@npm//@types/express",
         "@npm//@types/node",
         "@npm//@types/uuid",
+        "@npm//@types/web-push",
         "@npm//@types/ws",
         "@npm//async-retry",
         "@npm//axios",
@@ -42,6 +43,7 @@ ts_library(
         "@npm//reflect-metadata",
         "@npm//rxjs",
         "@npm//uuid",
+        "@npm//web-push",
         "@npm//ws",
     ],
 )

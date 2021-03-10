@@ -5,13 +5,13 @@ import {Store} from '@ngrx/store'
 import {first, skipWhile} from 'rxjs/operators'
 
 import {ClientEnvironment, ENVIRONMENT} from '@client/environment'
+import {SharedModule} from '@client/shared'
 import {AuthActions, AuthSelectors} from '@client/store'
 import {SnackbarModule} from '@libs/ui-elements'
 import {WebSocketActions, WebSocketSelectors} from '@libs/websocket-store'
 
 import {AppRoutingModule} from './app-routing.module'
 import {AppComponent} from './app.component'
-import {PushNotificationService} from './push-notification.service'
 import {ServiceWorkerService} from './service-worker.service'
 
 @NgModule({
@@ -20,11 +20,11 @@ import {ServiceWorkerService} from './service-worker.service'
     BrowserModule.withServerTransition({appId: 'fullstack-bazel'}),
     AppRoutingModule,
     SnackbarModule,
+    SharedModule,
   ],
   declarations: [AppComponent],
   providers: [
     ServiceWorkerService,
-    PushNotificationService,
     {
       provide: APP_INITIALIZER,
       multi: true,

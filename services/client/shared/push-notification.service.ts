@@ -56,11 +56,15 @@ export class PushNotificationService implements OnDestroy {
     const sub = await this.swPush.requestSubscription({
       serverPublicKey: this.environment.vapidPublicKey,
     })
+    // NOW send sub to backend and store in db for users
+
+    console.log({sub: sub.toJSON()})
     return sub
   }
 
   async sendSampleNotificationLocally() {
-    if (await this.ensurePushPermission()) {
+    const subscription = await this.ensurePushPermission()
+    if (subscription) {
       const sw = await navigator.serviceWorker.getRegistration()
       if (!sw) throw 'Could not get ServiceWorkerRegistration'
       await sw.showNotification(`This is how you will be notified`, {

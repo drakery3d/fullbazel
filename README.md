@@ -75,6 +75,9 @@ Read [docs/gke-deployment.md](docs/gke-deployment.md)
 - Minify html
 - README image with all used technologies' logos
 - Upgrade core-js to v3
+- Download all 'my' information (gpdr conformaty)
+- Terms of Service, Privacy Policy, Legal Notice placeholders
+- Fix circular dependency warning when building prod bundles
 
 **Issues**
 

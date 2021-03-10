@@ -5,10 +5,10 @@ import {Store} from '@ngrx/store'
 import {fromEvent, merge, Observable, of} from 'rxjs'
 import {first, map, mapTo, skipWhile, takeWhile} from 'rxjs/operators'
 
+import {PushNotificationService} from '@client/shared'
 import {AuthActions, AuthSelectors, MessagesActions, MessagesSeletors} from '@client/store'
 import {SnackbarService} from '@libs/ui-elements/snackbar/snackbar.service'
 
-import {PushNotificationService} from './push-notification.service'
 import {ServiceWorkerService} from './service-worker.service'
 
 enum Theme {
@@ -19,6 +19,7 @@ enum Theme {
 // TODO try auto-recognize google sign in
 // TODO new message count badge in navigation for discussions tab
 // TODO push notification on new message
+// TODO more animations
 
 @Component({
   selector: 'app-root',
@@ -113,7 +114,7 @@ export class AppComponent implements OnDestroy {
 
   constructor(
     private serviceWorkerService: ServiceWorkerService,
-    private notificationService: PushNotificationService,
+    public notificationService: PushNotificationService,
     private route: ActivatedRoute,
     private store: Store,
     private router: Router,
