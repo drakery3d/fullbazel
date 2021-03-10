@@ -1,0 +1,37 @@
+.wrappper
+  position: fixed
+  bottom: 2rem
+  left: 50%
+  display: flex
+  align-items: center
+  padding: 1rem
+  min-width: 18rem
+  max-width: min(calc(100vh - 2rem), 25rem)
+  transform-origin: center center
+  transform: translate(-50%, 0%)
+  box-shadow: 0 0 50px var(--shadow)
+  background-color: var(--snackbar-bg)
+  color: var(--snackbar-text)
+  border-radius: 0.6rem
+
+  .icon
+    background: var(--color-light)
+    color: var(--color)
+    border-radius: 50%
+    font-size: 1.1rem
+    padding: 0.3rem
+    margin-right: 0.8rem
+
+  button
+    margin-left: auto
+    font-family: inherit
+    font-weight: 500
+    cursor: pointer
+    outline: none
+    border: none
+    padding: 6px 14px
+    background: transparent
+    font-size: 0.9rem
+    color: var(--color)
+    &:hover
+      color: var(--color-light)

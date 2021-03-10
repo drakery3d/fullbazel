@@ -289,6 +289,8 @@ nodejs_image(
     data = [
         "pwa",
         "server_lib",
+        # TODO this shouldn't be required, why is this needed?
+        "@npm//chalk",
     ],
     entry_point = "server.ts",
     templated_args = ["--bazel_patch_module_resolver"],

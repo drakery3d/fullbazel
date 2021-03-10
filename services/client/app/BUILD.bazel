@@ -21,6 +21,7 @@ ng_ts_library(
     tsconfig = "//services/client:tsconfig.json",
     deps = [
         "//libs/schema",
+        "//libs/ui-elements",
         "//libs/websocket-store",
         "//services/client/environment",
         "//services/client/features/discussions",

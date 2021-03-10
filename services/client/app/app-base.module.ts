@@ -6,6 +6,7 @@ import {first, skipWhile} from 'rxjs/operators'
 
 import {ClientEnvironment, ENVIRONMENT} from '@client/environment'
 import {AuthActions, AuthSelectors} from '@client/store'
+import {SnackbarModule} from '@libs/ui-elements'
 import {WebSocketActions, WebSocketSelectors} from '@libs/websocket-store'
 
 import {AppRoutingModule} from './app-routing.module'
@@ -18,6 +19,7 @@ import {ServiceWorkerService} from './service-worker.service'
     HttpClientModule,
     BrowserModule.withServerTransition({appId: 'fullstack-bazel'}),
     AppRoutingModule,
+    SnackbarModule,
   ],
   declarations: [AppComponent],
   providers: [

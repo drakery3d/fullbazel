@@ -5,8 +5,8 @@ load("@npm//@bazel/typescript:index.bzl", "ts_config")
 package(default_visibility = ["//services/client:__subpackages__"])
 
 sass_binary(
-    name = "styles",
-    src = "button.component.sass",
+    name = "snackbar_styles",
+    src = "snackbar/snackbar.component.sass",
 )
 
 ts_config(
@@ -18,12 +18,14 @@ ts_config(
 ng_ts_library(
     name = "ui-elements",
     srcs = glob(["**/*.ts"]),
-    angular_assets = ["styles"],
+    angular_assets = ["snackbar_styles"],
     module_name = "@libs/ui-elements",
     tsconfig = "tsconfig",
     deps = [
+        "@npm//@angular/animations",
         "@npm//@angular/common",
         "@npm//@angular/core",
-        "@npm//@angular/router",
+        "@npm//@angular/platform-browser",
+        "@npm//rxjs",
     ],
 )
