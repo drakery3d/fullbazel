@@ -47,8 +47,25 @@ ng_ts_library(
         "//services/client/environment",
         "//services/client/store",
         "@npm//@angular/core",
+        "@npm//@angular/platform-browser",
         "@npm//@angular/service-worker",
         "@npm//@ngrx/store-devtools",
+    ],
+)
+
+ng_ts_library(
+    name = "prod_browser",
+    srcs = ["app-prod-browser.module.ts"],
+    tsconfig = "//services/client:tsconfig.json",
+    deps = [
+        ":base",
+        "//services/client/environment",
+        "//services/client/store",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//@angular/platform-browser",
+        "@npm//@angular/service-worker",
+        "@npm//rxjs",
     ],
 )
 
@@ -75,6 +92,7 @@ ng_ts_library(
         "base",
         "prod",
         "@npm//@angular/core",
+        "@npm//@angular/platform-browser",
         "@npm//@angular/platform-server",
     ],
 )

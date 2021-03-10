@@ -15,6 +15,7 @@ import * as WebSocket from 'ws'
 
 import {Config} from '@libs/config'
 import {
+  AuthMessagesIn,
   CookieNames,
   DiscussionsMessagesIn,
   DiscussionsMessagesOut,
@@ -29,6 +30,7 @@ import {EventDispatcher} from './event-dispatcher'
 import {EventListener} from './event-listener'
 import {GoogleAdapter} from './google.adapter'
 import {MessagesRepository} from './messages.repository'
+import {PushSubscriptionRepository} from './push-subscription.repository'
 import {UserRepository} from './user.repository'
 
 const container = new Container()
@@ -38,6 +40,7 @@ container.bind(UserRepository).toSelf().inSingletonScope()
 container.bind(MessagesRepository).toSelf().inSingletonScope()
 container.bind(EventDispatcher).toSelf().inSingletonScope()
 container.bind(EventListener).toSelf().inSingletonScope()
+container.bind(PushSubscriptionRepository).toSelf().inSingletonScope()
 
 const app = express()
 const server = http.createServer(app)
@@ -49,6 +52,7 @@ const messageRepo = container.get(MessagesRepository)
 const isProd = config.get('environment') === Environment.Production
 const eventDispatcher = container.get(EventDispatcher)
 const eventListener = container.get(EventListener)
+const pushSubRepo = container.get(PushSubscriptionRepository)
 
 const authTokenSecret = config.get('secrets_tokens_auth')
 
@@ -98,6 +102,11 @@ wss.on(
           }
           socket.send(JSON.stringify(message))
         }
+
+        if (name === AuthMessagesIn.StorePushSubscription) {
+          if (!authToken) return
+          await pushSubRepo.create(payload as webpush.PushSubscription, authToken.userId)
+        }
       } catch (err) {
         console.log('error while handling message', err)
       }
@@ -110,6 +119,42 @@ eventListener.consume(Id.generate().toString(), Topics.Messages).then(stream => 
     const user = await userRepo.getById(message.userId)
     if (!user) return
     broadcast({name: DiscussionsMessagesOut.ReceiveMessage, payload: {message, user}})
+    const pushSubs = await pushSubRepo.getAll()
+    let sent = 0
+
+    const notificationPayload = {
+      notification: {
+        title: 'New Message',
+        body: `View unread message from ${user.name}`,
+        icon: 'assets/icons/icon-72x72.png',
+        vibrate: [100, 50, 100],
+        data: {
+          dateOfArrival: Date.now(),
+          primaryKey: 1,
+          type: 'new-message',
+        },
+        actions: [
+          {
+            action: 'view',
+            title: 'View message',
+          },
+        ],
+      },
+    }
+
+    await Promise.all(
+      pushSubs.map(async sub => {
+        if (sub.userId !== message.userId) {
+          const webpushSub: webpush.PushSubscription = {
+            endpoint: sub.endpoint,
+            keys: {auth: sub.authKey, p256dh: sub.p256dhKey},
+          }
+          await webpush.sendNotification(webpushSub, JSON.stringify(notificationPayload))
+          sent++
+        }
+      }),
+    )
+    console.log('sent', sent, 'push notifications')
   })
 })
 

@@ -5,7 +5,9 @@ import {of} from 'rxjs'
 import {catchError, map, switchMap} from 'rxjs/operators'
 
 import {ClientEnvironment, ENVIRONMENT} from '@client/environment'
+import {AuthMessagesIn} from '@libs/enums'
 import {User} from '@libs/schema'
+import {WebSocketActions} from '@libs/websocket-store'
 
 import {AuthActions} from './auth.actions'
 
@@ -54,6 +56,15 @@ export class AuthEffects {
           catchError(() => of(AuthActions.failedToSignOut())),
         )
       }),
+    ),
+  )
+
+  storePushSubscription$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.storePushSubscription),
+      map(({sub}) =>
+        WebSocketActions.send({name: AuthMessagesIn.StorePushSubscription, payload: sub.toJSON()}),
+      ),
     ),
   )
 }

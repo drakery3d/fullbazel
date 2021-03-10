@@ -1,4 +1,4 @@
-import {isPlatformBrowser} from '@angular/common'
+import {DOCUMENT, isPlatformBrowser} from '@angular/common'
 import {Component, Inject, OnDestroy, PLATFORM_ID, Renderer2} from '@angular/core'
 import {ActivatedRoute, Router} from '@angular/router'
 import {Store} from '@ngrx/store'
@@ -121,6 +121,7 @@ export class AppComponent implements OnDestroy {
     private renderer: Renderer2,
     private snackbarService: SnackbarService,
     @Inject(PLATFORM_ID) private platform: string,
+    @Inject(DOCUMENT) private document: Document,
   ) {
     if (isPlatformBrowser(this.platform)) {
       this.notificationService.initialize()
@@ -149,15 +150,15 @@ export class AppComponent implements OnDestroy {
   }
 
   private setDarkTheme() {
-    this.renderer.removeClass(document.body, Theme.Light)
-    this.renderer.addClass(document.body, Theme.Dark)
+    this.renderer.removeClass(this.document.body, Theme.Light)
+    this.renderer.addClass(this.document.body, Theme.Dark)
     localStorage.setItem('theme', Theme.Dark)
     this.isDarkTheme = true
   }
 
   private setLightTheme() {
-    this.renderer.removeClass(document.body, Theme.Dark)
-    this.renderer.addClass(document.body, Theme.Light)
+    this.renderer.removeClass(this.document.body, Theme.Dark)
+    this.renderer.addClass(this.document.body, Theme.Light)
     localStorage.setItem('theme', Theme.Light)
     this.isDarkTheme = false
   }
@@ -196,8 +197,8 @@ export class AppComponent implements OnDestroy {
     )
 
     this.offline$.pipe(takeWhile(() => this.alive)).subscribe(isOffline => {
-      if (isOffline) this.renderer.addClass(document.body, 'offline')
-      else this.renderer.removeClass(document.body, 'offline')
+      if (isOffline) this.renderer.addClass(this.document.body, 'offline')
+      else this.renderer.removeClass(this.document.body, 'offline')
     })
   }
 }

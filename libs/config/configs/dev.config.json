@@ -4,7 +4,7 @@
   "api": "http://localhost:3000",
   "websocket": "ws://localhost:3000",
   "client": "http://localhost:4200",
-  "vapidPublicKey": "BH1-7kO3-7D7Y9WCUbfnWKCTmt5PDONXCMDTSlOj0RluGTT-4Zt5sMDx5nhcODIRbNcErv4IuFR-3jjWTbqfmOI",
+  "vapidPublicKey": "BME74zSeApXmd05j-p0Y9dmGUrzGIphqaPPjaMDuiA5f_Bez6IPmMU45_s7xmTRWIvzMFnf-y5qeT5jQlK1eUso",
   "googleClientId": "98599563044-jj7e91t651ugd1cjs9ftrp5m5hc6mso7.apps.googleusercontent.com",
   "mysqlDatabase": {
     "host": "fullbazel_mysql",

@@ -1,7 +1,7 @@
 import {enableProdMode} from '@angular/core'
 import {platformBrowser} from '@angular/platform-browser'
 
-import {AppProdModule} from './app/app-prod.module'
+import {AppProdBrowserModule} from './app/app-prod-browser.module'
 
 enableProdMode()
 
@@ -11,5 +11,5 @@ enableProdMode()
  * https://stackoverflow.com/a/47620452/8586803
  */
 document.addEventListener('DOMContentLoaded', () => {
-  platformBrowser().bootstrapModule(AppProdModule)
+  platformBrowser().bootstrapModule(AppProdBrowserModule)
 })

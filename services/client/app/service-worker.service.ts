@@ -1,4 +1,4 @@
-import {isPlatformBrowser} from '@angular/common'
+import {DOCUMENT, isPlatformBrowser} from '@angular/common'
 import {ApplicationRef, Inject, Injectable, PLATFORM_ID} from '@angular/core'
 import {SwUpdate, UpdateAvailableEvent} from '@angular/service-worker'
 import {concat, interval} from 'rxjs'
@@ -12,6 +12,7 @@ export class ServiceWorkerService {
     private appRef: ApplicationRef,
     private swUpdate: SwUpdate,
     @Inject(PLATFORM_ID) private platform: string,
+    @Inject(DOCUMENT) private document: Document,
   ) {}
 
   launchUpdateCheckingRoutine(
@@ -48,7 +49,7 @@ export class ServiceWorkerService {
     if (!this.isAvailable) return
     this.swUpdate.activateUpdate().then(() => {
       localStorage.setItem(this.updateDiscoveredAtKey, '')
-      document.location.reload()
+      this.document.location.reload()
     })
   }
 

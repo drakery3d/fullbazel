@@ -100,7 +100,7 @@ ng_ts_library(
     srcs = ["main.prod.ts"],
     tsconfig = "tsconfig",
     deps = [
-        "//services/client/app:prod",
+        "//services/client/app:prod_browser",
         "@npm//@angular/core",
         "@npm//@angular/platform-browser",
     ],

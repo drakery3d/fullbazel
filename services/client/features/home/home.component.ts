@@ -72,7 +72,8 @@ export class HomeComponent {
     this.store.dispatch(AuthActions.signOut())
   }
 
-  enablePushNotifications() {
-    this.notificationService.ensurePushPermission()
+  async enablePushNotifications() {
+    const sub = await this.notificationService.ensurePushPermission()
+    if (sub) this.store.dispatch(AuthActions.storePushSubscription({sub}))
   }
 }

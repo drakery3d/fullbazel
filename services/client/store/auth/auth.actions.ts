@@ -11,6 +11,11 @@ const signOut = createAction('auth.signOut')
 const signedOut = createAction('auth.signedOut')
 const failedToSignOut = createAction('auth.failedToSignOut')
 
+const storePushSubscription = createAction(
+  'auth.storePushSubscription',
+  props<{sub: PushSubscription}>(),
+)
+
 export const AuthActions = {
   signIn,
   tryToAuthenticate,
@@ -19,4 +24,5 @@ export const AuthActions = {
   signOut,
   signedOut,
   failedToSignOut,
+  storePushSubscription,
 }

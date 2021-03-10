@@ -53,13 +53,9 @@ export class PushNotificationService implements OnDestroy {
     const existingSub = await sw.pushManager.getSubscription()
     if (existingSub) return existingSub
 
-    const sub = await this.swPush.requestSubscription({
+    return this.swPush.requestSubscription({
       serverPublicKey: this.environment.vapidPublicKey,
     })
-    // NOW send sub to backend and store in db for users
-
-    console.log({sub: sub.toJSON()})
-    return sub
   }
 
   async sendSampleNotificationLocally() {
@@ -86,10 +82,8 @@ export class PushNotificationService implements OnDestroy {
         takeWhile(() => this.alive),
         tap(({notification}) => {
           console.log('user clicked on notification', {notification})
-          if (notification.data && notification.data.url) {
-            const url = notification.data.url
-            this.router.navigateByUrl(url)
-          }
+          const type = notification.data?.type
+          if (type === 'new-message') this.router.navigateByUrl('/discussions')
         }),
       )
       .subscribe()
