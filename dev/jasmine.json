@@ -1,4 +1,9 @@
 {
-  "spec_files": ["test/*.test.ts", "!node_modules/**", "!bazel-*/**", "!dist/**"],
+  "spec_files": [
+    "services/server/user.repository.test.ts",
+    "!node_modules/**",
+    "!bazel-*/**",
+    "!dist/**"
+  ],
   "random": false
 }

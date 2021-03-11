@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@libs/*": ["./libs/*"],
+      "@generated/config/*": ["./bazel-bin/libs/config/*"]
+    },
+    "module": "commonjs",
+    "strict": true,
+    "lib": ["esnext"],
+    "target": "es2015",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  },
+  "exclude": ["node_modules", "bazel-*"]
+}

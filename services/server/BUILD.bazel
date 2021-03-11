@@ -10,9 +10,14 @@ ts_config(
     deps = ["//:tsconfig"],
 )
 
+INTEGRATION_TESTS = ["user.repository.test.ts"]
+
 ts_library(
     name = "lib",
-    srcs = glob(["*.ts"]),
+    srcs = glob(
+        include = ["*.ts"],
+        exclude = INTEGRATION_TESTS,
+    ),
     tsconfig = "tsconfig",
     deps = [
         "//libs/config:config_lib",
@@ -45,6 +50,22 @@ ts_library(
         "@npm//uuid",
         "@npm//web-push",
         "@npm//ws",
+    ],
+)
+
+ts_library(
+    name = "integration_test_lib",
+    srcs = INTEGRATION_TESTS,
+    tsconfig = "tsconfig",
+    deps = [
+        "lib",
+        "//libs/config:config_lib",
+        "//libs/testing",
+        "@npm//@types/async-retry",
+        "@npm//async-retry",
+        "@npm//inversify",
+        "@npm//reflect-metadata",
+        "@npm//testcontainers",
     ],
 )
 
