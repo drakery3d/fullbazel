@@ -13,6 +13,8 @@
 
 # Features
 
+<!-- TODO update features-->
+
 **General**
 
 Deployment to Kubernetes, monorepo, libraries can be shared between server and client
@@ -54,9 +56,7 @@ yarn client
 yarn server
 ```
 
-**Deploy**
-
-Read [docs/gke-deployment.md](docs/gke-deployment.md)
+http://localhost:8080
 
 <br>
 <br>
@@ -79,6 +79,8 @@ Read [docs/gke-deployment.md](docs/gke-deployment.md)
 - Terms of Service, Privacy Policy, Legal Notice placeholders
 - Fix circular dependency warning when building prod bundles
 - Chrome log: Site cannot be installed: Page does not work offline. Starting in Chrome 93, the installability criteria is changing, and this site will not be installable. See https://goo.gle/improved-pwa-offline-detection for more information.
+- Consider renaming the project to "Fullbazel"
+- Keep user authenticated when server side rendering
 
 **Issues**
 

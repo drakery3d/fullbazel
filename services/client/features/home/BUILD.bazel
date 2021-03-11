@@ -31,11 +31,11 @@ ng_ts_library(
 
 ts_library(
     name = "test_lib",
-    testonly = 1,
     srcs = glob(["*.spec.ts"]),
     tsconfig = "//services/client:tsconfig_test",
     deps = [
         "home",
+        "//libs/ui-elements",
         "//services/client/environment",
         "//services/client/shared",
         "@npm//@angular/core",
@@ -44,7 +44,6 @@ ts_library(
         "@npm//@angular/service-worker",
         "@npm//@ngrx/store",
         "@npm//@types/jasmine",
-        "@npm//tslib",
     ],
 )
 

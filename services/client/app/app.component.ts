@@ -18,7 +18,6 @@ enum Theme {
 }
 
 // TODO try auto-recognize google sign in
-// TODO more animations
 // TODO signin and signout snackbars
 
 @Component({

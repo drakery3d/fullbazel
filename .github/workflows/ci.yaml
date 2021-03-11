@@ -1,3 +1,5 @@
+# TODO install node_modules once as first job and then reuse in other jobs
+
 name: ci
 on: push
 jobs:

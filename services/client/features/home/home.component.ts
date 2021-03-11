@@ -3,6 +3,7 @@ import {Store} from '@ngrx/store'
 
 import {PushNotificationService} from '@client/shared'
 import {AuthActions, AuthSelectors} from '@client/store'
+import {SnackbarService} from '@libs/ui-elements/snackbar/snackbar.service'
 
 @Component({
   selector: 'app-home',
@@ -25,6 +26,8 @@ import {AuthActions, AuthSelectors} from '@client/store'
       <div class="tags">
         <span *ngFor="let tag of tags">{{ tag }}</span>
       </div>
+
+      <button (click)="testSnackbar()">Test Snackbar</button>
 
       <!-- TODO global button design -->
       <ng-container *ngIf="user$ | async as user">
@@ -66,10 +69,18 @@ export class HomeComponent {
   ]
   user$ = this.store.select(AuthSelectors.user)
 
-  constructor(private store: Store, public notificationService: PushNotificationService) {}
+  constructor(
+    private store: Store,
+    public notificationService: PushNotificationService,
+    private snackbarService: SnackbarService,
+  ) {}
 
   signOut() {
     this.store.dispatch(AuthActions.signOut())
+  }
+
+  testSnackbar() {
+    this.snackbarService.show('This is a sample snackbar', 'Close', 3000, 'local_fire_department')
   }
 
   async enablePushNotifications() {

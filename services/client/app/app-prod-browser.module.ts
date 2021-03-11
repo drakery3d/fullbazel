@@ -10,7 +10,6 @@ import {AppBaseModule} from './app-base.module'
 import {AppComponent} from './app.component'
 
 /**
- * TODO explain
  * Purpose of this module:
  * https://stackoverflow.com/a/44402938/8586803
  */
