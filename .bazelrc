@@ -1,8 +1,2 @@
 build --incompatible_strict_action_env
 build --define=angular_ivy_enabled=True
-
-# TODO remove as soon as this is resolved
-# https://github.com/bazelbuild/rules_docker/issues/1716
-run --incompatible_restrict_string_escapes=false
-build --incompatible_restrict_string_escapes=false
-test --incompatible_restrict_string_escapes=false

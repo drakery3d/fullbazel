@@ -11,9 +11,10 @@
 
 <br>
 
-# Features
-
 <!-- TODO update features-->
+
+<!--
+# Features
 
 **General**
 
@@ -32,8 +33,8 @@ Docker compose for local development with hot reload
 # Documentation
 
 Coming soon
-
 <br>
+-->
 
 # Requirements
 
@@ -56,12 +57,32 @@ yarn client
 yarn server
 ```
 
-http://localhost:8080
+**Production**
+
+```
+yarn client:ssr
+yarn server
+```
+
+<br>
+
+# Issues
+
+- Upgrade from NgRx v9 to v11 ([rules_nodejs/issues/2320](https://github.com/bazelbuild/rules_nodejs/issues/2320))
+- Upgrade from Karma v4 to v5 ([rules_nodejs/issues/2093](https://github.com/bazelbuild/rules_nodejs/issues/2093))
+- Upgrade from rules_docker v14 to v15 with Bazel v4 ([rules_docker/issues/1716](https://github.com/bazelbuild/rules_docker/issues/1716))
+
+<br>
+
+## Special Thanks to all the people listed below!
+
+[@rayman1104](https://github.com/rayman1104) [@marcus-sa](https://github.com/marcus-sa) [@alexeagle](https://github.com/alexeagle) [@joeljeske](https://github.com/joeljeske)
 
 <br>
 <br>
+<br>
 
-# Reminders For Myself
+<!-- # Reminders For Myself
 
 **TODO's**
 
@@ -82,22 +103,9 @@ http://localhost:8080
 - Consider renaming the project to "Fullbazel"
 - Keep user authenticated when server side rendering
 
-**Issues**
-
-- Upgrade from NgRx v9 to v11 ([rules_nodejs/issues/2320](https://github.com/bazelbuild/rules_nodejs/issues/2320))
-- Upgrade from Karma v4 to v5 ([rules_nodejs/issues/2093](https://github.com/bazelbuild/rules_nodejs/issues/2093))
-- Insert Manifest with html-insert-assets ([html-insert-assets/issues/17](https://github.com/jbedard/html-insert-assets/issues/17))
-- Comments are not removed in Javascript bundles
-
 **Ideas**
 
 - Building into a Desktop App (e.g. with Electron)
 - Static website example (e.g docs or homepage)
 - Other frontend frameworks
-- Other server languages (e.g. Go, Python)
-
-<br>
-
-## Special Thanks to all the people listed below!
-
-[@rayman1104](https://github.com/rayman1104) [@marcus-sa](https://github.com/marcus-sa) [@alexeagle](https://github.com/alexeagle) [@joeljeske](https://github.com/joeljeske)
+- Other server languages (e.g. Go, Python) -->
