@@ -5,6 +5,7 @@ import {Store} from '@ngrx/store'
 import {fromEvent, merge, Observable, of} from 'rxjs'
 import {first, map, mapTo, skipWhile, takeWhile} from 'rxjs/operators'
 
+import {ClientEnvironment, ENVIRONMENT} from '@client/environment'
 import {PushNotificationService} from '@client/shared'
 import {AuthActions, AuthSelectors, MessagesActions, MessagesSeletors} from '@client/store'
 import {SnackbarService} from '@libs/ui-elements/snackbar/snackbar.service'
@@ -106,10 +107,9 @@ export class AppComponent implements OnDestroy {
   offline$: Observable<boolean>
   user$ = this.store.select(AuthSelectors.user)
   unreadCount$ = this.store.select(MessagesSeletors.unreadCount)
-  // TODO consider reading from env?
-  signInUrl =
-    'https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?access_type=offline&client_id=98599563044-jj7e91t651ugd1cjs9ftrp5m5hc6mso7.apps.googleusercontent.com&prompt=consent&redirect_uri=http%3A%2F%2Flocalhost%3A4200&response_type=code&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&flowName=GeneralOAuthFlow'
+  signInUrl = this.environment.googleSignInUrl
   isDarkTheme = false
+
   private alive = true
 
   constructor(
@@ -122,6 +122,7 @@ export class AppComponent implements OnDestroy {
     private snackbarService: SnackbarService,
     @Inject(PLATFORM_ID) private platform: string,
     @Inject(DOCUMENT) private document: Document,
+    @Inject(ENVIRONMENT) private environment: ClientEnvironment,
   ) {
     if (isPlatformBrowser(this.platform)) {
       this.notificationService.initialize()

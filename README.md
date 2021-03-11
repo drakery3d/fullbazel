@@ -78,6 +78,7 @@ Read [docs/gke-deployment.md](docs/gke-deployment.md)
 - Download all 'my' information (gpdr conformaty)
 - Terms of Service, Privacy Policy, Legal Notice placeholders
 - Fix circular dependency warning when building prod bundles
+- Chrome log: Site cannot be installed: Page does not work offline. Starting in Chrome 93, the installability criteria is changing, and this site will not be installable. See https://goo.gle/improved-pwa-offline-detection for more information.
 
 **Issues**
 

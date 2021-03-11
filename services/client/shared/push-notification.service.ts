@@ -6,6 +6,8 @@ import {takeWhile, tap} from 'rxjs/operators'
 
 import {ClientEnvironment, ENVIRONMENT} from '@client/environment'
 
+// TODO enabling notifications and clicking away dircectly asks for notifications again, but shouldn't
+
 @Injectable()
 export class PushNotificationService implements OnDestroy {
   private alive = true
@@ -34,16 +36,14 @@ export class PushNotificationService implements OnDestroy {
     return true
   }
 
-  async ensurePushPermission(): Promise<PushSubscription | null> {
+  async ensurePushPermission() {
     if (this.swPush.isEnabled) {
       if (!this.hasNotificationPermission) {
         const status = await Notification.requestPermission()
-        if (status === 'denied') return null
+        if (status === 'denied') return
         await this.sendSampleNotificationLocally()
       }
       return this.ensureSubscription()
-    } else {
-      return null
     }
   }
 
@@ -80,10 +80,12 @@ export class PushNotificationService implements OnDestroy {
     this.swPush.notificationClicks
       .pipe(
         takeWhile(() => this.alive),
-        tap(({notification}) => {
-          console.log('user clicked on notification', {notification})
+        tap(({action, notification}) => {
+          console.log('user clicked on notification', {action, notification})
           const type = notification.data?.type
-          if (type === 'new-message') this.router.navigateByUrl('/discussions')
+          if (type === 'new-message') {
+            this.router.navigateByUrl('/discussions')
+          }
         }),
       )
       .subscribe()
