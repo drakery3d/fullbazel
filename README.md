@@ -102,6 +102,7 @@ yarn server
 - Chrome log: Site cannot be installed: Page does not work offline. Starting in Chrome 93, the installability criteria is changing, and this site will not be installable. See https://goo.gle/improved-pwa-offline-detection for more information.
 - Consider renaming the project to "Fullbazel"
 - Keep user authenticated when server side rendering
+- Check design in other browsers
 
 **Ideas**
 

@@ -10,7 +10,10 @@ ts_config(
     deps = ["//:tsconfig"],
 )
 
-INTEGRATION_TESTS = ["user.repository.test.ts"]
+INTEGRATION_TESTS = [
+    "user.repository.test.ts",
+    "push-subscription.repository.test.ts",
+]
 
 ts_library(
     name = "lib",

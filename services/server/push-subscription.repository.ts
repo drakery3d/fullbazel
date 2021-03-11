@@ -100,6 +100,10 @@ export class PushSubscriptionRepository {
     return this.isInitialized && this.isConnected
   }
 
+  async disconnect() {
+    await this.pool.end()
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private deserialize(row: any): InternalPushSubscription {
     return {
