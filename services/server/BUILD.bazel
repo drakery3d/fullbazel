@@ -13,6 +13,7 @@ ts_config(
 INTEGRATION_TESTS = [
     "user.repository.test.ts",
     "push-subscription.repository.test.ts",
+    "messages.repository.test.ts",
 ]
 
 ts_library(
@@ -63,12 +64,16 @@ ts_library(
     deps = [
         "lib",
         "//libs/config:config_lib",
+        "//libs/schema",
         "//libs/testing",
+        "//libs/types",
         "@npm//@types/async-retry",
+        "@npm//@types/web-push",
         "@npm//async-retry",
         "@npm//inversify",
         "@npm//reflect-metadata",
         "@npm//testcontainers",
+        "@npm//web-push",
     ],
 )
 

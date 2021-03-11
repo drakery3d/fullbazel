@@ -13,8 +13,6 @@ enum Column {
   CreatedAt = 'created_at',
 }
 
-// TODO integration test for user repository with testcontainers
-
 @injectable()
 export class MessagesRepository {
   private pool!: Pool
@@ -111,6 +109,10 @@ export class MessagesRepository {
 
   async isHealthy() {
     return this.isInitialized && this.isConnected
+  }
+
+  async disconnect() {
+    await this.pool.end()
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

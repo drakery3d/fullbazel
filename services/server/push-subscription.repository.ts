@@ -16,8 +16,6 @@ enum Column {
   SubscribedAt = 'subscribed_at',
 }
 
-// TODO integration test for push subscription repository with testcontainers
-
 @injectable()
 export class PushSubscriptionRepository {
   private pool!: Pool
@@ -86,7 +84,8 @@ export class PushSubscriptionRepository {
   async getAll() {
     const query = `
       SELECT *
-      FROM \`${this.tableName}\`;
+      FROM \`${this.tableName}\`
+      ORDER BY ${Column.SubscribedAt} ASC;
     `
     const connection = await this.getConnection()
     const result = await connection.query(query)
