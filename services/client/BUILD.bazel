@@ -80,7 +80,7 @@ concatjs_devserver(
     name = "dev_server",
     additional_root_paths = ["services/client/dev"],
     entry_module = "fullstack-bazel/services/client/main.dev",
-    port = 4200,
+    port = 8080,
     scripts = [
         "@npm//:node_modules/tslib/tslib.js",
         "//tools:rxjs_umd_modules",
