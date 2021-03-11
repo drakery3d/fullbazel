@@ -1,4 +1,4 @@
-name: Continuous delivery
+name: ci
 on: push
 jobs:
   code:
