@@ -82,7 +82,6 @@ Read [docs/gke-deployment.md](docs/gke-deployment.md)
 
 **Issues**
 
-- Update bazel to v4 as soon as this is fixed https://github.com/bazelbuild/rules_docker/issues/1716
 - Upgrade from NgRx v9 to v11 ([rules_nodejs/issues/2320](https://github.com/bazelbuild/rules_nodejs/issues/2320))
 - Upgrade from Karma v4 to v5 ([rules_nodejs/issues/2093](https://github.com/bazelbuild/rules_nodejs/issues/2093))
 - Insert Manifest with html-insert-assets ([html-insert-assets/issues/17](https://github.com/jbedard/html-insert-assets/issues/17))

@@ -18,9 +18,8 @@ enum Theme {
 }
 
 // TODO try auto-recognize google sign in
-// TODO new message count badge in navigation for discussions tab
-// TODO push notification on new message
 // TODO more animations
+// TODO signin and signout snackbars
 
 @Component({
   selector: 'app-root',
