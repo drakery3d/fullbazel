@@ -1,14 +1,33 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 import {By} from '@angular/platform-browser'
+import {RouterTestingModule} from '@angular/router/testing'
+import {ServiceWorkerModule} from '@angular/service-worker'
+import {provideMockStore} from '@ngrx/store/testing'
+
+import {ENVIRONMENT, prod} from '@client/environment'
+import {SharedModule} from '@client/shared'
 
 import {HomeComponent} from './home.component'
+
+// TODO test in more depth
 
 describe('HomeComponent', () => {
   let comp: HomeComponent
   let fixture: ComponentFixture<HomeComponent>
 
   beforeEach(async () => {
-    TestBed.configureTestingModule({declarations: [HomeComponent]})
+    TestBed.configureTestingModule({
+      imports: [
+        SharedModule,
+        ServiceWorkerModule.register('ngsw-worker.js', {enabled: false}),
+        RouterTestingModule.withRoutes([]),
+      ],
+      declarations: [HomeComponent],
+      providers: [
+        provideMockStore({initialState: {auth: {user: undefined}}}),
+        {provide: ENVIRONMENT, useValue: prod},
+      ],
+    })
     await TestBed.compileComponents()
 
     fixture = TestBed.createComponent(HomeComponent)

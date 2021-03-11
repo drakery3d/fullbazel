@@ -26,8 +26,8 @@ import {AuthActions, AuthSelectors} from '@client/store'
         <span *ngFor="let tag of tags">{{ tag }}</span>
       </div>
 
+      <!-- TODO global button design -->
       <ng-container *ngIf="user$ | async as user">
-        <!-- TODO global button design -->
         <button (click)="signOut()" class="signout">Sign out</button>
         <button
           *ngIf="!notificationService.hasNotificationPermission"

@@ -3,7 +3,6 @@ import {injectable, unmanaged} from 'inversify'
 
 @injectable()
 export class Config<T extends string = FlatConfigKeys> {
-  // export class Config<T extends string = string> {
   constructor(@unmanaged() private config: Record<string, string> = {}) {}
 
   get(key: T, fallback?: string) {
