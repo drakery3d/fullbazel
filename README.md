@@ -103,6 +103,7 @@ yarn server
 - Consider renaming the project to "Fullbazel"
 - Keep user authenticated when server side rendering
 - Check design in other browsers
+- Install node_modules once as first job and then reuse in other jobs for .github/workflows/ci.yaml
 
 **Ideas**
 
