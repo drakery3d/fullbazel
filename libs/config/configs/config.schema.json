@@ -27,7 +27,7 @@
       "type": "object",
       "properties": {
         "host": {"type": "string"},
-        "port": {"type": "number"},
+        "port": {"type": "string"},
         "user": {"type": "string"},
         "database": {"type": "string"}
       },

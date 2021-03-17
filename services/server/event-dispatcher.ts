@@ -19,22 +19,23 @@ export class EventDispatcher implements IEventDispatcher {
   private connected = false
 
   constructor(private readonly config: Config) {
-    this.connect()
+    // this.connect()
   }
 
-  async dispatch(topic: string, messages: Message[]) {
-    await this.connect()
-    await this.producer.send({topic, messages})
-    console.log('[dispatch]', topic, messages)
+  async dispatch(_topic: string, _messages: Message[]) {
+    // await this.connect()
+    // await this.producer.send({topic, messages})
+    // console.log('[dispatch]', topic, messages)
   }
 
   async disconnect() {
-    await this.producer.disconnect()
+    // await this.producer.disconnect()
     this.connected = false
   }
 
   isConnected() {
-    return this.connected
+    // return this.connected
+    return true
   }
 
   private async connect() {

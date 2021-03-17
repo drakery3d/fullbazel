@@ -8,7 +8,7 @@
   "googleClientId": "98599563044-6lkt0m9u3h11h2qlk767lpc38skf1ndh.apps.googleusercontent.com",
   "mysqlDatabase": {
     "host": "fullbazel_mysql",
-    "port": 3306,
+    "port": "3306",
     "user": "root",
     "database": "db"
   },

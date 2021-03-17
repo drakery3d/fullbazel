@@ -59,6 +59,8 @@ export class PushSubscriptionRepository {
     connection.release()
 
     this.isInitialized = true
+
+    console.log('push subscription repository initialized')
   }
 
   // TODO check userId
@@ -121,6 +123,9 @@ export class PushSubscriptionRepository {
         if (!this.isInitialized) throw new Error()
       })
     }
-    return this.pool.getConnection()
+    const connection = await retry(() => {
+      return this.pool.getConnection()
+    })
+    return connection
   }
 }

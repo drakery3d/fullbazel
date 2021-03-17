@@ -22,8 +22,8 @@ bazel_skylib_workspace()
 # https://github.com/bazelbuild/rules_nodejs/releases
 http_archive(
     name = "build_bazel_rules_nodejs",
-    sha256 = "fcc6dccb39ca88d481224536eb8f9fa754619676c6163f87aa6af94059b02b12",
-    urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/3.2.0/rules_nodejs-3.2.0.tar.gz"],
+    sha256 = "55a25a762fcf9c9b88ab54436581e671bc9f4f523cb5a1bd32459ebec7be68a8",
+    urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/3.2.2/rules_nodejs-3.2.2.tar.gz"],
 )
 
 # https://github.com/bazelbuild/rules_sass
@@ -114,7 +114,7 @@ k8s_go_deps()
 
 k8s_defaults(
     name = "k8s_deploy",
-    cluster = "gke_fullstack-bazel_europe-west3-b_cluster",
-    image_chroot = "gcr.io/fullstack-bazel",
+    cluster = "gke_fullstack-bazel-306720_europe-west3-b_cluster",
+    image_chroot = "gcr.io/fullstack-bazel-306720",
     kind = "deployment",
 )

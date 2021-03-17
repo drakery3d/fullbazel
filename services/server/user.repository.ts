@@ -15,6 +15,8 @@ enum Column {
   TokenRefreshCount = 'token_refresh_count',
 }
 
+// TODO base mysql repository abstract class
+
 @injectable()
 export class UserRepository {
   private pool!: Pool
@@ -59,6 +61,8 @@ export class UserRepository {
     connection.release()
 
     this.isInitialized = true
+
+    console.log('user repository initialized')
   }
 
   async create(id: string, email: string, name: string, picture: string) {
@@ -146,6 +150,9 @@ export class UserRepository {
         if (!this.isInitialized) throw new Error()
       })
     }
-    return this.pool.getConnection()
+    const connection = await retry(() => {
+      return this.pool.getConnection()
+    })
+    return connection
   }
 }

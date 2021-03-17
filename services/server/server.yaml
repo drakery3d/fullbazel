@@ -12,31 +12,71 @@ spec:
       labels:
         app: server
     spec:
+      serviceAccountName: cloudsql-service-account
       containers:
         - name: server
           image: server:placeholder_name
           envFrom:
             - configMapRef:
                 name: config
-          readinessProbe:
-            httpGet:
-              path: /
-              port: 8080
-            initialDelaySeconds: 5
-            periodSeconds: 3
-          livenessProbe:
-            httpGet:
-              path: /
-              port: 8080
-            initialDelaySeconds: 5
-            periodSeconds: 10
-          resources:
-            requests:
-              memory: 300Mi
-              cpu: 100m
-            limits:
-              memory: 1000Mi
-              cpu: 500m
+          env:
+            - name: secrets_tokens_auth
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: secrets_tokens_auth
+            - name: secrets_mysqlDatabase_password
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: secrets_mysqlDatabase_password
+            - name: secrets_googleClientSecret
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: secrets_googleClientSecret
+            - name: secrets_vapidPrivateKey
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: secrets_vapidPrivateKey
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: 8080
+          #   initialDelaySeconds: 5
+          #   periodSeconds: 3
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: 8080
+          #   initialDelaySeconds: 5
+          #   periodSeconds: 10
+          # resources:
+          #   requests:
+          #     memory: 300Mi
+          #     cpu: 100m
+          #   limits:
+          #     memory: 1000Mi
+          #     cpu: 500m
+
+        - name: cloud-sql-proxy
+          image: gcr.io/cloudsql-docker/gce-proxy:1.20.2
+          command:
+            - '/cloud_sql_proxy'
+
+            # If connecting from a VPC-native GKE cluster, you can use the
+            # following flag to have the proxy connect over private IP
+            # - "-ip_address_types=PRIVATE"
+
+            # Replace DB_PORT with the port the proxy should listen on
+            # Defaults: MySQL: 3306, Postgres: 5432, SQLServer: 1433
+            - '-instances=fullstack-bazel-306720:europe-west3:mysql=tcp:3306'
+          securityContext:
+            # The default Cloud SQL proxy image runs as the
+            # "nonroot" user and group (uid: 65532) by default.
+            runAsNonRoot: true
+
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
@@ -71,5 +111,5 @@ spec:
     kind: Deployment
     name: server
   minReplicas: 2
-  maxReplicas: 10
+  maxReplicas: 5
   targetCPUUtilizationPercentage: 75

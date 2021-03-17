@@ -1,15 +1,15 @@
 {
   "$schema": "./config.schema.json",
   "environment": "prod",
-  "api": "http://localhost:3000",
-  "websocket": "ws://localhost:3000",
-  "client": "http://localhost:8080",
+  "api": "https://api.fullbazel.drakery.com",
+  "websocket": "wss://api.fullbazel.drakery.com",
+  "client": "https://fullbazel.drakery.com",
   "vapidPublicKey": "BME74zSeApXmd05j-p0Y9dmGUrzGIphqaPPjaMDuiA5f_Bez6IPmMU45_s7xmTRWIvzMFnf-y5qeT5jQlK1eUso",
-  "googleClientId": "98599563044-6lkt0m9u3h11h2qlk767lpc38skf1ndh.apps.googleusercontent.com",
+  "googleClientId": "98599563044-a8sqvpi95oe9bgomqk5mropnf8830g4r.apps.googleusercontent.com",
   "mysqlDatabase": {
-    "host": "fullbazel_mysql",
-    "port": 3306,
-    "user": "root",
+    "host": "127.0.0.1",
+    "port": "3306",
+    "user": "nonroot",
     "database": "db"
   },
   "kafka": {

@@ -81,6 +81,7 @@ nodejs_image(
     name = "image",
     data = ["lib"],
     entry_point = "index.ts",
+    templated_args = ["--bazel_patch_module_resolver"],
 )
 
 k8s_deploy(

@@ -195,7 +195,6 @@ app.use(cookieParser())
 
 app.post('/signin', async (req, res) => {
   try {
-    console.log({code: req.body.code})
     if (req.body.code) {
       const googleToken = await googleAdapter.getAccessToken(req.body.code)
       const {id, email, name, picture} = await googleAdapter.getUserInfo(googleToken)

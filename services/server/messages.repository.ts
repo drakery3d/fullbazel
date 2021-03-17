@@ -54,6 +54,8 @@ export class MessagesRepository {
     connection.release()
 
     this.isInitialized = true
+
+    console.log('messages repository initialized')
   }
 
   // TODO check userId
@@ -131,6 +133,9 @@ export class MessagesRepository {
         if (!this.isInitialized) throw new Error()
       })
     }
-    return this.pool.getConnection()
+    const connection = await retry(() => {
+      return this.pool.getConnection()
+    })
+    return connection
   }
 }
