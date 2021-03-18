@@ -37,7 +37,8 @@
     "kafka": {
       "type": "object",
       "properties": {
-        "brokers": {"type": "array"}
+        "brokers": {"type": "array"},
+        "apiKey": {"type": "string"}
       },
       "required": ["brokers"],
       "additionalProperties": false

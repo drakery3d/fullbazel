@@ -13,6 +13,7 @@
     "database": "db"
   },
   "kafka": {
-    "brokers": ["kafka:9092"]
+    "brokers": ["kafka:9092"],
+    "apiKey": ""
   }
 }

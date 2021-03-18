@@ -16,6 +16,7 @@ import * as WebSocket from 'ws'
 import {Config} from '@libs/config'
 import {
   AuthMessagesIn,
+  ConsumerGroups,
   CookieNames,
   DiscussionsMessagesIn,
   DiscussionsMessagesOut,
@@ -24,7 +25,7 @@ import {
   Topics,
 } from '@libs/enums'
 import {Message, SocketMessage, User} from '@libs/schema'
-import {AuthToken, Id} from '@libs/types'
+import {AuthToken} from '@libs/types'
 
 import {EventDispatcher} from './event-dispatcher'
 import {EventListener} from './event-listener'
@@ -86,6 +87,7 @@ wss.on(
 
         if (name === DiscussionsMessagesIn.SendMessage) {
           if (!authToken) return
+          if (!payload) return
           const message = await messageRepo.create(payload as string, authToken.userId)
           await eventDispatcher.dispatch(Topics.Messages, [
             {key: message.id, value: JSON.stringify(message)},
@@ -114,7 +116,7 @@ wss.on(
   },
 )
 
-eventListener.consume(Id.generate().toString(), Topics.Messages).then(stream => {
+eventListener.consume(ConsumerGroups.PushNotifications, Topics.Messages).then(stream => {
   stream.subscribe(async (message: Message) => {
     const user = await userRepo.getById(message.userId)
     if (!user) return

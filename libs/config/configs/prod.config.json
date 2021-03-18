@@ -13,6 +13,7 @@
     "database": "db"
   },
   "kafka": {
-    "brokers": ["kafka:9092"]
+    "brokers": ["pkc-4ygn6.europe-west3.gcp.confluent.cloud:9092"],
+    "apiKey": "ZKEANW3APBGS5KMI"
   }
 }

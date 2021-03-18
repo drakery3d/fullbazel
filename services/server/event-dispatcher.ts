@@ -14,28 +14,33 @@ export class EventDispatcher implements IEventDispatcher {
   private kafka = new Kafka({
     brokers: this.config.getArray('kafka_brokers_0'),
     logLevel: logLevel.WARN,
+    ssl: !!this.config.get('kafka_apiKey'),
+    sasl: {
+      mechanism: 'plain',
+      username: this.config.get('kafka_apiKey'),
+      password: this.config.get('secrets_kafka_apiSecret'),
+    },
   })
   private producer = this.kafka.producer()
   private connected = false
 
   constructor(private readonly config: Config) {
-    // this.connect()
+    this.connect()
   }
 
-  async dispatch(_topic: string, _messages: Message[]) {
-    // await this.connect()
-    // await this.producer.send({topic, messages})
-    // console.log('[dispatch]', topic, messages)
+  async dispatch(topic: string, messages: Message[]) {
+    await this.connect()
+    await this.producer.send({topic, messages})
+    console.log('[dispatch]', topic, messages)
   }
 
   async disconnect() {
-    // await this.producer.disconnect()
+    await this.producer.disconnect()
     this.connected = false
   }
 
   isConnected() {
-    // return this.connected
-    return true
+    return this.connected
   }
 
   private async connect() {

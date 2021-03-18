@@ -17,15 +17,23 @@ export interface IEventListener {
 
 @injectable()
 export class EventListener implements IEventListener {
-  private readonly brokers = this.config.getArray('kafka_brokers_0')
-  private kafka = new Kafka({brokers: this.brokers, logLevel: logLevel.WARN})
+  private kafka = new Kafka({
+    brokers: this.config.getArray('kafka_brokers_0'),
+    logLevel: logLevel.WARN,
+    ssl: !!this.config.get('kafka_apiKey'),
+    sasl: {
+      mechanism: 'plain',
+      username: this.config.get('kafka_apiKey'),
+      password: this.config.get('secrets_kafka_apiSecret'),
+    },
+  })
   private consumers: Consumer[] = []
   private consumerConnections: boolean[] = []
 
   constructor(private readonly config: Config) {}
 
-  async consume(groupId: string, topic: string | RegExp, _fromBeginning = false) {
-    /* const consumer = this.kafka.consumer({groupId})
+  async consume(groupId: string, topic: string | RegExp, fromBeginning = false) {
+    const consumer = this.kafka.consumer({groupId})
     this.consumers.push(consumer)
     this.consumerConnections.push(false)
     const index = this.consumerConnections.length - 1
@@ -37,18 +45,18 @@ export class EventListener implements IEventListener {
     await consumer.connect()
     console.log('connected to consumer for topic', topic)
     this.consumerConnections[index] = true
-    await consumer.subscribe({topic, fromBeginning}) */
+    await consumer.subscribe({topic, fromBeginning})
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return new Observable((_observer: Observer<any>) => {
-      // consumer.run({
-      //   eachMessage: async message => {
-      //     if (!message.message.value) return
-      //     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      //     const event = JSON.parse(message.message.value.toString()) as any
-      //     console.log('[consume]:', topic, event)
-      //     observer.next(event)
-      //   },
-      // })
+    return new Observable((observer: Observer<any>) => {
+      consumer.run({
+        eachMessage: async message => {
+          if (!message.message.value) return
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const event = JSON.parse(message.message.value.toString()) as any
+          console.log('[consume]:', topic, event)
+          observer.next(event)
+        },
+      })
     })
   }
 
@@ -59,10 +67,9 @@ export class EventListener implements IEventListener {
   }
 
   isConnected() {
+    for (const connected of this.consumerConnections) {
+      if (!connected) return false
+    }
     return true
-    // for (const connected of this.consumerConnections) {
-    //   if (!connected) return false
-    // }
-    // return true
   }
 }

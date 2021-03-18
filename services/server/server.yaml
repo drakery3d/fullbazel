@@ -40,6 +40,18 @@ spec:
                 secretKeyRef:
                   name: secrets
                   key: secrets_vapidPrivateKey
+            - name: secrets_vapidPrivateKey
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: secrets_vapidPrivateKey
+            - name: secrets_kafka_apiSecret
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: secrets_kafka_apiSecret
+
+          # TODO make readiness probe work with cloudsql-proxy
           # readinessProbe:
           #   httpGet:
           #     path: /

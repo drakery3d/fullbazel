@@ -101,21 +101,17 @@ export class UserRepository {
   }
 
   async getByIds(ids: string[]) {
-    if (!ids.length) return []
-    let query: string
-    if (ids.length === 1) {
-      query = `
-        SELECT *
-        FROM \`${this.tableName}\`
-        WHERE ${Column.Id} in (?);
-      `
-    } else {
-      query = `
-        SELECT *
-        FROM \`${this.tableName}\`
-        WHERE ${Column.Id} in (${'?, '.repeat(ids.length - 1).slice(0, -2)});
-      `
-    }
+    if (ids.length === 0) return []
+    // const where = `${Column.Id}=? or `.repeat(ids.length).slice(0, -4)
+    let where = ''
+    ids.forEach(id => (where += id + ','))
+    where = where.slice(0, -1)
+    const query = `
+      SELECT *
+      FROM \`${this.tableName}\`
+      WHERE ${Column.Id} in (${where});
+    `
+    console.log({query, ids})
     const connection = await this.getConnection()
     const result = await connection.query(query, [ids])
     connection.release()

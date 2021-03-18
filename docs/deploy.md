@@ -14,7 +14,10 @@ Create a `nonroot` user
 
 # 2. Kafka Cluster
 
-- TODO
+- create confluent cluster
+- create all required topics
+- create api key and secret
+- update configs
 
 # 3. Kubernetes Cluster
 
