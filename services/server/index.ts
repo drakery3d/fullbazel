@@ -25,7 +25,7 @@ import {
   Topics,
 } from '@libs/enums'
 import {Message, SocketMessage, User} from '@libs/schema'
-import {AuthToken} from '@libs/types'
+import {AuthToken, Id} from '@libs/types'
 
 import {EventDispatcher} from './event-dispatcher'
 import {EventListener} from './event-listener'
@@ -116,11 +116,20 @@ wss.on(
   },
 )
 
+eventListener
+  .consume(`${ConsumerGroups.Broadcast}_${Id.generate().toString()}`, Topics.Messages)
+  .then(stream => {
+    stream.subscribe(async (message: Message) => {
+      const user = await userRepo.getById(message.userId)
+      if (!user) return
+      broadcast({name: DiscussionsMessagesOut.ReceiveMessage, payload: {message, user}})
+    })
+  })
+
 eventListener.consume(ConsumerGroups.PushNotifications, Topics.Messages).then(stream => {
   stream.subscribe(async (message: Message) => {
     const user = await userRepo.getById(message.userId)
     if (!user) return
-    broadcast({name: DiscussionsMessagesOut.ReceiveMessage, payload: {message, user}})
     const pushSubs = await pushSubRepo.getAll()
     let sent = 0
 
