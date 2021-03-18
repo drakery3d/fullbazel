@@ -1,5 +1,5 @@
 PROJECT_ID=fullstack-bazel-306720
-GKE_ZONE=europe-west3-b
+GKE_REGION=europe-west3
 GKE_CLUSTER=cluster
 GKE_CLOUDSQL_SERVICE_ACCOUNT=gke-cloudsql
 GKE_CLOUDSQL_KSA=cloudsql-service-account
@@ -11,25 +11,27 @@ gcloud-init:
 
 gke-create-cluster:
 	gcloud beta container --project "${PROJECT_ID}" clusters create "${GKE_CLUSTER}" \
-		--zone "${GKE_ZONE}" \
-		--no-enable-basic-auth \
-		--machine-type "e2-medium" \
-		--disk-size "10" \
-		--preemptible \
-		--num-nodes "2" \
-		--enable-autoscaling \
-		--min-nodes "0" \
-		--max-nodes "3" \
-		--workload-pool=${PROJECT_ID}.svc.id.goog
+	--region "${GKE_REGION}" \
+	--machine-type "e2-small" \
+	--disk-size "10" \
+	--num-nodes "1" \
+	--enable-autoscaling \
+	--min-nodes "0" \
+	--max-nodes "2" \
+	--preemptible \
+	--workload-pool=${PROJECT_ID}.svc.id.goog
 
 gke-connect:
-	gcloud container clusters get-credentials ${GKE_CLUSTER} --zone ${GKE_ZONE} --project ${PROJECT_ID}
+	gcloud container clusters get-credentials ${GKE_CLUSTER} --region ${GKE_REGION} --project ${PROJECT_ID}
 
 gke-describe:
-	gcloud container clusters describe ${GKE_CLUSTER} --zone ${GKE_ZONE} --project ${PROJECT_ID}
+	gcloud container clusters describe ${GKE_CLUSTER} --region ${GKE_REGION} --project ${PROJECT_ID}
 
 gke-cluster:
-	echo gke_${PROJECT_ID}_${GKE_ZONE}_${GKE_CLUSTER}
+	echo gke_${PROJECT_ID}_${GKE_REGION}_${GKE_CLUSTER}
+
+gke-delete:
+	gcloud container clusters delete cluster --region ${GKE_REGION}
 
 gke-cloudsql-service-account:
 	gcloud iam service-accounts create ${GKE_CLOUDSQL_SERVICE_ACCOUNT} \
@@ -49,25 +51,24 @@ gke-annotate-cloudsql-service-account:
    ${GKE_CLOUDSQL_KSA} \
    iam.gke.io/gcp-service-account=${GKE_CLOUDSQL_SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com
 
-gke-delete:
-	gcloud container clusters delete cluster --zone europe-west3-b
-
 gke-clusterrolebinding:
 	kubectl create clusterrolebinding cluster-admin-binding --clusterrole cluster-admin --user ${GCLOUD_USER_EMAIL}
 
 nginx-ingress:
 	helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx && \
 	helm repo update && \
-	helm install ingress ingress-nginx/ingress-nginx \
-  --namespace ingress \
+	helm install ingress-nginx ingress-nginx/ingress-nginx \
+  --namespace ingress-nginx \
 	--create-namespace
 
+get-endpoint:
+	kubectl describe svc ingress-nginx-controller -n ingress-nginx | grep "LoadBalancer Ingress"
+
 cert-manager:
-	kubectl create namespace cert-manager --dry-run=client -o yaml | kubectl apply -f - && \
 	helm repo add jetstack https://charts.jetstack.io && \
 	helm repo update && \
 	helm install cert-manager jetstack/cert-manager \
-  --version v0.16.1 \
+  --version v1.2.0 \
   --namespace cert-manager \
   --create-namespace \
   --set installCRDs=true

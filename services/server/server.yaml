@@ -15,7 +15,7 @@ spec:
       serviceAccountName: cloudsql-service-account
       containers:
         - name: server
-          image: server:placeholder_name
+          image: server:latest
           envFrom:
             - configMapRef:
                 name: config

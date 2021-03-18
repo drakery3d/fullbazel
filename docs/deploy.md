@@ -30,19 +30,6 @@ make gke-connect
 
 <br>
 
-**Ip address**
-
-Get the load balander `endpoint` from https://console.cloud.google.com/net-services/loadbalancing/loadBalancers/list
-
-Create two A records
-
-| Type | Domain                    | Value        |
-| ---- | ------------------------- | ------------ |
-| A    | fullbazel.drakery.com     | `<endpoint>` |
-| A    | api.fullbazel.drakery.com | `<endpoint>` |
-
-<br>
-
 **Cluster Role Binding**
 
 `make gke-clusterrolebinding`
@@ -50,6 +37,21 @@ Create two A records
 <br>
 
 **NGINX Ingress Controller**
+
+Install via Helm `make nginx-ingress`
+
+<br>
+
+**Ip address**
+
+Get the load balander `endpoint`: `make get-endpoint`
+
+Create two A records
+
+| Type | Domain                    | Value        |
+| ---- | ------------------------- | ------------ |
+| A    | fullbazel.drakery.com     | `<endpoint>` |
+| A    | api.fullbazel.drakery.com | `<endpoint>` |
 
 <br>
 

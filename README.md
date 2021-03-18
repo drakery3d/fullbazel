@@ -104,6 +104,7 @@ yarn server
 - Keep user authenticated when server side rendering
 - Check design in other browsers
 - Install node_modules once as first job and then reuse in other jobs for .github/workflows/ci.yaml
+- Try Google Kubernetes Autopilot when this is fixed: https://github.com/jetstack/cert-manager/issues/3717
 
 **Ideas**
 

@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: client
-          image: client:placeholder_name
+          image: client:latest
           readinessProbe:
             httpGet:
               path: /alive

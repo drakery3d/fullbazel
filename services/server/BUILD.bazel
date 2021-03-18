@@ -86,6 +86,6 @@ nodejs_image(
 
 k8s_deploy(
     name = "kubernetes",
-    images = {"server:placeholder_name": "image"},
+    images = {"server:latest": "image"},
     template = "server.yaml",
 )

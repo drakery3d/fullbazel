@@ -296,6 +296,6 @@ nodejs_image(
 
 k8s_deploy(
     name = "kubernetes",
-    images = {"client:placeholder_name": "prod_server_image"},
+    images = {"client:latest": "prod_server_image"},
     template = "client.yaml",
 )

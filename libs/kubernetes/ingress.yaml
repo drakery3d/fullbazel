@@ -25,3 +25,13 @@ spec:
           - backend:
               serviceName: server
               servicePort: 3000
+
+---
+apiVersion: v1
+data:
+  use-gzip: 'true'
+  gzip-types: '*'
+kind: ConfigMap
+metadata:
+  name: ingress-nginx-controller
+  namespace: ingress-nginx

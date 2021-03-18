@@ -114,7 +114,7 @@ k8s_go_deps()
 
 k8s_defaults(
     name = "k8s_deploy",
-    cluster = "gke_fullstack-bazel-306720_europe-west3-b_cluster",
+    cluster = "gke_fullstack-bazel-306720_europe-west3_cluster",
     image_chroot = "gcr.io/fullstack-bazel-306720",
     kind = "deployment",
 )
