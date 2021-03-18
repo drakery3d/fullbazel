@@ -4,10 +4,37 @@ GKE_CLUSTER=cluster
 GKE_CLOUDSQL_SERVICE_ACCOUNT=gke-cloudsql
 GKE_CLOUDSQL_KSA=cloudsql-service-account
 GCLOUD_USER_EMAIL=flo@drakery.com
+ENV=staging
 
 gcloud-init:
 	gcloud auth login && \
 	gcloud config set project ${PROJECT_ID}
+
+create-tf-bucket:
+	gsutil mb -p ${PROJECT_ID} gs://${PROJECT_ID}-terraform
+
+create-tf-workspace:
+	cd terraform && \
+		terraform workspace new ${ENV}
+
+terraform-init:
+	cd terraform && \
+		terraform workspace select ${ENV} && \
+		terraform init
+
+terraform-plan:
+	cd terraform && \
+		terraform workspace select ${ENV} && \
+		terraform plan \
+		-var-file="./environments/common.tfvars" \
+		-var-file="./environments/${ENV}/config.tfvars"
+
+terraform-apply:
+	cd terraform && \
+		terraform workspace select ${ENV} && \
+		terraform apply \
+		-var-file="./environments/common.tfvars" \
+		-var-file="./environments/${ENV}/config.tfvars"
 
 gke-create-cluster:
 	gcloud beta container --project "${PROJECT_ID}" clusters create "${GKE_CLUSTER}" \

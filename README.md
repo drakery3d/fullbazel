@@ -38,7 +38,7 @@ Coming soon
 
 # Requirements
 
-Linux, Node.Js, Docker Compose, Kubectl, Helm, Yarn
+Linux, Node.Js, Docker Compose, Terraform, Kubectl, Helm, Yarn
 
 <br>
 

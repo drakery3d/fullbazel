@@ -1,8 +1,21 @@
+<!-- TODO improve like: https://dzone.com/articles/google-gke-and-sql-with-terraform-ion-medium -->
+
 # 0. Prepare
 
-```
-make gcloud-init
-```
+- Authenticate to Google Cloud `make gcloud-init`
+- Configure variables in `Makefile`
+- Create a bucket for Terraform resources `make create-tf-bucket`
+- Create a service account for Terraform https://console.cloud.google.com/iam-admin/serviceaccounts
+- Add `Storage Object Admin` role
+- Add `Service Account Admin` role
+- Add `Compute Network Admin` role
+- Add `Kubernetes Engine Cluster Admin` role
+- Add `Service Account User` role
+- Create a key and download the JSON file into `terraform/terraform-sa-key.json`
+- Change directory to `cd terraform`
+- Run `export GOOGLE_APPLICATION_CREDENTIALS=$PWD/terraform-sa-key.json`
+- Run `make create-tf-workspace`
+- Run `make terraform-init`
 
 Configure `libs/config/configs/prod.config.json` and `libs/config/secrets/prod.secrets.json`
 
