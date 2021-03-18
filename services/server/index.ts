@@ -244,7 +244,7 @@ app.post('/signin', async (req, res) => {
     }
 
     res.cookie(CookieNames.AuthToken, '')
-    res.status(400).send('Not authenticated')
+    res.status(200).send('Not authenticated')
   } catch (err) {
     console.log(err)
     res.cookie(CookieNames.AuthToken, '')

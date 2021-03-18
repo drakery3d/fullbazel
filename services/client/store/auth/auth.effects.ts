@@ -24,9 +24,16 @@ export class AuthEffects {
       ofType(AuthActions.tryToAuthenticate),
       switchMap(() => {
         return this.http
-          .post<{user: User}>(`${this.environment.api}/signin`, {}, {withCredentials: true})
+          .post<{user: User | undefined}>(
+            `${this.environment.api}/signin`,
+            {},
+            {withCredentials: true},
+          )
           .pipe(
-            map(({user}) => AuthActions.authenticated({user})),
+            map(({user}) => {
+              if (!user) return AuthActions.failedToAuthenticate()
+              return AuthActions.authenticated({user})
+            }),
             catchError(() => of(AuthActions.failedToAuthenticate())),
           )
       }),

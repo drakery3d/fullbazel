@@ -27,7 +27,7 @@ import {SnackbarService} from '@libs/ui-elements/snackbar/snackbar.service'
         <span *ngFor="let tag of tags">{{ tag }}</span>
       </div>
 
-      <div class="link">
+      <!-- <div class="link">
         <a href="https://github.com/drakery3d/fullstack-bazel">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon">
             <path
@@ -38,12 +38,12 @@ import {SnackbarService} from '@libs/ui-elements/snackbar/snackbar.service'
         <a href="https://github.com/flolu">
           <span class="material-icons icon">account_circle</span>
         </a>
-      </div>
+      </div> -->
 
-      <button (click)="testSnackbar()">Test Snackbar</button>
+      <!-- <button (click)="testSnackbar()">Test Snackbar</button> -->
 
       <!-- TODO global button design -->
-      <ng-container *ngIf="user$ | async as user">
+      <!-- <ng-container *ngIf="user$ | async as user">
         <button (click)="signOut()" class="signout">Sign out</button>
         <button
           *ngIf="!notificationService.hasNotificationPermission"
@@ -57,7 +57,7 @@ import {SnackbarService} from '@libs/ui-elements/snackbar/snackbar.service'
             Test notification
           </button>
         </ng-container>
-      </ng-container>
+      </ng-container> -->
     </div>
   `,
   styleUrls: ['home.component.sass'],

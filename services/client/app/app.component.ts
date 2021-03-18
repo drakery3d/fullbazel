@@ -25,17 +25,15 @@ enum Theme {
   template: `
     <div class="header saturated">
       <nav>
-        <a routerLink="/home">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="logo">
-            <path style="fill:#76D275;" d="M144 32 l112 112 -112 112 l-112 -112z" />
-            <path style="fill:#43A047;" d="M32 144 v112 l112 112 v-112z" />
-            <path style="fill:#76D275;" d="M368 32  l112 112 -112 112 -112 -112z" />
-            <path style="fill:#43A047;" d="M480 144 v112 l-112 112 v-112z" />
-            <path style="fill:#43A047;" d="M256 144 l112 112 -112 112 -112 -112z" />
-            <path style="fill:#00701A;" d="M256 368 v112 l-112 -112  v-112z" />
-            <path style="fill:#004300;" d="M256 368 l112 -112 v112 l-112 112z" />
-          </svg>
-        </a>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="logo">
+          <path style="fill:#76D275;" d="M144 32 l112 112 -112 112 l-112 -112z" />
+          <path style="fill:#43A047;" d="M32 144 v112 l112 112 v-112z" />
+          <path style="fill:#76D275;" d="M368 32  l112 112 -112 112 -112 -112z" />
+          <path style="fill:#43A047;" d="M480 144 v112 l-112 112 v-112z" />
+          <path style="fill:#43A047;" d="M256 144 l112 112 -112 112 -112 -112z" />
+          <path style="fill:#00701A;" d="M256 368 v112 l-112 -112  v-112z" />
+          <path style="fill:#004300;" d="M256 368 l112 -112 v112 l-112 112z" />
+        </svg>
 
         <div class="menu big">
           <div class="item"><a routerLink="/home" routerLinkActive="selected">Home</a></div>
@@ -87,7 +85,7 @@ enum Theme {
           </div>
           <div class="signin" *ngIf="!(user$ | async)"><a [attr.href]="signInUrl">Sign In</a></div>
           <div class="user" *ngIf="user$ | async as user">
-            <img [attr.src]="user.picture" />
+            <img [attr.src]="user.picture" [attr.alt]="'Avatar of ' + user.name" />
           </div>
         </div>
       </nav>

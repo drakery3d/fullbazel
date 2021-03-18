@@ -1,6 +1,6 @@
 load("@npm//html-insert-assets:index.bzl", "html_insert_assets")
 
-def insert_html_assets(name, outs, html_file, asset_paths, data, scripts = [], nomodule_scripts = [], manifest = None):
+def insert_html_assets(name, outs, html_file, asset_paths, data, scripts = [], nomodule_scripts = [], preloaded_assets = [], manifest = None):
     args = [
         "--html",
         "$(execpath %s)" % html_file,
@@ -12,6 +12,9 @@ def insert_html_assets(name, outs, html_file, asset_paths, data, scripts = [], n
 
     if asset_paths:
         args = args + ["--assets"] + asset_paths
+
+    if preloaded_assets:
+        args = args + ["--preload"] + preloaded_assets
 
     if scripts:
         args = args + ["--scripts --module"] + scripts
