@@ -17,6 +17,12 @@ resource "google_compute_subnetwork" "subnet" {
   ip_cidr_range = "10.10.0.0/24"
 }
 
+module "sql" {
+  source = "./cloudsql"
+  # gke_cloudsql_service_account = module.gke.gke_cloudsql_service_account
+  project_id = var.gcp_project_id
+}
+
 module "gke" {
   source  = "./gke"
   project = var.gcp_project_id

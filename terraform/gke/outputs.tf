@@ -48,3 +48,6 @@ output "token" {
   sensitive = true
 }
 
+# output "gke_cloudsql_service_account" {
+#   value = kubernetes_service_account.cloudsql_service_account.metadata[0].name
+# }

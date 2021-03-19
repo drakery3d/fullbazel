@@ -46,7 +46,10 @@ gcp-tf-sa-iam:
 		--role roles/cloudsql.admin && \
 	gcloud projects add-iam-policy-binding ${PROJECT_ID} \
 		--member serviceAccount:${TERRAFORM_SA}@${PROJECT_ID}.iam.gserviceaccount.com \
-		--role roles/container.clusterAdmin
+		--role roles/container.clusterAdmin && \
+	gcloud projects add-iam-policy-binding ${PROJECT_ID} \
+		--member serviceAccount:${TERRAFORM_SA}@${PROJECT_ID}.iam.gserviceaccount.com \
+		--role roles/iam.securityAdmin
 
 gcp-enable-apis:
 	gcloud services enable cloudresourcemanager.googleapis.com && \
@@ -55,7 +58,6 @@ gcp-enable-apis:
 	gcloud services enable compute.googleapis.com && \
 	gcloud services enable sqladmin.googleapis.com && \
 	gcloud services enable container.googleapis.com
-
 
 # Bucket for Terraform State
 
