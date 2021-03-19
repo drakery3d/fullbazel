@@ -31,8 +31,9 @@ resource "random_id" "db_name_suffix" {
 }
 
 resource "google_sql_database_instance" "mysql" {
-  name             = "mysql-instance-${random_id.db_name_suffix.hex}"
-  database_version = "MYSQL_8_0"
+  name                = "mysql-instance-${random_id.db_name_suffix.hex}"
+  database_version    = "MYSQL_8_0"
+  deletion_protection = false
 
   settings {
     tier = "db-f1-micro"

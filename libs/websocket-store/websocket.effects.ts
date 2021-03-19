@@ -22,10 +22,18 @@ export class WebSocketEffects {
         return new Observable<Action>(observer => {
           if (isPlatformBrowser(this.platform)) {
             this.websocket = new WebSocket(url)
-            this.websocket.onopen = () => observer.next(WebSocketActions.opened())
-            this.websocket.onclose = event =>
+            this.websocket.onopen = () => {
+              console.log('[websocket] opened')
+              observer.next(WebSocketActions.opened())
+            }
+            this.websocket.onclose = event => {
+              console.log('[websocket] closed', event.reason)
               observer.next(WebSocketActions.closed({reason: event.reason}))
-            this.websocket.onerror = () => observer.next(WebSocketActions.error())
+            }
+            this.websocket.onerror = () => {
+              console.log('[websocket] error')
+              observer.next(WebSocketActions.error())
+            }
             this.websocket.onmessage = event => {
               const message = JSON.parse(event.data) as SocketMessage
               observer.next(

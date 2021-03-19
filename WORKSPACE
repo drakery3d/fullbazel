@@ -114,7 +114,8 @@ k8s_go_deps()
 
 k8s_defaults(
     name = "k8s_deploy",
-    cluster = "gke_fullstack-bazel-306720_europe-west3_cluster",
+    # TODO needs to be replaced by terraform
+    cluster = "gke_fullstack-bazel-306720_europe-west3-a_fullstack-bazel-306720-gke",
     image_chroot = "gcr.io/fullstack-bazel-306720",
     kind = "deployment",
 )
