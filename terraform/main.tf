@@ -26,11 +26,15 @@ module "gke" {
   subnetwork = google_compute_subnetwork.subnet.name
 }
 
-module "nginx-ingress" {
-  source = "./nginx-ingress"
+module "ingress" {
+  source = "./k8s-ingress"
+}
+
+module "cert-manager" {
+  source = "./k8s-cert-manager"
 }
 
 module "dns" {
   source = "./dns"
-  ip     = module.nginx-ingress.ip
+  ip     = module.ingress.ip
 }
