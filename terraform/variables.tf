@@ -1,32 +1,34 @@
 variable "app_name" {
-  default = "fullbazel"
-  type    = string
+  type = string
+}
+
+variable "domain" {
+  type = string
 }
 
 # Google Cloud
 variable "gcp_project_id" {
   type = string
 }
-
 variable "gcp_region" {
-  default = "europe-west3"
-  type    = string
+  type = string
 }
 
 # Google Kubernetes Engine
-variable "gke_username" {
-  default = ""
-  type    = string
+variable "gke_region" {
+  type = string
 }
-
-variable "gke_password" {
-  default = ""
-  type    = string
+variable "gke_machine_type" {
+  type = string
 }
-
-variable "gke_num_nodes" {
-  default = 1
-  type    = number
+variable "gke_node_count" {
+  type = number
+}
+variable "gke_preemptible" {
+  type = bool
+}
+variable "gke_disk_size_gb" {
+  type = number
 }
 
 # Cloud SQL
@@ -34,12 +36,12 @@ variable "network_name" {
   default = "mysql-privat"
   type    = string
 }
-
 variable "db_name" {
   default = "db"
   type    = string
 }
 
-variable "sql_nonroot_password" {
+# Amazon Web Services
+variable "aws_zone_id" {
   type = string
 }

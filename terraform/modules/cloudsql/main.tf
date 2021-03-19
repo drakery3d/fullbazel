@@ -1,6 +1,9 @@
+locals {
+  service_account_name = "cloudsql-service-account"
+}
+
 resource "google_service_account" "gke_cloudsql" {
-  account_id  = "gke-cloudsql"
-  description = "Connect to CloudSQL from a GKE cluster"
+  account_id = "gke-cloudsql"
 }
 
 resource "google_project_iam_member" "cloud_sql_client" {
@@ -13,13 +16,13 @@ resource "google_service_account_iam_binding" "cloud_sql_gke" {
   role               = "roles/iam.workloadIdentityUser"
 
   members = [
-    "serviceAccount:${var.project_id}.svc.id.goog[default/${var.gke_cloudsql_service_account}]",
+    "serviceAccount:${var.project}.svc.id.goog[default/${local.service_account_name}]",
   ]
 }
 
 resource "kubernetes_service_account" "cloudsql_service_account" {
   metadata {
-    name = var.gke_cloudsql_service_account
+    name = local.service_account_name
     annotations = {
       "iam.gke.io/gcp-service-account" = google_service_account.gke_cloudsql.email
     }
@@ -43,12 +46,10 @@ resource "google_sql_database_instance" "mysql" {
 resource "google_sql_user" "users" {
   name     = "nonroot"
   instance = google_sql_database_instance.mysql.name
-  # password = var.sql_nonroot_password
   password = "changeme"
 }
 
 resource "google_sql_database" "database" {
-  # name     = var.db_name
   name     = "db"
   instance = google_sql_database_instance.mysql.name
 }
