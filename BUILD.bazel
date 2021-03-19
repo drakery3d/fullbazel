@@ -12,7 +12,6 @@ k8s_objects(
     name = "kubernetes",
     objects = [
         "//libs/kubernetes:certificate_issuer",
-        "//libs/kubernetes:ingress",
         "//libs/config:config",
         "//libs/config:secrets",
         "//services/client:kubernetes",

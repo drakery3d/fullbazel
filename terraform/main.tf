@@ -22,6 +22,7 @@ module "gke" {
 
 module "ingress" {
   source = "./modules/k8s-ingress"
+  domain = var.domain
 }
 
 module "cert-manager" {
