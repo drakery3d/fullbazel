@@ -29,3 +29,8 @@ module "gke" {
 module "nginx-ingress" {
   source = "./nginx-ingress"
 }
+
+module "dns" {
+  source = "./dns"
+  ip     = module.nginx-ingress.ip
+}

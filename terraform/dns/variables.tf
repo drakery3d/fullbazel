@@ -1,0 +1,3 @@
+variable "ip" {
+  type = string
+}

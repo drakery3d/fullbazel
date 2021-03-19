@@ -1,3 +1,1 @@
-# output "ingress" { value = helm_release.ingress }
-# output "public_ips" { value = data.kubernetes_service.ingress_controller.load_balancer_ingress.*.ip }
-# output "version" { value = helm_release.ingress.version }
+output "ip" { value = data.kubernetes_service.service_ingress.status[0].load_balancer[0].ingress[0].ip }

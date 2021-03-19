@@ -68,8 +68,8 @@ gcloud-init:
 	gcloud auth login && \
 	gcloud config set project ${PROJECT_ID}
 
-create-tf-bucket:
-	gsutil mb -p ${PROJECT_ID} gs://${PROJECT_ID}-terraform
+# create-tf-bucket:
+# 	gsutil mb -p ${PROJECT_ID} gs://${PROJECT_ID}-terraform
 
 create-tf-workspace:
 	cd terraform && \
@@ -86,7 +86,6 @@ terraform-plan:
 		terraform plan \
 		-var-file="./environments/common.tfvars" \
 		-var-file="./environments/${ENV}/config.tfvars"
-		-lock=false
 
 terraform-apply:
 	cd terraform && \
