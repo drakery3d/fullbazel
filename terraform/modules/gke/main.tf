@@ -14,6 +14,7 @@ resource "google_container_node_pool" "primary_nodes" {
   node_count = var.node_count
 
   node_config {
+    image_type   = "COS"
     preemptible  = var.preemptible
     disk_size_gb = var.disk_size_gb
     machine_type = var.machine_type

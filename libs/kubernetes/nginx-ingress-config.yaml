@@ -1,0 +1,10 @@
+# TODO move nginx ingress config into terraform, but error because config cannot be overwritten
+
+apiVersion: v1
+data:
+  use-gzip: 'true'
+  gzip-types: '*'
+kind: ConfigMap
+metadata:
+  name: ingress-nginx-controller
+  namespace: ingress-nginx

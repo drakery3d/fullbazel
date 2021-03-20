@@ -187,8 +187,6 @@ server.on('upgrade', async (request: http.IncomingMessage, socket: Socket, head:
   }
 })
 
-app.get('*', (req, res) => res.status(200).send('Ok').end())
-
 app.use(
   cors({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -204,15 +202,23 @@ app.use(
 app.use(bodyParser.json())
 app.use(cookieParser())
 
+app.get('', (req, res) => res.json({message: 'Hello from server'}))
+
 app.post('/signin', async (req, res) => {
   try {
     if (req.body.code) {
+      console.log('[singin] get google access token')
       const googleToken = await googleAdapter.getAccessToken(req.body.code)
+      console.log('[singin] got access token, get user info')
       const {id, email, name, picture} = await googleAdapter.getUserInfo(googleToken)
+      console.log('[singin] got user info')
 
+      console.log('[singin] upsert user')
       let user: User | undefined
       user = await userRepo.getById(id)
+      console.log('[singin] got existing user', user?.name)
       if (!user) user = await userRepo.create(id, email, name, picture)
+      console.log('[singin] upserted user', user.name)
 
       const authToken = new AuthToken(user.id, user.tokenRefreshCount)
 

@@ -90,8 +90,11 @@ export class UserRepository {
       WHERE ${Column.Id} = ?
       LIMIT 1;
     `
+    console.log('[user.getById] get connection...')
     const connection = await this.getConnection()
+    console.log('[user.getById] got connection')
     const result = await connection.query(query, [id])
+    console.log('[user.getById]', {result})
     connection.release()
 
     const rows = result[0] as RowDataPacket
@@ -141,14 +144,21 @@ export class UserRepository {
   }
 
   private async getConnection(skipInitCheck = false) {
-    if (!this.isInitialized && !skipInitCheck) {
-      await retry(() => {
-        if (!this.isInitialized) throw new Error()
+    try {
+      if (!this.isInitialized && !skipInitCheck) {
+        console.log('[user.getConnection] retry: wait until initialized')
+        await retry(() => {
+          if (!this.isInitialized) throw new Error()
+        })
+      }
+      const connection = await retry(() => {
+        console.log('[user.getConnection] retry to get connection')
+        return this.pool.getConnection()
       })
+      return connection
+    } catch (err) {
+      console.log('[user.getConnection] error', err)
+      throw err
     }
-    const connection = await retry(() => {
-      return this.pool.getConnection()
-    })
-    return connection
   }
 }

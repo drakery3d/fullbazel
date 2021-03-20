@@ -1,4 +1,5 @@
 import {DOCUMENT, isPlatformBrowser} from '@angular/common'
+import {HttpClient} from '@angular/common/http'
 import {Component, Inject, OnDestroy, PLATFORM_ID, Renderer2} from '@angular/core'
 import {ActivatedRoute, Router} from '@angular/router'
 import {Store} from '@ngrx/store'
@@ -116,6 +117,7 @@ export class AppComponent implements OnDestroy {
     private router: Router,
     private renderer: Renderer2,
     private snackbarService: SnackbarService,
+    private http: HttpClient,
     @Inject(PLATFORM_ID) private platform: string,
     @Inject(DOCUMENT) private document: Document,
     @Inject(ENVIRONMENT) private environment: ClientEnvironment,
@@ -128,6 +130,13 @@ export class AppComponent implements OnDestroy {
       this.setTheme()
       this.store.dispatch(MessagesActions.loadExisting())
     }
+
+    this.http
+      .get(this.environment.api)
+      .pipe(first())
+      .subscribe(response => {
+        console.log(response)
+      })
   }
 
   ngOnDestroy() {
