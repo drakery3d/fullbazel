@@ -1,5 +1,5 @@
 <div align="center">
-  <a href="https://github.com/flolu/fullstack-bazel">
+  <a href="https://github.com/drakery3d/fullstack-bazel">
     <img width="180px" height="auto" src="./services/client/assets/icons/icon-192x192.png" />
   </a>
   <br>
@@ -11,56 +11,26 @@
 
 <br>
 
-<!-- TODO update features-->
-
-<!--
-# Features
-
-**General**
-
-Deployment to Kubernetes, monorepo, libraries can be shared between server and client
-
-**Frontend**
-
-Development server with hot reload, lazy loading modules, PWA support, service worker, server side rendering, perfect Lighthouse score, realtime messages with Web Sockets, NgRx for state management, push notifications, differential loading, unit tests, e2e tests
-
-**Backend**
-
-Docker compose for local development with hot reload
-
-<br>
-
-# Documentation
-
-Coming soon
-<br>
--->
-
 # Requirements
 
-Linux, Node.Js, Docker Compose, Terraform, Kubectl, Helm, Yarn
+Ubuntu 20.04 LTS
+
+<br>
+
+# Getting Started
+
+```
+make
+```
 
 <br>
 
 # Commands
 
-**Setup**
-
-```
-yarn install && yarn build
-```
-
 **Development**
 
 ```
 yarn client
-yarn server
-```
-
-**Production**
-
-```
-yarn client:ssr
 yarn server
 ```
 
@@ -112,3 +82,5 @@ yarn server
 - Static website example (e.g docs or homepage)
 - Other frontend frameworks
 - Other server languages (e.g. Go, Python) -->
+
+<!-- TODO fix errors and warnings when running `yarn check` -->

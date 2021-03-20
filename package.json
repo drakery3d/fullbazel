@@ -1,6 +1,6 @@
 {
   "name": "fullstack-bazel",
-  "repository": "git@github.com:flolu/fullstack-bazel.git",
+  "repository": "git@github.com:drakery3d/fullstack-bazel.git",
   "private": true,
   "scripts": {
     "bazel": "bazelisk",
@@ -151,6 +151,5 @@
         }
       ]
     }
-  },
-  "version": "0.0.0"
+  }
 }

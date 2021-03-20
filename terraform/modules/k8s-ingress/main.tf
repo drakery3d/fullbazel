@@ -76,6 +76,8 @@ resource "kubernetes_ingress" "ingress" {
 
 # TODO adding data fields to existing configmap throws error
 # Error: configmaps "ingress-nginx-controller" already exists
+# https://stackoverflow.com/q/59989660/8586803
+
 # resource "kubernetes_config_map" "config_ingress" {
 #   metadata {
 #     name      = "${local.name}-controller"
