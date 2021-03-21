@@ -6,6 +6,7 @@ dist
 terraform/*.plan
 terraform/*.info
 terraform/*.tfstate
+terraform/*.backup
 
 services/client/environment/environment.ts
 libs/config/secrets/dev.secrets.json

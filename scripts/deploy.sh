@@ -1,6 +1,6 @@
 # bin/bash
 
-CLUSTER_PREFIX=cluster-
+CLUSTER_PREFIX=cluster
 PROJECT=$(gcloud config get-value project)
 CONTEXT=$(kubectl config get-contexts -o=name | \
 	grep "$PROJECT.*$CLUSTER_PREFIX")

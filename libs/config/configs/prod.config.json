@@ -1,9 +1,9 @@
 {
   "$schema": "./config.schema.json",
   "environment": "prod",
-  "api": "https://api.fullbazel-staging.drakery.com",
-  "websocket": "wss://api.fullbazel-staging.drakery.com",
-  "client": "https://fullbazel-staging.drakery.com",
+  "api": "https://api.fullbazel.drakery.com",
+  "websocket": "wss://api.fullbazel.drakery.com",
+  "client": "https://fullbazel.drakery.com",
   "vapidPublicKey": "BME74zSeApXmd05j-p0Y9dmGUrzGIphqaPPjaMDuiA5f_Bez6IPmMU45_s7xmTRWIvzMFnf-y5qeT5jQlK1eUso",
   "googleClientId": "98599563044-a8sqvpi95oe9bgomqk5mropnf8830g4r.apps.googleusercontent.com",
   "mysqlDatabase": {
@@ -13,7 +13,6 @@
     "database": "db"
   },
   "kafka": {
-    "brokers": ["pkc-4ygn6.europe-west3.gcp.confluent.cloud:9092"],
-    "apiKey": "ZKEANW3APBGS5KMI"
+    "brokers": ["kafka-cluster-kafka-bootstrap.strimzi-kafka.svc.cluster.local:9092"]
   }
 }

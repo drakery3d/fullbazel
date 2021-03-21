@@ -14,12 +14,6 @@ export class EventDispatcher implements IEventDispatcher {
   private kafka = new Kafka({
     brokers: this.config.getArray('kafka_brokers_0'),
     logLevel: logLevel.WARN,
-    ssl: !!this.config.get('kafka_apiKey'),
-    sasl: {
-      mechanism: 'plain',
-      username: this.config.get('kafka_apiKey'),
-      password: this.config.get('secrets_kafka_apiSecret'),
-    },
   })
   private producer = this.kafka.producer()
   private connected = false

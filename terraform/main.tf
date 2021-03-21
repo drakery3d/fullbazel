@@ -21,6 +21,10 @@ module "gke" {
   machine_type = var.gke_machine_type
 }
 
+module "kafka" {
+  source = "./modules/kafka"
+}
+
 module "ingress" {
   source = "./modules/k8s-ingress"
   domain = var.domain

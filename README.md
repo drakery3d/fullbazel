@@ -66,6 +66,7 @@ Deploy
 - Check design in other browsers
 - Install node_modules once as first job and then reuse in other jobs for .github/workflows/ci.yaml
 - Try Google Kubernetes Autopilot when this is fixed: https://github.com/jetstack/cert-manager/issues/3717
+- Local Kubernetes cluster with microk8s or minikube
 
 **Ideas**
 
@@ -75,4 +76,3 @@ Deploy
 - Other server languages (e.g. Go, Python) -->
 
 <!-- TODO fix errors and warnings when running `yarn check` -->
-<!-- TODO move deps from WORKSPACE into a deps.bzl file -->

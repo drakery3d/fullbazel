@@ -11,3 +11,8 @@ k8s_deploy(
     name = "nginx_ingress_config",
     template = "nginx-ingress-config.yaml",
 )
+
+k8s_deploy(
+    name = "strimzi_kafka",
+    template = "kafka-ephemeral.yaml",
+)

@@ -13,6 +13,7 @@ k8s_objects(
     objects = [
         "//libs/kubernetes:certificate_issuer",
         "//libs/kubernetes:nginx_ingress_config",
+        "//libs/kubernetes:strimzi_kafka",
         "//libs/config:config",
         "//libs/config:secrets",
         "//services/client:kubernetes",

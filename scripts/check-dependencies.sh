@@ -2,6 +2,8 @@
 
 IGNORES=(
   "core-js"
+  # TODO why is this required for running angular in prod?
+  "chalk"
   "depcheck"
   "systemjs"
   "tslib"

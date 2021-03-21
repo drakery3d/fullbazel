@@ -4,7 +4,7 @@ locals {
   chart     = "ingress-nginx"
 }
 
-resource "kubernetes_namespace" "ingress_ns" {
+resource "kubernetes_namespace" "ingress_namespace" {
   metadata {
     name = local.namespace
   }
@@ -19,7 +19,7 @@ resource "helm_release" "nginx_ingress" {
   cleanup_on_fail = true
   namespace       = local.namespace
 
-  depends_on = [kubernetes_namespace.ingress_ns]
+  depends_on = [kubernetes_namespace.ingress_namespace]
 }
 
 data "kubernetes_service" "service_ingress" {
