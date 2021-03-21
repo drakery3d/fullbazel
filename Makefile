@@ -6,21 +6,65 @@ auto-all: setup
 .PHONY: setup
 setup:
 	@source scripts/install-requirements.sh
+	@source scripts/upsert-secrets.sh
 	@source scripts/setup-project.sh
+	@source scripts/ensure-credentials.sh
+
+.PHONY: ensure-credentials
+ensure-credentials:
+	@source scripts/ensure-credentials.sh
+
+.PHONY: upsert-secrets
+upsert-secrets:
+	@source scripts/upsert-secrets.sh
 
 
 .PHONY: create-infrastructure
-create-infrastructure:
-	@echo "TODO"
+create-infrastructure: ensure-credentials
+	@echo "This will take ~10 minutes"
+	@source scripts/create-infrastructure.sh
+
+.PHONY: update-infrastructure
+update-infrastructure: ensure-credentials
+	@source scripts/update-infrastructure.sh
 
 .PHONY: destroy-infrastructure
-destroy-infrastructure:
-	@echo "TODO"
+destroy-infrastructure: ensure-credentials
+	@source scripts/destroy-infrastructure.sh
+
+
+.PHONY: test-all
+test-all: lint check-dependencies test test-integration
+
+.PHONY: lint
+lint:
+	@source scripts/lint.sh
+
+.PHONY: check-dependencies
+check-dependencies:
+	@source scripts/check-dependencies.sh
+
+.PHONY: test
+test:
+	@source scripts/test.sh
+
+.PHONY: test-integration
+test-integration:
+	@source scripts/test-integration.sh
+
+
+.PHONY: client
+client:
+	@source scripts/start-client.sh
+
+.PHONY: server
+server:
+	@source scripts/start-server.sh
 
 
 .PHONY: deploy
 deploy:
-	@echo "TODO"
+	@source scripts/deploy.sh
 
 # "---------------------------------------------------------"
 # Misc, eventually remove

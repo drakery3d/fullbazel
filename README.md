@@ -9,48 +9,40 @@
   </p>
 </div>
 
-<br>
+# Usage
 
-# Requirements
+Requirements
 
-Ubuntu 20.04 LTS
+- Ubuntu 20.04 LTS
 
-<br>
+Setup
 
-# Getting Started
+- `make setup` (Install required software and sets up project)
 
-```
-make
-```
+Development
 
-<br>
+- `make client` (Start Angular development server, http://localhost:8080)
+- `make server` (Start development backend)
+- `make test` (Unit tests with Bazel)
+- `make lint` (Check linting)
+- `make test-integration` (Integration tests with Jasmine and Testcontainers)
+- `make check-dependencies` (Check npm dependencies)
 
-# Commands
+Infrastructure
 
-**Development**
+- `make create-infrastructure` (Create infrastructure in Google Cloud)
+- `make update-infrastructure` (Update infrastructure)
+- `make destroy-infrastructure` (Destroy infrastructure)
 
-```
-yarn client
-yarn server
-```
+Deploy
 
-<br>
+- `make deploy` (Build and push Docker containers and deploy to Kubernetes cluster)
 
 # Issues
 
 - Upgrade from NgRx v9 to v11 ([rules_nodejs/issues/2320](https://github.com/bazelbuild/rules_nodejs/issues/2320))
 - Upgrade from Karma v4 to v5 ([rules_nodejs/issues/2093](https://github.com/bazelbuild/rules_nodejs/issues/2093))
 - Upgrade from rules_docker v14 to v15 with Bazel v4 ([rules_docker/issues/1716](https://github.com/bazelbuild/rules_docker/issues/1716))
-
-<br>
-
-## Special Thanks to all the people listed below!
-
-[@rayman1104](https://github.com/rayman1104) [@marcus-sa](https://github.com/marcus-sa) [@alexeagle](https://github.com/alexeagle) [@joeljeske](https://github.com/joeljeske)
-
-<br>
-<br>
-<br>
 
 <!-- # Reminders For Myself
 
@@ -84,3 +76,4 @@ yarn server
 - Other server languages (e.g. Go, Python) -->
 
 <!-- TODO fix errors and warnings when running `yarn check` -->
+<!-- TODO move deps from WORKSPACE into a deps.bzl file -->

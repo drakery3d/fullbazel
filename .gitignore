@@ -3,6 +3,9 @@ bazel-*
 dist
 *.log
 .terraform
+terraform/*.plan
+terraform/*.info
+terraform/*.tfstate
 
 services/client/environment/environment.ts
 libs/config/secrets/dev.secrets.json

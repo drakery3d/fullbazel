@@ -1,7 +1,8 @@
 data "google_client_config" "provider" {}
 
 resource "google_container_cluster" "primary" {
-  name                     = "cluster-${terraform.workspace}"
+  # name                     = "cluster-${terraform.workspace}"
+  name                     = "cluster"
   location                 = var.region
   initial_node_count       = var.node_count
   remove_default_node_pool = true

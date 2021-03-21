@@ -16,7 +16,7 @@ command gcloud version >/dev/null 2>&1 || {
 echo "Google Cloud SDK already installed"
 
 # kubectl
-command kubectl version >/dev/null 2>&1 || {
+command kubectl version --client >/dev/null 2>&1 || {
   echo "Install kubectl"
   command sudo snap install kubectl --classic
   echo "Done"
