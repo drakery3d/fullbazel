@@ -42,7 +42,6 @@ Deploy
 
 - Upgrade from NgRx v9 to v11 ([rules_nodejs/issues/2320](https://github.com/bazelbuild/rules_nodejs/issues/2320))
 - Upgrade from Karma v4 to v5 ([rules_nodejs/issues/2093](https://github.com/bazelbuild/rules_nodejs/issues/2093))
-- Upgrade from rules_docker v14 to v15 with Bazel v4 ([rules_docker/issues/1716](https://github.com/bazelbuild/rules_docker/issues/1716))
 
 <!-- # Reminders For Myself
 
