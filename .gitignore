@@ -8,6 +8,8 @@ terraform/*.info
 terraform/*.tfstate
 terraform/*.backup
 
+libs/config/dev.config.yaml
+
 services/client/environment/environment.ts
 libs/config/secrets/dev.secrets.json
 libs/config/secrets/prod.secrets.json

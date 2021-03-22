@@ -85,6 +85,7 @@ spec:
             # Defaults: MySQL: 3306, Postgres: 5432, SQLServer: 1433
             # TODO replace instance with terraform output
             # https://stackoverflow.com/a/56688223/8586803
+            # https://github.com/NeonLaw/codebase/blob/4a7e832497e81bc052069fb8b5c52fb64064c37d/infrastructure/kubernetes/modules/server_deployment/main.tf#L228
             - '-instances=fullstack-bazel-306720:europe-west3:mysql-instance-a80bb45e=tcp:3306'
           securityContext:
             # The default Cloud SQL proxy image runs as the
