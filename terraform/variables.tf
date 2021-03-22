@@ -43,5 +43,6 @@ variable "db_name" {
 
 # Amazon Web Services
 variable "aws_zone_id" {
-  type = string
+  type      = string
+  sensitive = true
 }

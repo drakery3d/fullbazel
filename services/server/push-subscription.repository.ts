@@ -28,11 +28,11 @@ export class PushSubscriptionRepository {
   @postConstruct()
   async initialize() {
     this.pool = createPool({
-      host: this.config.get('mysqlDatabase_host'),
-      port: Number(this.config.get('mysqlDatabase_port')),
-      user: this.config.get('mysqlDatabase_user'),
-      password: this.config.get('secrets_mysqlDatabase_password'),
-      database: this.config.get('mysqlDatabase_database'),
+      host: this.config.get('MYSQL_HOST'),
+      port: Number(this.config.get('MYSQL_PORT')),
+      user: this.config.get('MYSQL_USER'),
+      password: this.config.get('MYSQL_PASSWORD'),
+      database: this.config.get('MYSQL_DATABASE'),
     })
 
     this.pool.on('connection', connection => {

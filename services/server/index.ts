@@ -50,12 +50,12 @@ const googleAdapter = container.get(GoogleAdapter)
 const config = container.get(Config)
 const userRepo = container.get(UserRepository)
 const messageRepo = container.get(MessagesRepository)
-const isProd = config.get('environment') === Environment.Production
+const isProd = config.get('ENVIRONMENT') === Environment.Production
 const eventDispatcher = container.get(EventDispatcher)
 const eventListener = container.get(EventListener)
 const pushSubRepo = container.get(PushSubscriptionRepository)
 
-const authTokenSecret = config.get('secrets_tokens_auth')
+const authTokenSecret = config.get('AUTH_TOKEN_SECRET')
 
 const authTokenCookieOptions: express.CookieOptions = {
   httpOnly: true,
@@ -67,8 +67,8 @@ const authTokenCookieOptions: express.CookieOptions = {
 
 webpush.setVapidDetails(
   'mailto:flo@drakery.com',
-  config.get('vapidPublicKey'),
-  config.get('secrets_vapidPrivateKey'),
+  config.get('WEB_PUSH_VAPID_PUBLIC_KEY'),
+  config.get('WEB_PUSH_VAPID_PRIVATE_KEY'),
 )
 
 const broadcast = (message: SocketMessage) => {
@@ -193,7 +193,7 @@ app.use(
     origin: (origin: any, callback: (error: any, allow?: boolean) => void) => {
       if (origin === undefined) return callback(null, true)
 
-      if (origin && config.get('client')) callback(null, true)
+      if (origin && config.get('CLIENT_URL')) callback(null, true)
       else callback(new Error('Not allowed by CORS'))
     },
     credentials: true,

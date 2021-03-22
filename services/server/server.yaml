@@ -17,39 +17,39 @@ spec:
         - name: server
           image: server:latest
           envFrom:
-            - configMapRef:
-                name: config
-          env:
-            - name: secrets_tokens_auth
-              valueFrom:
-                secretKeyRef:
-                  name: secrets
-                  key: secrets_tokens_auth
-            - name: secrets_mysqlDatabase_password
-              valueFrom:
-                secretKeyRef:
-                  name: secrets
-                  key: secrets_mysqlDatabase_password
-            - name: secrets_googleClientSecret
-              valueFrom:
-                secretKeyRef:
-                  name: secrets
-                  key: secrets_googleClientSecret
-            - name: secrets_vapidPrivateKey
-              valueFrom:
-                secretKeyRef:
-                  name: secrets
-                  key: secrets_vapidPrivateKey
-            - name: secrets_vapidPrivateKey
-              valueFrom:
-                secretKeyRef:
-                  name: secrets
-                  key: secrets_vapidPrivateKey
-            - name: secrets_kafka_apiSecret
-              valueFrom:
-                secretKeyRef:
-                  name: secrets
-                  key: secrets_kafka_apiSecret
+            - secretRef:
+                name: application-config
+          # env:
+          #   - name: secrets_tokens_auth
+          #     valueFrom:
+          #       secretKeyRef:
+          #         name: secrets
+          #         key: secrets_tokens_auth
+          #   - name: secrets_mysqlDatabase_password
+          #     valueFrom:
+          #       secretKeyRef:
+          #         name: secrets
+          #         key: secrets_mysqlDatabase_password
+          #   - name: secrets_googleClientSecret
+          #     valueFrom:
+          #       secretKeyRef:
+          #         name: secrets
+          #         key: secrets_googleClientSecret
+          #   - name: secrets_vapidPrivateKey
+          #     valueFrom:
+          #       secretKeyRef:
+          #         name: secrets
+          #         key: secrets_vapidPrivateKey
+          #   - name: secrets_vapidPrivateKey
+          #     valueFrom:
+          #       secretKeyRef:
+          #         name: secrets
+          #         key: secrets_vapidPrivateKey
+          #   - name: secrets_kafka_apiSecret
+          #     valueFrom:
+          #       secretKeyRef:
+          #         name: secrets
+          #         key: secrets_kafka_apiSecret
 
           # TODO make readiness probe work with cloudsql-proxy
           # readinessProbe:

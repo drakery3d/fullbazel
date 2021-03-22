@@ -12,7 +12,7 @@ export interface IEventDispatcher {
 @injectable()
 export class EventDispatcher implements IEventDispatcher {
   private kafka = new Kafka({
-    brokers: this.config.getArray('kafka_brokers_0'),
+    brokers: this.config.getArray('KAFKA_SEED_BROKER'),
     logLevel: logLevel.WARN,
   })
   private producer = this.kafka.producer()

@@ -24,9 +24,9 @@ enum GoogleApi {
 
 @injectable()
 export class GoogleAdapter {
-  private readonly googleClientId = this.config.get('googleClientId')
-  private readonly googleClientSecret = this.config.get('secrets_googleClientSecret')
-  private readonly googleRedirectUrl = this.config.get('client')
+  private readonly googleClientId = this.config.get('GOOGLE_SIGN_IN_CLIENT_ID')
+  private readonly googleClientSecret = this.config.get('GOOGLE_SIGN_IN_CLIENT_SECRET')
+  private readonly googleRedirectUrl = this.config.get('CLIENT_URL')
   constructor(private config: Config) {}
 
   get signInUrl() {
