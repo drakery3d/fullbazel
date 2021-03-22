@@ -1,6 +1,5 @@
 load("@npm//@bazel/typescript:index.bzl", "ts_config", "ts_library")
 load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
-load("@k8s_deploy//:defaults.bzl", "k8s_deploy")
 
 package(default_visibility = ["//visibility:public"])
 
@@ -15,98 +14,6 @@ ts_config(
     deps = ["//:tsconfig"],
 )
 
-filegroup(
-    name = "config_jsons",
-    srcs = glob(
-        include = ["configs/*"],
-        exclude = ["**/*.schema.json"],
-    ),
-)
-
-filegroup(
-    name = "secrets_jsons",
-    srcs = glob(
-        include = ["secrets/*"],
-        exclude = ["**/*.schema.json"],
-    ),
-)
-
-# Generate a Typescript interface from the config JSON schema
-CONFIG_SCHEMA_FILE = "config.schema.ts"
-
-ts_library(
-    name = "generate_config_schema_lib",
-    srcs = ["generate-config-schema.ts"],
-    tsconfig = "tsconfig",
-    deps = [
-        "@npm//@types/node",
-        "@npm//json-schema-to-typescript",
-    ],
-)
-
-nodejs_binary(
-    name = "generate_config_schema_bin",
-    data = [
-        "configs/config.schema.json",
-        "generate_config_schema_lib",
-    ],
-    entry_point = "generate-config-schema.ts",
-    templated_args = ["--bazel_patch_module_resolver"],
-)
-
-genrule(
-    name = "generate_config_schema",
-    outs = [CONFIG_SCHEMA_FILE],
-    cmd = "$(location generate_config_schema_bin) $@",
-    tools = ["generate_config_schema_bin"],
-)
-
-ts_library(
-    name = "config_schema",
-    srcs = [CONFIG_SCHEMA_FILE],
-    data = ["generate_config_schema"],
-    module_name = "@generated/config",
-    tsconfig = "tsconfig",
-)
-
-# Generate a Typescript interface from the secret JSON schema
-SECRET_SCHEMA_FILE = "secret.schema.ts"
-
-ts_library(
-    name = "generate_secret_schema_lib",
-    srcs = ["generate-secrets-schema.ts"],
-    tsconfig = "tsconfig",
-    deps = [
-        "@npm//@types/node",
-        "@npm//json-schema-to-typescript",
-    ],
-)
-
-nodejs_binary(
-    name = "generate_secret_schema_bin",
-    data = [
-        "generate_secret_schema_lib",
-        "secrets/secret.schema.json",
-    ],
-    entry_point = "generate-secrets-schema.ts",
-    templated_args = ["--bazel_patch_module_resolver"],
-)
-
-genrule(
-    name = "generate_secret_schema",
-    outs = [SECRET_SCHEMA_FILE],
-    cmd = "$(location generate_secret_schema_bin) $@",
-    tools = ["generate_secret_schema_bin"],
-)
-
-ts_library(
-    name = "secret_schema",
-    srcs = [SECRET_SCHEMA_FILE],
-    data = ["generate_secret_schema"],
-    module_name = "@generated/config",
-    tsconfig = "tsconfig",
-)
-
 # Typescript library containing the code used by many
 # of the targets in this file
 ts_library(
@@ -114,74 +21,14 @@ ts_library(
     srcs = [
         "generate-client-envs.ts",
         "generate-dc-env.ts",
-        "generate-flat-config-keys.ts",
-        "generate-k8s-configs.ts",
-        "generate-k8s-secrets.ts",
-        "utils.ts",
     ],
     tsconfig = "tsconfig",
     deps = [
-        "config_schema",
-        "secret_schema",
         "//libs/enums",
-        "@npm//@types/flat",
         "@npm//@types/node",
-        "@npm//flat",
-        "@npm//json-schema-to-typescript",
         "@npm//query-string",
         "@npm//ts-morph",
-        "@npm//yaml",
     ],
-)
-
-# Generate a Kubernetes ConfigMap and a Secret for production
-# The generated yaml files are then fed into a k8s_deploy rule
-K8S_CONFIG_FILE = "prod.config.yaml"
-
-K8S_SECRETS_FILE = "prod.secrets.yaml"
-
-nodejs_binary(
-    name = "generate_k8s_configs_bin",
-    data = [
-        "config_jsons",
-        "generate_lib",
-    ],
-    entry_point = "generate-k8s-configs.ts",
-    templated_args = ["--bazel_patch_module_resolver"],
-)
-
-genrule(
-    name = "generate_k8s_configs",
-    outs = [K8S_CONFIG_FILE],
-    cmd = "$(location generate_k8s_configs_bin) $@",
-    tools = ["generate_k8s_configs_bin"],
-)
-
-k8s_deploy(
-    name = "config",
-    template = K8S_CONFIG_FILE,
-)
-
-nodejs_binary(
-    name = "generate_k8s_secrets_bin",
-    data = [
-        "generate_lib",
-        "secrets_jsons",
-    ],
-    entry_point = "generate-k8s-secrets.ts",
-    templated_args = ["--bazel_patch_module_resolver"],
-)
-
-genrule(
-    name = "generate_k8s_secrets",
-    outs = [K8S_SECRETS_FILE],
-    cmd = "$(location generate_k8s_secrets_bin) $@",
-    tools = ["generate_k8s_secrets_bin"],
-)
-
-k8s_deploy(
-    name = "secrets",
-    template = K8S_SECRETS_FILE,
 )
 
 # Generate a ".env" file with key value pairs of
@@ -189,11 +36,7 @@ k8s_deploy(
 # It is read by the docker-compose.yaml file
 nodejs_binary(
     name = "generate_docker_compose_env_bin",
-    data = [
-        "config_jsons",
-        "generate_lib",
-        "secrets_jsons",
-    ],
+    data = ["generate_lib"],
     entry_point = "generate-dc-env.ts",
     templated_args = ["--bazel_patch_module_resolver"],
 )
@@ -205,43 +48,11 @@ genrule(
     tools = ["generate_docker_compose_env_bin"],
 )
 
-# We take the configs and secrets and generate
-# a Typescript type for all the available keys
-# This enables intellisense when getting config values
-FLAT_CONFIG_KEYS_FILE = "flat-config-keys.ts"
-
-nodejs_binary(
-    name = "generate_flat_config_keys_bin",
-    data = [
-        "config_jsons",
-        "generate_lib",
-        "secrets_jsons",
-    ],
-    entry_point = "generate-flat-config-keys.ts",
-    templated_args = ["--bazel_patch_module_resolver"],
-)
-
-genrule(
-    name = "generate_flat_config_keys",
-    outs = [FLAT_CONFIG_KEYS_FILE],
-    cmd = "$(location generate_flat_config_keys_bin) $@",
-    tools = ["generate_flat_config_keys_bin"],
-)
-
-ts_library(
-    name = "flat_config_keys",
-    srcs = [FLAT_CONFIG_KEYS_FILE],
-    data = ["generate_flat_config_keys"],
-    module_name = "@generated/config",
-    tsconfig = "tsconfig",
-)
-
 # We take a subset of the configurations in /configs to generate
 # a Typescript environment object, which can be used in the client application
 nodejs_binary(
     name = "generate_client_env_bin",
     data = [
-        "config_jsons",
         "generate_lib",
     ],
     entry_point = "generate-client-envs.ts",
@@ -277,7 +88,6 @@ ts_library(
     tsconfig = "tsconfig",
     visibility = ["//services:__subpackages__"],
     deps = [
-        "flat_config_keys",
         "@npm//@types/node",
         "@npm//inversify",
     ],

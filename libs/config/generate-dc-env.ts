@@ -1,23 +1,30 @@
-import * as flatten from 'flat'
 import * as fs from 'fs'
 import * as path from 'path'
 
-import {Environment} from '@libs/enums'
-
-import {readConfig, readSecrets} from './utils'
-
 const outFile = process.argv[2]
-const environment = Environment.Development
+
+// TODO dont hardcode docker compose env
+const env = `
+environment=dev
+api=http://localhost:3000
+websocket=ws://localhost:3000
+client=http://localhost:8080
+vapidPublicKey=BME74zSeApXmd05j-p0Y9dmGUrzGIphqaPPjaMDuiA5f_Bez6IPmMU45_s7xmTRWIvzMFnf-y5qeT5jQlK1eUso
+googleClientId=change_me
+mysqlDatabase_host=fullbazel_mysql
+mysqlDatabase_port=3306
+mysqlDatabase_user=root
+mysqlDatabase_database=db
+kafka_brokers_0=kafka:9092
+secrets_tokens_auth=change_me
+secrets_mysqlDatabase_password=password
+secrets_googleClientSecret=change_me
+secrets_vapidPrivateKey=3vMSOMYoxnGsnhZ48cLgUO5yOeCxlP3qe6XOlo63UkA
+secrets_kafka_apiSecret=change_me
+`
 
 async function main() {
-  const [config, secrets] = await Promise.all([readConfig(environment), readSecrets(environment)])
-  const merged = {...config, secrets}
-  const flat: Record<string, string> = flatten(merged, {delimiter: '_'})
-  let content = ''
-  for (const key in flat) {
-    content += key + '=' + flat[key] + '\n'
-  }
-  await fs.promises.writeFile(path.join(outFile), content)
+  await fs.promises.writeFile(path.join(outFile), env)
 }
 
 main()

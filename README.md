@@ -23,6 +23,7 @@ Development
 
 - `make client` (Start Angular development server, http://localhost:8080)
 - `make server` (Start development backend)
+- `make client-ssr` (Start Angular Production server, http://localhost:8080)
 - `make test` (Unit tests with Bazel)
 - `make lint` (Check linting)
 - `make test-integration` (Integration tests with Jasmine and Testcontainers)

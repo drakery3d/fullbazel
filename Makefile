@@ -6,17 +6,12 @@ auto-all: setup
 .PHONY: setup
 setup:
 	@source scripts/install-requirements.sh
-	@source scripts/upsert-secrets.sh
 	@source scripts/setup-project.sh
 	@source scripts/ensure-credentials.sh
 
 .PHONY: ensure-credentials
 ensure-credentials:
 	@source scripts/ensure-credentials.sh
-
-.PHONY: upsert-secrets
-upsert-secrets:
-	@source scripts/upsert-secrets.sh
 
 
 .PHONY: create-infrastructure
@@ -56,6 +51,10 @@ test-integration:
 .PHONY: client
 client:
 	@source scripts/start-client.sh
+
+.PHONY: client-ssr
+client-ssr:
+	@source scripts/start-client-ssr.sh
 
 .PHONY: server
 server:
