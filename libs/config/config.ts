@@ -10,6 +10,7 @@ export class Config {
     return value
   }
 
+  // TODO remove
   getArray(firstKey: string) {
     const first = this.getByKey(firstKey)
     if (first === undefined) throw new Error(`No config value for ${firstKey} found`)

@@ -40,3 +40,23 @@ module "dns" {
   zone_id = var.aws_zone_id
   domain  = var.domain
 }
+
+module "configuration" {
+  source                       = "./modules/k8s-config"
+  environment                  = "prod"
+  api_url                      = "https://api.${var.domain}"
+  websocket_url                = "wss://api.${var.domain}"
+  client_url                   = "https://${var.domain}"
+  auth_token_secret            = "TODO"
+  web_push_vapid_public_key    = "TODO"
+  web_push_vapid_private_key   = "TODO"
+  google_sign_in_client_id     = "TODO"
+  google_sign_in_client_secret = "TODO"
+  cloudsql_instance            = module.sql.instance
+  mysql_host                   = "127.0.0.1"
+  mysql_port                   = "3306"
+  mysql_user                   = module.sql.user
+  mysql_database               = module.sql.database
+  mysql_password               = module.sql.password
+  kafka_seed_broker            = module.kafka.seed_broker
+}

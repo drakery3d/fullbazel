@@ -1,7 +1,8 @@
 locals {
-  name      = "strimzi-kafka"
-  namespace = "strimzi-kafka"
-  chart     = "strimzi-kafka-operator"
+  name         = "strimzi-kafka"
+  namespace    = "strimzi-kafka"
+  chart        = "strimzi-kafka-operator"
+  cluster_name = "kafka-cluster"
 }
 
 resource "kubernetes_namespace" "kafka_namespace" {
