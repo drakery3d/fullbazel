@@ -77,4 +77,5 @@ Deploy
 - Other frontend frameworks
 - Other server languages (e.g. Go, Python) -->
 
+<!-- TODO move services/* into root, but keep libraries in libs/* -->
 <!-- TODO fix errors and warnings when running `yarn check` -->
