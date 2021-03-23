@@ -1,5 +1,7 @@
 load("@k8s_deploy//:defaults.bzl", "k8s_deploy")
 
+# TODO preferably move to terraform and remove libs/kubernetes
+
 package(default_visibility = ["//visibility:public"])
 
 k8s_deploy(

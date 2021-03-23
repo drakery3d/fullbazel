@@ -47,11 +47,11 @@ module "configuration" {
   api_url                      = "https://api.${var.domain}"
   websocket_url                = "wss://api.${var.domain}"
   client_url                   = "https://${var.domain}"
-  auth_token_secret            = "TODO"
-  web_push_vapid_public_key    = "TODO"
-  web_push_vapid_private_key   = "TODO"
-  google_sign_in_client_id     = "TODO"
-  google_sign_in_client_secret = "TODO"
+  auth_token_secret            = var.auth_token_secret
+  web_push_vapid_public_key    = var.web_push_vapid_public_key
+  web_push_vapid_private_key   = var.web_push_vapid_private_key
+  google_sign_in_client_id     = var.google_sign_in_client_id
+  google_sign_in_client_secret = var.google_sign_in_client_secret
   cloudsql_instance            = module.sql.instance
   mysql_host                   = "127.0.0.1"
   mysql_port                   = "3306"

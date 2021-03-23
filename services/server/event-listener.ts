@@ -18,7 +18,7 @@ export interface IEventListener {
 @injectable()
 export class EventListener implements IEventListener {
   private kafka = new Kafka({
-    brokers: this.config.getArray('KAFKA_SEED_BROKER'),
+    brokers: [this.config.get('KAFKA_SEED_BROKER')],
     logLevel: logLevel.WARN,
   })
   private consumers: Consumer[] = []
