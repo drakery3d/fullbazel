@@ -14,6 +14,11 @@ ensure-credentials:
 	@source scripts/ensure-credentials.sh
 
 
+.PHONY: plan-infrastructure
+plan-infrastructure: ensure-credentials
+	cd infrastructure && \
+	terraform plan
+
 .PHONY: create-infrastructure
 create-infrastructure: ensure-credentials
 	@echo "This will take ~10 minutes"

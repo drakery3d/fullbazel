@@ -1,5 +1,5 @@
 provider "google" {
-  credentials = file("terraform-sa-key.json")
+  credentials = file("google-sa.json")
   project     = var.gcp_project_id
   region      = var.gcp_region
 }
