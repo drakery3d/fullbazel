@@ -68,6 +68,7 @@ Deploy
 - Install node_modules once as first job and then reuse in other jobs for .github/workflows/ci.yaml
 - Try Google Kubernetes Autopilot when this is fixed: https://github.com/jetstack/cert-manager/issues/3717
 - Local Kubernetes cluster with microk8s or minikube
+- Try https://buildkite.com/ as it is free for open-source projects
 
 **Ideas**
 
