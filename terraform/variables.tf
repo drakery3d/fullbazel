@@ -46,3 +46,27 @@ variable "aws_zone_id" {
   type      = string
   sensitive = true
 }
+
+# Web Push
+variable "web_push_vapid_public_key" {
+  type = string
+}
+variable "web_push_vapid_private_key" {
+  type      = string
+  sensitive = true
+}
+
+# Google Sing In
+variable "google_sign_in_client_id" {
+  type = string
+}
+variable "google_sign_in_client_secret" {
+  type      = string
+  sensitive = true
+}
+
+# Token Secrets
+variable "auth_token_secret" {
+  type      = string
+  sensitive = true
+}

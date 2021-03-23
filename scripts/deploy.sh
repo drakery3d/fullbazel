@@ -1,10 +1,13 @@
 # bin/bash
 
-CLUSTER_PREFIX=cluster
 PROJECT=$(gcloud config get-value project)
-CONTEXT=$(kubectl config get-contexts -o=name | \
-	grep "$PROJECT.*$CLUSTER_PREFIX")
+CLUSTER=cluster
+# TODO dont hardcode zone
+ZONE=europe-west3-a
+CONTEXT=gke_${PROJECT}_${ZONE}_${CLUSTER}
 REPO=gcr.io/$PROJECT
+
+command gcloud container clusters get-credentials ${CLUSTER} --zone ${ZONE} --project ${PROJECT}
 
 echo "Cluster: ${CONTEXT}"
 echo "Repository: ${REPO}"

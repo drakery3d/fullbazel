@@ -20,11 +20,12 @@ resource "kubernetes_secret" "k8s_config" {
     GOOGLE_SIGN_IN_CLIENT_ID     = var.google_sign_in_client_id
     GOOGLE_SIGN_IN_CLIENT_SECRET = var.google_sign_in_client_secret
 
-    MYSQL_HOST     = var.mysql_host
-    MYSQL_PORT     = var.mysql_port
-    MYSQL_USER     = var.mysql_user
-    MYSQL_DATABASE = var.mysql_database
-    MYSQL_PASSWORD = var.mysql_password
+    CLOUDSQL_INSTANCE = var.cloudsql_instance
+    MYSQL_HOST        = var.mysql_host
+    MYSQL_PORT        = var.mysql_port
+    MYSQL_USER        = var.mysql_user
+    MYSQL_DATABASE    = var.mysql_database
+    MYSQL_PASSWORD    = var.mysql_password
 
     KAFKA_SEED_BROKER = var.kafka_seed_broker
   }

@@ -10,24 +10,6 @@ export class Config {
     return value
   }
 
-  // TODO remove
-  getArray(firstKey: string) {
-    const first = this.getByKey(firstKey)
-    if (first === undefined) throw new Error(`No config value for ${firstKey} found`)
-
-    const array: string[] = []
-    let index = 0
-    const keyBase = firstKey.substring(0, firstKey.length - 2)
-    let value = this.getByKey(`${keyBase}_${index}`)
-    while (value) {
-      array.push(value)
-      index++
-      value = this.getByKey(`${keyBase}_${index}`)
-    }
-
-    return array
-  }
-
   override(key: string, value: string) {
     this.config[key] = value
   }

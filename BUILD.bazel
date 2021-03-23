@@ -11,9 +11,11 @@ ts_config(
 k8s_objects(
     name = "kubernetes",
     objects = [
+        # TODO preferably apply those with terraform
         "//libs/kubernetes:certificate_issuer",
         "//libs/kubernetes:nginx_ingress_config",
         "//libs/kubernetes:strimzi_kafka",
+        # -
         "//services/client:kubernetes",
         "//services/server:kubernetes",
     ],

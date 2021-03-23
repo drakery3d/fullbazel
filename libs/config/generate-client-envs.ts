@@ -42,7 +42,7 @@ function buildEnv(environment: string) {
   return {
     env: environment,
     api: 'https://api.fullbazel.drakery.com',
-    websocket: 'wss://fullbazel.drakery.com',
+    websocket: 'wss://api.fullbazel.drakery.com',
     vapidPublicKey: 'TODO',
     googleSignInUrl: generateGoogleSignInUrl(client, googleClientId),
   }

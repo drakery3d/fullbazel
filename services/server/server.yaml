@@ -19,77 +19,42 @@ spec:
           envFrom:
             - secretRef:
                 name: application-config
-          # env:
-          #   - name: secrets_tokens_auth
-          #     valueFrom:
-          #       secretKeyRef:
-          #         name: secrets
-          #         key: secrets_tokens_auth
-          #   - name: secrets_mysqlDatabase_password
-          #     valueFrom:
-          #       secretKeyRef:
-          #         name: secrets
-          #         key: secrets_mysqlDatabase_password
-          #   - name: secrets_googleClientSecret
-          #     valueFrom:
-          #       secretKeyRef:
-          #         name: secrets
-          #         key: secrets_googleClientSecret
-          #   - name: secrets_vapidPrivateKey
-          #     valueFrom:
-          #       secretKeyRef:
-          #         name: secrets
-          #         key: secrets_vapidPrivateKey
-          #   - name: secrets_vapidPrivateKey
-          #     valueFrom:
-          #       secretKeyRef:
-          #         name: secrets
-          #         key: secrets_vapidPrivateKey
-          #   - name: secrets_kafka_apiSecret
-          #     valueFrom:
-          #       secretKeyRef:
-          #         name: secrets
-          #         key: secrets_kafka_apiSecret
-
-          # TODO make readiness probe work with cloudsql-proxy
-          # readinessProbe:
-          #   httpGet:
-          #     path: /
-          #     port: 8080
-          #   initialDelaySeconds: 5
-          #   periodSeconds: 3
-          # livenessProbe:
-          #   httpGet:
-          #     path: /
-          #     port: 8080
-          #   initialDelaySeconds: 5
-          #   periodSeconds: 10
-          # resources:
-          #   requests:
-          #     memory: 300Mi
-          #     cpu: 100m
-          #   limits:
-          #     memory: 1000Mi
-          #     cpu: 500m
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 3
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources:
+            requests:
+              memory: 300Mi
+              cpu: 50m
+            limits:
+              memory: 1000Mi
+              cpu: 500m
 
         - name: cloud-sql-proxy
           image: gcr.io/cloudsql-docker/gce-proxy:1.20.2
+          env:
+            - name: CLOUDSQL_INSTANCE
+              valueFrom:
+                secretKeyRef:
+                  name: application-config
+                  key: CLOUDSQL_INSTANCE
           command:
             - '/cloud_sql_proxy'
-
-            # If connecting from a VPC-native GKE cluster, you can use the
-            # following flag to have the proxy connect over private IP
-            # - "-ip_address_types=PRIVATE"
-
-            # Replace DB_PORT with the port the proxy should listen on
-            # Defaults: MySQL: 3306, Postgres: 5432, SQLServer: 1433
-            # TODO replace instance with terraform output
-            # https://stackoverflow.com/a/56688223/8586803
-            # https://github.com/NeonLaw/codebase/blob/4a7e832497e81bc052069fb8b5c52fb64064c37d/infrastructure/kubernetes/modules/server_deployment/main.tf#L228
-            - '-instances=fullstack-bazel-306720:europe-west3:mysql-instance-a80bb45e=tcp:3306'
+            # Terraform creates the cloud sql instance and stores the connection
+            # information in a kubernetes secret
+            # We read the instance name from this secret and pass it to the
+            # cloud_sql_proxy command here:
+            - '-instances=$(CLOUDSQL_INSTANCE)=tcp:3306'
           securityContext:
-            # The default Cloud SQL proxy image runs as the
-            # "nonroot" user and group (uid: 65532) by default.
             runAsNonRoot: true
 
       affinity:
