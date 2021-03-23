@@ -8,5 +8,4 @@ infrastructure/*.plan
 infrastructure/*.info
 infrastructure/*.tfstate
 infrastructure/*.backup
-infrastructure/terraform.tfvars
 infrastructure/google-sa.json

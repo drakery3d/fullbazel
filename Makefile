@@ -16,8 +16,7 @@ ensure-credentials:
 
 .PHONY: plan-infrastructure
 plan-infrastructure: ensure-credentials
-	cd infrastructure && \
-	terraform plan
+	@source scripts/plan-infrastructure.sh
 
 .PHONY: create-infrastructure
 create-infrastructure: ensure-credentials

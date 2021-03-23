@@ -1,34 +1,43 @@
 variable "app_name" {
-  type = string
+  default = "fullbazel"
+  type    = string
 }
 
 variable "domain" {
-  type = string
+  default = "fullbazel.drakery.com"
+  type    = string
 }
 
 # Google Cloud
 variable "gcp_project_id" {
-  type = string
+  default = "fullstack-bazel-306720"
+  type    = string
 }
 variable "gcp_region" {
-  type = string
+  default = "europe-west3"
+  type    = string
 }
 
 # Google Kubernetes Engine
 variable "gke_region" {
-  type = string
+  default = "europe-west3-a"
+  type    = string
 }
 variable "gke_machine_type" {
-  type = string
+  default = "e2-medium"
+  type    = string
 }
 variable "gke_node_count" {
-  type = number
+  default = 2
+  type    = number
 }
 variable "gke_preemptible" {
-  type = bool
+  default = true
+  type    = bool
 }
 variable "gke_disk_size_gb" {
-  type = number
+  default = 10
+  type    = number
 }
 
 # Cloud SQL
@@ -42,6 +51,14 @@ variable "db_name" {
 }
 
 # Amazon Web Services
+variable "aws_access_key_id" {
+  type      = string
+  sensitive = true
+}
+variable "aws_secret_access_key" {
+  type      = string
+  sensitive = true
+}
 variable "aws_zone_id" {
   type      = string
   sensitive = true
