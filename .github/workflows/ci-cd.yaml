@@ -1,7 +1,7 @@
 name: ci
 on: push
 jobs:
-  code:
+  check-code:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
@@ -83,3 +83,15 @@ jobs:
 
       - name: Run tests
         run: make test-integration
+
+  deploy:
+    runs-on: ubuntu-20.04
+    needs: [check-code, unit-tests, integration-tests]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # TODO continuous deployment
+      # 1. update infrastructure with terraform
+      # 2. build and push docker images with bazel
+      # 3. apply k8s manifests with bazel

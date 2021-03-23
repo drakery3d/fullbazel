@@ -14,14 +14,13 @@ ensure-credentials:
 	@source scripts/ensure-credentials.sh
 
 
+.PHONY: init-infrastructure
+init-infrastructure: ensure-credentials
+	@source scripts/init-infrastructure.sh
+
 .PHONY: plan-infrastructure
 plan-infrastructure: ensure-credentials
 	@source scripts/plan-infrastructure.sh
-
-.PHONY: create-infrastructure
-create-infrastructure: ensure-credentials
-	@echo "This will take ~10 minutes"
-	@source scripts/create-infrastructure.sh
 
 .PHONY: update-infrastructure
 update-infrastructure: ensure-credentials
@@ -68,3 +67,8 @@ server:
 .PHONY: deploy
 deploy:
 	@source scripts/deploy.sh
+
+
+.PHONY: create-terraform-bucket
+create-terraform-bucket:
+	@source scripts/create-terraform-bucket.sh

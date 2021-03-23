@@ -2,6 +2,7 @@
 
 ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 PROJECT_ID=$(gcloud config get-value core/project)
+# GOOGLE_APPLICATION_CREDENTIALS=$ROOT/infrastructure/google-sa.json
 
 function get_secret() {
   echo $(gcloud secrets versions access latest --secret=$1 --project=${PROJECT_ID})
