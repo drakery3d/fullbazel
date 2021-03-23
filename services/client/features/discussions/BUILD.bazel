@@ -43,6 +43,7 @@ ts_library(
         "discussions",
         "//services/client/environment",
         "//services/client/shared",
+        "@npm//@angular/compiler",
         "@npm//@angular/core",
         "@npm//@angular/platform-browser",
         "@npm//@angular/router",

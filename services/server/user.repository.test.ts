@@ -38,11 +38,11 @@ describe('user repository', () => {
       .withEnv('MYSQL_DATABASE', 'testing')
       .start()
 
-    process.env['mysqlDatabase_host'] = mysqlContainer.getHost()
-    process.env['mysqlDatabase_port'] = mysqlContainer.getMappedPort(3306).toString()
-    process.env['mysqlDatabase_user'] = 'root'
-    process.env['secrets_mysqlDatabase_password'] = 'password'
-    process.env['mysqlDatabase_database'] = 'testing'
+    process.env['MYSQL_HOST'] = mysqlContainer.getHost()
+    process.env['MYSQL_PORT'] = mysqlContainer.getMappedPort(3306).toString()
+    process.env['MYSQL_USER'] = 'root'
+    process.env['MYSQL_PASSWORD'] = 'password'
+    process.env['MYSQL_DATABASE'] = 'testing'
 
     const container = new Container({skipBaseClassChecks: true})
     container.bind(Config).toSelf()

@@ -15,6 +15,6 @@ if [ -z "${AWS_ACCESS_KEY_ID}" ] || [ -z "${AWS_SECRET_ACCESS_KEY}" ]; then
   echo "Please set AWS credentials!"
   echo "export AWS_ACCESS_KEY_ID="
   echo "export AWS_SECRET_ACCESS_KEY="
-  exit
+  exit 1
 fi
 echo "AWS authenticated"
