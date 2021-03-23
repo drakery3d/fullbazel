@@ -1,5 +1,5 @@
 name: ci
-on: push
+on: [push, pull_request]
 jobs:
   check-code:
     runs-on: ubuntu-20.04
@@ -84,14 +84,103 @@ jobs:
       - name: Run tests
         run: make test-integration
 
-  deploy:
+  # TODO flag to enable / disable deployment... I don't want to pay cloud costst for a project no one uses! :)
+  # enabled: deploy
+  # disabled destroy
+
+  infrastructure:
     runs-on: ubuntu-20.04
     needs: [check-code, unit-tests, integration-tests]
+    defaults:
+      run:
+        working-directory: ./infrastructure
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      # TODO continuous deployment
-      # 1. update infrastructure with terraform
-      # 2. build and push docker images with bazel
-      # 3. apply k8s manifests with bazel
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          export_default_credentials: true
+
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 0.14.3
+
+      - name: Terraform format
+        id: fmt
+        run: terraform fmt -check
+
+      - name: Terraform init
+        id: init
+        run: terraform init
+
+      - name: Terraform validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform plan
+        id: plan
+        run: make plan-infrastructure
+        working-directory: .
+
+      - uses: actions/github-script@0.9.0
+        if: github.event_name == 'pull_request'
+        env:
+          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            <details><summary>Terraform Plan</summary>
+
+            \`\`\`${process.env.PLAN}\`\`\`
+
+            </details>
+
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
+
+      - name: Terraform update
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        run: make update-infrastructure
+        working-directory: .
+
+  deploy:
+    runs-on: ubuntu-20.04
+    needs: infrastructure
+    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          export_default_credentials: true
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Load cached node_modules
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install dependencies
+        run: yarn install --prefer-offline --frozen-lockfile
+
+      - name: Deploy to Kubernetes
+        run: make deploy

@@ -8,6 +8,7 @@ CONTEXT=gke_${PROJECT}_${ZONE}_${CLUSTER}
 REPO=gcr.io/$PROJECT
 
 command gcloud container clusters get-credentials ${CLUSTER} --zone ${ZONE} --project ${PROJECT}
+command gcloud --quiet auth configure-docker
 
 echo "Cluster: ${CONTEXT}"
 echo "Repository: ${REPO}"
