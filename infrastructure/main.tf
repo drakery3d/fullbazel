@@ -1,10 +1,9 @@
-# TODO consider storing terraform state in gcs bucket
-# terraform {
-#   backend "gcs" {
-#     bucket = "fullstack-bazel-306720-terraform"
-#     prefix = "/state/fullbazel"
-#   }
-# }
+terraform {
+  backend "gcs" {
+    bucket = "fullbazel-terraform-state"
+    prefix = "prod"
+  }
+}
 
 module "sql" {
   source  = "./modules/cloudsql"
