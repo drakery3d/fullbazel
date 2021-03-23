@@ -18,5 +18,5 @@ command yarn bazelisk build \
   --define "repo=${REPO}" \
   //...
 
-command cp -n terraform/example.tfvars terraform/terraform.tfvars
-echo "Please change sensitive values in terraform/terraform.tfvars"
+command cp -n terraform/example.tfvars infrastructure/terraform.tfvars
+echo "Please change sensitive values in infrastructure/terraform.tfvars"

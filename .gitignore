@@ -2,16 +2,11 @@ node_modules
 bazel-*
 dist
 *.log
-.terraform
-terraform/*.plan
-terraform/*.info
-terraform/*.tfstate
-terraform/*.backup
-terraform/terraform.tfvars
 
-libs/config/dev.config.yaml
-
-services/client/environment/environment.ts
-libs/config/secrets/dev.secrets.json
-libs/config/secrets/prod.secrets.json
-terraform/terraform-sa-key.json
+infrastructure/.terraform
+infrastructure/*.plan
+infrastructure/*.info
+infrastructure/*.tfstate
+infrastructure/*.backup
+infrastructure/terraform.tfvars
+infrastructure/google-sa.json
