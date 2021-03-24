@@ -31,13 +31,14 @@ Development
 
 Infrastructure
 
-- `make create-infrastructure` (Create infrastructure in Google Cloud)
+- `make init-infrastructure` (Initialize infrastructure)
+- `make plan-infrastructure` (Plan infrastructure)
 - `make update-infrastructure` (Update infrastructure)
 - `make destroy-infrastructure` (Destroy infrastructure)
 
 Deploy
 
-- `make deploy` (Build and push Docker containers and deploy to Kubernetes cluster)
+- `make deploy` (Deploy to Kubernetes cluster)
 
 # Issues
 

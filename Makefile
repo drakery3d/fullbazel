@@ -23,7 +23,7 @@ plan-infrastructure: ensure-credentials
 	@source scripts/plan-infrastructure.sh
 
 .PHONY: update-infrastructure
-update-infrastructure: ensure-credentials
+update-infrastructure: ensure-credentials plan-infrastructure
 	@source scripts/update-infrastructure.sh
 
 .PHONY: destroy-infrastructure
