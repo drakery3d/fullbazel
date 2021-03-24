@@ -45,10 +45,10 @@ services:
       - ./node_modules:/node_modules
       - ./libs:/libs
       - ./services/server:/services/server
-      - ./bazel-bin/libs/config:/bazel-bin/libs/config
     ports:
       - '3000:3000'
-    env_file: bazel-bin/libs/config/docker-compose.env
+    env_file: libs/config/dev.config
     command: yarn run ts-node-dev -r tsconfig-paths/register --project services/server/tsconfig.json services/server dev
     depends_on:
       - mysql
+      - kafka
