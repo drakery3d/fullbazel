@@ -14,6 +14,7 @@ CONTEXT=""
 REPO=""
 
 command cp -n libs/config/example.config libs/config/dev.config
+command cp -n services/client/environment/dev.ts services/client/environment/prod.ts
 
 command yarn bazelisk build \
   --define "cluster=${CONTEXT}" \

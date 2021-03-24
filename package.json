@@ -88,7 +88,6 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "terser": "^5.3.4",
     "testcontainers": "^7.5.0",
-    "ts-morph": "^9.1.0",
     "ts-node-dev": "^1.0.0",
     "tsconfig-paths": "^3.9.0",
     "typescript": "^4.2.3"

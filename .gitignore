@@ -11,3 +11,5 @@ infrastructure/*.backup
 infrastructure/google-sa.json
 
 libs/config/dev.config
+
+services/client/environment/prod.ts
