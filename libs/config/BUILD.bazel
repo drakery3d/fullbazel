@@ -1,61 +1,11 @@
 load("@npm//@bazel/typescript:index.bzl", "ts_config", "ts_library")
-load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
 
 package(default_visibility = ["//visibility:public"])
-
-ENVIRONMENTS = [
-    "dev",
-    "prod",
-]
 
 ts_config(
     name = "tsconfig",
     src = "tsconfig.json",
     deps = ["//:tsconfig"],
-)
-
-# Typescript library containing the code used by many
-# of the targets in this file
-ts_library(
-    name = "generate_lib",
-    srcs = [
-        "generate-client-envs.ts",
-    ],
-    tsconfig = "tsconfig",
-    deps = [
-        "//libs/enums",
-        "@npm//@types/node",
-        "@npm//query-string",
-        "@npm//ts-morph",
-    ],
-)
-
-# We take a subset of the configurations in /configs to generate
-# a Typescript environment object, which can be used in the client application
-nodejs_binary(
-    name = "generate_client_env_bin",
-    data = [
-        "generate_lib",
-    ],
-    entry_point = "generate-client-envs.ts",
-    templated_args = ["--bazel_patch_module_resolver"],
-)
-
-CLIENT_ENV_FILES = ["client.environment.%s.ts" % s for s in ENVIRONMENTS]
-
-genrule(
-    name = "generate_client_env",
-    outs = CLIENT_ENV_FILES,
-    cmd = "$(location generate_client_env_bin) $(RULEDIR)",
-    tools = ["generate_client_env_bin"],
-)
-
-ts_library(
-    name = "client_environments",
-    srcs = CLIENT_ENV_FILES,
-    data = ["generate_client_env"],
-    module_name = "@generated/config",
-    tsconfig = "tsconfig",
 )
 
 # A small Typescript library for backend services to access

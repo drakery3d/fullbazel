@@ -2,8 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@libs/*": ["./libs/*"],
-      "@generated/config/*": ["./bazel-bin/libs/config/*"]
+      "@libs/*": ["./libs/*"]
     },
     "module": "commonjs",
     "strict": true,
