@@ -38,6 +38,7 @@ ts_library(
         "//libs/ui-elements",
         "//services/client/environment",
         "//services/client/shared",
+        "@npm//@angular/common",
         "@npm//@angular/core",
         "@npm//@angular/platform-browser",
         "@npm//@angular/router",

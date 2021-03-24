@@ -1,8 +1,9 @@
 import {isPlatformBrowser} from '@angular/common'
+import {HttpClient} from '@angular/common/http'
 import {Inject, Injectable, OnDestroy, PLATFORM_ID} from '@angular/core'
 import {Router} from '@angular/router'
 import {SwPush} from '@angular/service-worker'
-import {takeWhile, tap} from 'rxjs/operators'
+import {first, takeWhile, tap} from 'rxjs/operators'
 
 import {ClientEnvironment, ENVIRONMENT} from '@client/environment'
 
@@ -15,6 +16,7 @@ export class PushNotificationService implements OnDestroy {
   constructor(
     private swPush: SwPush,
     private router: Router,
+    private http: HttpClient,
     @Inject(PLATFORM_ID) private platform: string,
     @Inject(ENVIRONMENT) private environment: ClientEnvironment,
   ) {}
@@ -53,9 +55,14 @@ export class PushNotificationService implements OnDestroy {
     const existingSub = await sw.pushManager.getSubscription()
     if (existingSub) return existingSub
 
-    return this.swPush.requestSubscription({
-      serverPublicKey: this.environment.vapidPublicKey,
-    })
+    const {key} = await this.http
+      // FIXME dont hardcode api endpoints
+      .get<{key: string}>(`${this.environment.api}/vapid-key`)
+      .pipe(first())
+      .toPromise()
+    console.log('Fetched vapid key', key)
+
+    return this.swPush.requestSubscription({serverPublicKey: key})
   }
 
   async sendSampleNotificationLocally() {
