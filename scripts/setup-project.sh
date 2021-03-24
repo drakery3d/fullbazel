@@ -13,6 +13,8 @@ echo "Bazelisk already downloaded"
 CONTEXT=""
 REPO=""
 
+command cp -n libs/config/example.config libs/config/dev.config
+
 command yarn bazelisk build \
   --define "cluster=${CONTEXT}" \
   --define "repo=${REPO}" \

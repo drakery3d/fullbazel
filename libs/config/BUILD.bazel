@@ -20,7 +20,6 @@ ts_library(
     name = "generate_lib",
     srcs = [
         "generate-client-envs.ts",
-        "generate-dc-env.ts",
     ],
     tsconfig = "tsconfig",
     deps = [
@@ -29,23 +28,6 @@ ts_library(
         "@npm//query-string",
         "@npm//ts-morph",
     ],
-)
-
-# Generate a ".env" file with key value pairs of
-# environment values like: 'PASSWORD=abc'
-# It is read by the docker-compose.yaml file
-nodejs_binary(
-    name = "generate_docker_compose_env_bin",
-    data = ["generate_lib"],
-    entry_point = "generate-dc-env.ts",
-    templated_args = ["--bazel_patch_module_resolver"],
-)
-
-genrule(
-    name = "generate_docker_compose_env",
-    outs = ["docker-compose.env"],
-    cmd = "$(location generate_docker_compose_env_bin) $@",
-    tools = ["generate_docker_compose_env_bin"],
 )
 
 # We take a subset of the configurations in /configs to generate
