@@ -1,5 +1,5 @@
 name: ci-cd
-on: [push, pull_request]
+on: push
 jobs:
   check-code:
     runs-on: ubuntu-20.04
@@ -127,35 +127,15 @@ jobs:
         run: make plan-infrastructure
         working-directory: .
 
-      - uses: actions/github-script@0.9.0
-        if: github.event_name == 'pull_request'
-        env:
-          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            <details><summary>Terraform Plan</summary>
-
-            \`\`\`${process.env.PLAN}\`\`\`
-
-            </details>
-
-            github.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: output
-            })
-
       - name: Terraform update
-        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/master'
         run: make update-infrastructure
         working-directory: .
 
   deploy:
     runs-on: ubuntu-20.04
     needs: infrastructure
-    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/master'
     steps:
       - name: Checkout
         uses: actions/checkout@v2

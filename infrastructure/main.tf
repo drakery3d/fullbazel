@@ -40,12 +40,19 @@ module "dns" {
   domain  = var.domain
 }
 
+locals {
+  environment   = "prod"
+  api_url       = "https://api.${var.domain}"
+  websocket_url = "wss://api.${var.domain}"
+  client_url    = "https://${var.domain}"
+}
+
 module "configuration" {
   source                       = "./modules/k8s-config"
-  environment                  = "prod"
-  api_url                      = "https://api.${var.domain}"
-  websocket_url                = "wss://api.${var.domain}"
-  client_url                   = "https://${var.domain}"
+  environment                  = local.environment
+  api_url                      = local.api_url
+  websocket_url                = local.websocket_url
+  client_url                   = local.client_url
   auth_token_secret            = var.auth_token_secret
   web_push_vapid_public_key    = var.web_push_vapid_public_key
   web_push_vapid_private_key   = var.web_push_vapid_private_key
