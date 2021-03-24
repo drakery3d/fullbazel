@@ -1,5 +1,3 @@
-// TODO generate prod.ts in ci-cd pipeline
-
 export default {
   environment: 'dev',
   api: 'http://localhost:3000',

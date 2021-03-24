@@ -34,11 +34,16 @@ command helm version >/dev/null 2>&1 || {
 echo "Helm already installed"
 
 # terraform
-command terraform version >/dev/null 2>&1 || {
-  echo "Install Terraform"
-  command sudo snap terraform --candidate
+command terraform -version >/dev/null 2>&1 || {
+  # https://learn.hashicorp.com/tutorials/terraform/install-cli
+  echo "Download terraform"
+  command curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+  command sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+  command sudo apt-get -qqq -y update
+  echo "Install terraform"
+  command sudo apt-get -qqq -y install -y terraform
   echo "Done"
-  command terraform version
+  terraform -version
 }
 echo "Terraform already installed"
 

@@ -45,38 +45,21 @@ Deploy
 - Upgrade from NgRx v9 to v11 ([rules_nodejs/issues/2320](https://github.com/bazelbuild/rules_nodejs/issues/2320))
 - Upgrade from Karma v4 to v5 ([rules_nodejs/issues/2093](https://github.com/bazelbuild/rules_nodejs/issues/2093))
 
-<!-- # Reminders For Myself
-
-**TODO's**
-
-- Fullstack integration tests
-- Backend unit tests
-- Documentation + Code comments
-- Second client without server side rendering
-- Deploy app to local Kubernetes cluster
-- Prerendering
-- Upgrade core-js and systemjs
-- Minify html
-- README image with all used technologies' logos
-- Upgrade core-js to v3
-- Download all 'my' information (gpdr conformaty)
-- Terms of Service, Privacy Policy, Legal Notice placeholders
-- Fix circular dependency warning when building prod bundles
-- Chrome log: Site cannot be installed: Page does not work offline. Starting in Chrome 93, the installability criteria is changing, and this site will not be installable. See https://goo.gle/improved-pwa-offline-detection for more information.
-- Consider renaming the project to "Fullbazel"
-- Keep user authenticated when server side rendering
-- Check design in other browsers
-- Install node_modules once as first job and then reuse in other jobs for .github/workflows/ci.yaml
-- Try Google Kubernetes Autopilot when this is fixed: https://github.com/jetstack/cert-manager/issues/3717
-- Local Kubernetes cluster with microk8s or minikube
-- Try https://buildkite.com/ as it is free for open-source projects
-
-**Ideas**
-
-- Building into a Desktop App (e.g. with Electron)
-- Static website example (e.g docs or homepage)
-- Other frontend frameworks
-- Other server languages (e.g. Go, Python) -->
-
+<!-- TODO Upgrade core-js and systemjs -->
 <!-- TODO move services/* into root, but keep libraries in libs/* -->
 <!-- TODO fix errors and warnings when running `yarn check` -->
+<!-- TODO Fix circular dependency warning when building angular prod bundles -->
+
+<!-- FIXME documentation / wiki -->
+<!-- FIXME local kubernetes cluster with minikube / microk8s -->
+<!-- FIXME angular pre-rendering -->
+<!-- FIXME angular minify main.html in production builds -->
+<!-- FIXME gdpr compliance -->
+<!-- FIXME Terms of Service, Privacy Policy, Legal Notice placeholders -->
+<!-- FIXME Chrome log: Site cannot be installed: Page does not work offline. Starting in Chrome 93, the installability criteria is changing, and this site will not be installable. See https://goo.gle/improved-pwa-offline-detection for more information. -->
+<!-- FIXME Keep user authenticated when server side rendering -->
+<!-- FIXME Check design in other browsers -->
+<!-- FIXME Install node_modules once as first job and then reuse in other jobs for .github/workflows/ci.yaml -->
+<!-- FIXME Try Google Kubernetes Autopilot when this is fixed: https://github.com/jetstack/cert-manager/issues/3717 -->
+<!-- FIXME Bundling into a desktop app (e.g. with Electron) -->
+<!-- FIXME Also use other technologies (e.g. other client frameworks and other backend languages) -->

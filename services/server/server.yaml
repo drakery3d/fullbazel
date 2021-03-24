@@ -39,6 +39,8 @@ spec:
               memory: 1000Mi
               cpu: 500m
 
+        # FIXME resource limits for cloud sql proxy
+        # https://github.com/GoogleCloudPlatform/cloudsql-proxy/issues/103
         - name: cloud-sql-proxy
           image: gcr.io/cloudsql-docker/gce-proxy:1.20.2
           env:

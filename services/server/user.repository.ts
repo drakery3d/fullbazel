@@ -15,7 +15,7 @@ enum Column {
   TokenRefreshCount = 'token_refresh_count',
 }
 
-// TODO base mysql repository abstract class
+// FIXME base mysql repository abstract class
 
 @injectable()
 export class UserRepository {

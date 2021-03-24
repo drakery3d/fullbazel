@@ -74,7 +74,7 @@ resource "kubernetes_ingress" "ingress" {
   depends_on = [helm_release.nginx_ingress]
 }
 
-# TODO adding data fields to existing configmap throws error
+# FIXME adding data fields to existing configmap throws error
 # Error: configmaps "ingress-nginx-controller" already exists
 # https://stackoverflow.com/q/59989660/8586803
 

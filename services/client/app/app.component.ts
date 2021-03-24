@@ -18,7 +18,7 @@ enum Theme {
   Dark = 'dark',
 }
 
-// TODO try auto-recognize google sign in
+// FIXME try to auto-recognize google sign in (like on medium or pinterest)
 // TODO signin and signout snackbars
 
 @Component({
