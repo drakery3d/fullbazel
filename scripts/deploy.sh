@@ -33,7 +33,18 @@ command cat $ROOT/services/client/environment/prod.ts
 
 command cd $ROOT
 
-command yarn bazelisk run \
-  --define "cluster=${CONTEXT}" \
-  --define "repo=${REPO}" \
-  //:kubernetes.apply
+# Run with remote cache in GitHub actions and
+# without otherwise
+if [ -z ${GITHUB_ACTIONS} ]; then
+  command yarn bazelisk run \
+    --define "cluster=${CONTEXT}" \
+    --define "repo=${REPO}" \
+    //:kubernetes.apply
+else
+  command yarn bazelisk run \
+    --remote_cache=https://storage.googleapis.com/fullbazel-bazel-cache \
+    --google_default_credentials \
+    --define "cluster=${CONTEXT}" \
+    --define "repo=${REPO}" \
+    //:kubernetes.apply
+fi

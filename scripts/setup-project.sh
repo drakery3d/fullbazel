@@ -17,6 +17,8 @@ command cp -n libs/config/example.config libs/config/dev.config
 command cp -n services/client/environment/dev.ts services/client/environment/prod.ts
 
 command yarn bazelisk build \
+  # --remote_cache=https://storage.googleapis.com/fullbazel-bazel-cache \
+  # --google_default_credentials \
   --define "cluster=${CONTEXT}" \
   --define "repo=${REPO}" \
   //...
