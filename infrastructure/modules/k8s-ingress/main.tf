@@ -58,8 +58,6 @@ resource "kubernetes_ingress" "ingress" {
       }
     }
 
-    # TODO why not host api on /api ?
-    # https://github.com/GoogleCloudPlatform/gke-bazel-demo/blob/e0d3856092c09c74f9e75e9307a24496c5f67eb6/js-client/manifests/deployment.yaml#L66
     rule {
       host = "api.${var.domain}"
       http {
