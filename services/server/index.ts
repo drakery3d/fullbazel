@@ -10,6 +10,7 @@ import * as express from 'express'
 import * as http from 'http'
 import {Container} from 'inversify'
 import {Socket} from 'net'
+import * as queryString from 'query-string'
 import * as webpush from 'web-push'
 import * as WebSocket from 'ws'
 
@@ -54,9 +55,24 @@ const isProd = config.get('ENVIRONMENT') === Environment.Production
 const eventDispatcher = container.get(EventDispatcher)
 const eventListener = container.get(EventListener)
 const pushSubRepo = container.get(PushSubscriptionRepository)
+const vapidPublicKey = config.get('WEB_PUSH_VAPID_PUBLIC_KEY')
+
+enum GoogleApi {
+  EmailScope = 'https://www.googleapis.com/auth/userinfo.email',
+  ProfileScope = 'https://www.googleapis.com/auth/userinfo.profile',
+  SignIn = 'https://accounts.google.com/o/oauth2/v2/auth',
+}
+const params = queryString.stringify({
+  client_id: config.get('GOOGLE_SIGN_IN_CLIENT_ID'),
+  redirect_uri: config.get('CLIENT_URL'),
+  scope: [GoogleApi.EmailScope, GoogleApi.ProfileScope].join(' '),
+  response_type: 'code',
+  access_type: 'offline',
+  prompt: 'consent',
+})
+const googleSignInUrl = `${GoogleApi.SignIn}?${params}`
 
 const authTokenSecret = config.get('AUTH_TOKEN_SECRET')
-
 const authTokenCookieOptions: express.CookieOptions = {
   httpOnly: true,
   maxAge: TokenExpiration.Auth * 1000,
@@ -67,7 +83,7 @@ const authTokenCookieOptions: express.CookieOptions = {
 
 webpush.setVapidDetails(
   'mailto:flo@drakery.com',
-  config.get('WEB_PUSH_VAPID_PUBLIC_KEY'),
+  vapidPublicKey,
   config.get('WEB_PUSH_VAPID_PRIVATE_KEY'),
 )
 
@@ -203,6 +219,8 @@ app.use(bodyParser.json())
 app.use(cookieParser())
 
 app.get('', (req, res) => res.json({message: 'Hello from server'}))
+app.get('/sign-in-url', (req, res) => res.json({url: googleSignInUrl}))
+app.get('/vapid-key', (req, res) => res.json({key: vapidPublicKey}))
 
 app.post('/signin', async (req, res) => {
   try {

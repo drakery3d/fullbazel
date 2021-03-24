@@ -84,7 +84,7 @@ enum Theme {
               light_mode
             </span>
           </div>
-          <div class="signin" *ngIf="!(user$ | async)"><a [attr.href]="signInUrl">Sign In</a></div>
+          <div class="signin" *ngIf="!(user$ | async)"><a (click)="onSignIn()">Sign In</a></div>
           <div class="user" *ngIf="user$ | async as user">
             <img [attr.src]="user.picture" [attr.alt]="'Avatar of ' + user.name" />
           </div>
@@ -104,7 +104,6 @@ export class AppComponent implements OnDestroy {
   offline$: Observable<boolean>
   user$ = this.store.select(AuthSelectors.user)
   unreadCount$ = this.store.select(MessagesSeletors.unreadCount)
-  signInUrl = this.environment.googleSignInUrl
   isDarkTheme = false
 
   private alive = true
@@ -130,13 +129,6 @@ export class AppComponent implements OnDestroy {
       this.setTheme()
       this.store.dispatch(MessagesActions.loadExisting())
     }
-
-    this.http
-      .get(this.environment.api)
-      .pipe(first())
-      .subscribe(response => {
-        console.log(response)
-      })
   }
 
   ngOnDestroy() {
@@ -147,6 +139,15 @@ export class AppComponent implements OnDestroy {
     this.isDarkTheme = !this.isDarkTheme
     if (this.isDarkTheme) this.setDarkTheme()
     else this.setLightTheme()
+  }
+
+  async onSignIn() {
+    const {url} = await this.http
+      // FIXME dont hardcode api endpoints
+      .get<{url: string}>(`${this.environment.api}/sign-in-url`)
+      .pipe(first())
+      .toPromise()
+    window.location.href = url
   }
 
   private setTheme() {
