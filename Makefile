@@ -72,3 +72,7 @@ deploy:
 .PHONY: create-terraform-bucket
 create-terraform-bucket:
 	@source scripts/create-terraform-bucket.sh
+
+.PHONY: upgrade-bazel-npm-deps
+upgrade-bazel-npm-deps:
+	@source scripts/upgrade-bazel-npm-deps.sh
