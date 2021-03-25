@@ -1,16 +1,23 @@
+"""
+External Bazel dependencies
+"""
+
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 def dependencies():
+    """
+    Installs all external dependencies so that they can be installed in the WORKSPACE file
+    """
+
+    # Common useful functions and rules for Bazel
     # https://github.com/bazelbuild/bazel-skylib/releases
     http_archive(
         name = "bazel_skylib",
         sha256 = "1c531376ac7e5a180e0237938a2536de0c54d93f5c278634818e0efc952dd56c",
-        urls = [
-            "https://github.com/bazelbuild/bazel-skylib/releases/download/1.0.3/bazel-skylib-1.0.3.tar.gz",
-            "https://mirror.bazel.build/github.com/bazelbuild/bazel-skylib/releases/download/1.0.3/bazel-skylib-1.0.3.tar.gz",
-        ],
+        urls = ["https://github.com/bazelbuild/bazel-skylib/releases/download/1.0.3/bazel-skylib-1.0.3.tar.gz"],
     )
 
+    # JavaScript and NodeJS rules
     # https://github.com/bazelbuild/rules_nodejs/releases
     http_archive(
         name = "build_bazel_rules_nodejs",
@@ -18,22 +25,16 @@ def dependencies():
         urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/3.2.3/rules_nodejs-3.2.3.tar.gz"],
     )
 
+    # Sass rules
     # https://github.com/bazelbuild/rules_sass
     http_archive(
         name = "io_bazel_rules_sass",
-        patch_args = ["-p1"],
-        # We need the latest rules_sass to get the --bazel_patch_module_resolver behavior
-        # However it seems to have a bug, so we patch back to the prior dart-sass version.
-        # See https://github.com/bazelbuild/rules_sass/issues/127
-        patches = ["@build_bazel_rules_nodejs//:rules_sass.issue127.patch"],
-        sha256 = "8392cf8910db2b1dc3b488ea18113bfe4fd666037bf8ec30d2a3f08fc602a6d8",
-        strip_prefix = "rules_sass-1.30.0",
-        urls = [
-            "https://github.com/bazelbuild/rules_sass/archive/1.30.0.zip",
-            "https://mirror.bazel.build/github.com/bazelbuild/rules_sass/archive/1.30.0.zip",
-        ],
+        url = "https://github.com/bazelbuild/rules_sass/archive/1.32.8.zip",
+        strip_prefix = "rules_sass-1.32.8",
+        sha256 = "9ad74e6e75a86939f4349b31d43bb1db4279e4f2a139c5ebaf56cf99feea1faa",
     )
 
+    # Rules to allow testing against a browser with WebDriver
     # https://github.com/bazelbuild/rules_webtesting/releases
     http_archive(
         name = "io_bazel_rules_webtesting",
@@ -41,6 +42,7 @@ def dependencies():
         urls = ["https://github.com/bazelbuild/rules_webtesting/releases/download/0.3.3/rules_webtesting.tar.gz"],
     )
 
+    # Rules for building and handling Docker images
     # https://github.com/bazelbuild/rules_docker/releases
     http_archive(
         name = "io_bazel_rules_docker",
@@ -49,6 +51,7 @@ def dependencies():
         urls = ["https://github.com/bazelbuild/rules_docker/releases/download/v0.16.0/rules_docker-v0.16.0.tar.gz"],
     )
 
+    # Rules for interacting with Kubernetes
     # https://github.com/bazelbuild/rules_k8s/releases
     http_archive(
         name = "io_bazel_rules_k8s",
