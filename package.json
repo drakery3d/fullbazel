@@ -93,7 +93,7 @@
     "typescript": "^4.2.3"
   },
   "scripts": {
-    "postinstall": "patch-package --patch-dir dev/patches && ngcc"
+    "postinstall": "patch-package --patch-dir development/patches && ngcc"
   },
   "prettier": {
     "printWidth": 100,

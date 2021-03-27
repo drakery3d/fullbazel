@@ -43,11 +43,11 @@ services:
       - ./package.json:/package.json
       - ./tsconfig.json:/tsconfig.json
       - ./node_modules:/node_modules
-      - ./libs:/libs
+      - ./libraries:/libraries
       - ./nodejs-server:/nodejs-server
     ports:
       - '3000:3000'
-    env_file: libs/config/dev.config
+    env_file: libraries/config/dev.config
     command: yarn run ts-node-dev -r tsconfig-paths/register --project nodejs-server/tsconfig.json nodejs-server dev
     depends_on:
       - mysql

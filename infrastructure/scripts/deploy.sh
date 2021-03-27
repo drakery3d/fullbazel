@@ -1,6 +1,6 @@
 # bin/bash
 
-ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
+ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../.." && pwd )"
 PROJECT=$(gcloud config get-value project)
 CLUSTER=cluster
 # TODO dont hardcode zone

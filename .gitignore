@@ -10,6 +10,6 @@ infrastructure/*.tfstate
 infrastructure/*.backup
 infrastructure/google-sa.json
 
-libs/config/dev.config
+libraries/config/dev.config
 
 angular-client/environment/prod.ts

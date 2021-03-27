@@ -9,7 +9,7 @@
     "target": "es2015",
     "lib": ["esnext", "dom"],
     "paths": {
-      "@libs/*": ["../../libs/*"],
+      "@libs/*": ["../libraries/*"],
       "@client/store": ["./store"],
       "@client/environment": ["./environment"],
       "@client/shared": ["./shared"]

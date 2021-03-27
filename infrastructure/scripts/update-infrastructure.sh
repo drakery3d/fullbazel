@@ -1,6 +1,6 @@
 # bin/bash
 
-ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
+ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../.." && pwd )"
 PLAN="infrastructure.plan"
 GOOGLE_KEY_FILE=$ROOT/infrastructure/google-sa.json
 

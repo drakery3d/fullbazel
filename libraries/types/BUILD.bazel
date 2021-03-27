@@ -40,7 +40,7 @@ ts_library(
 
 jasmine_node_test(
     name = "test",
-    config_file = "//dev:jasmine.json",
+    config_file = "//development:jasmine.json",
     templated_args = ["--bazel_patch_module_resolver"],
     deps = ["test_lib"],
 )
