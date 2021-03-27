@@ -17,7 +17,7 @@ ng_ts_library(
     module_name = "@libs/websocket-store",
     tsconfig = "tsconfig",
     deps = [
-        "//libs/schema",
+        "//libraries/schema",
         "@npm//@angular/common",
         "@npm//@angular/core",
         "@npm//@ngrx/effects",

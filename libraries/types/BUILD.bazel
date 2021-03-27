@@ -18,7 +18,7 @@ ts_library(
     module_name = "@libs/types",
     tsconfig = "tsconfig",
     deps = [
-        "//libs/enums",
+        "//libraries/enums",
         "@npm//@types/jsonwebtoken",
         "@npm//@types/uuid",
         "@npm//jsonwebtoken",

@@ -19,9 +19,9 @@ ng_ts_library(
     angular_assets = ["styles"],
     tsconfig = "//angular-client:tsconfig",
     deps = [
-        "//libs/ui-elements",
         "//angular-client/shared",
         "//angular-client/store",
+        "//libraries/ui-elements",
         "@npm//@angular/common",
         "@npm//@angular/core",
         "@npm//@angular/router",
@@ -35,9 +35,9 @@ ts_library(
     tsconfig = "//angular-client:tsconfig_test",
     deps = [
         "home",
-        "//libs/ui-elements",
         "//angular-client/environment",
         "//angular-client/shared",
+        "//libraries/ui-elements",
         "@npm//@angular/common",
         "@npm//@angular/core",
         "@npm//@angular/platform-browser",

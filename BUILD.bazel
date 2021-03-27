@@ -11,8 +11,8 @@ ts_config(
 k8s_objects(
     name = "kubernetes",
     objects = [
-        "//libs/kubernetes:nginx_ingress_config",
-        "//libs/kubernetes:strimzi_kafka",
+        "//libraries/kubernetes:nginx_ingress_config",
+        "//libraries/kubernetes:strimzi_kafka",
         "//angular-client:kubernetes",
         "//nodejs-server:kubernetes",
     ],
