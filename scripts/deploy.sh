@@ -21,7 +21,7 @@ echo "Repository: ${REPO}"
 
 command cd "$ROOT/infrastructure"
 
-cat > $ROOT/services/client/environment/prod.ts << EOF
+cat > $ROOT/angular-client/environment/prod.ts << EOF
 export default {
   environment: 'prod',
   api: '$(terraform output -raw api_url)',
@@ -29,7 +29,7 @@ export default {
 }
 EOF
 
-command cat $ROOT/services/client/environment/prod.ts
+command cat $ROOT/angular-client/environment/prod.ts
 
 command cd $ROOT
 

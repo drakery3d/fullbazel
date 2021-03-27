@@ -1,3 +1,3 @@
 # bin/bash
 
-command yarn ibazel run //services/client:dev_server
+command yarn ibazel run //angular-client:dev_server

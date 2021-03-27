@@ -2,7 +2,7 @@ load("//tools:angular_ts_library.bzl", "ng_ts_library")
 load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
 load("@npm//@bazel/typescript:index.bzl", "ts_config")
 
-package(default_visibility = ["//services/client:__subpackages__"])
+package(default_visibility = ["//angular-client:__subpackages__"])
 
 sass_binary(
     name = "snackbar_styles",

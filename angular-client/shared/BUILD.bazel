@@ -1,14 +1,14 @@
 load("//tools:angular_ts_library.bzl", "ng_ts_library")
 
-package(default_visibility = ["//services/client:__subpackages__"])
+package(default_visibility = ["//angular-client:__subpackages__"])
 
 ng_ts_library(
     name = "shared",
     srcs = glob(["**/*.ts"]),
     module_name = "@client/shared",
-    tsconfig = "//services/client:tsconfig.json",
+    tsconfig = "//angular-client:tsconfig.json",
     deps = [
-        "//services/client/environment",
+        "//angular-client/environment",
         "@npm//@angular/common",
         "@npm//@angular/core",
         "@npm//@angular/router",

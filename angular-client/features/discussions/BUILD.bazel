@@ -3,36 +3,47 @@ load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
 load("@npm//@bazel/typescript:index.bzl", "ts_library")
 load("@npm//@bazel/concatjs:index.bzl", "karma_web_test_suite")
 
-package(default_visibility = ["//services/client:__subpackages__"])
+package(default_visibility = ["//angular-client:__subpackages__"])
 
 sass_binary(
     name = "styles",
-    src = "docs.component.sass",
+    src = "discussions.component.sass",
 )
 
 ng_ts_library(
-    name = "docs",
+    name = "discussions",
     srcs = glob(
         include = ["*.ts"],
         exclude = ["*.spec.ts"],
     ),
     angular_assets = ["styles"],
-    tsconfig = "//services/client:tsconfig",
+    tsconfig = "//angular-client:tsconfig.json",
     deps = [
+        "//libs/enums",
+        "//libs/schema",
+        "//libs/ui-elements",
+        "//libs/websocket-store",
+        "//angular-client/store",
         "@npm//@angular/common",
         "@npm//@angular/core",
+        "@npm//@angular/forms",
         "@npm//@angular/router",
+        "@npm//@ngrx/effects",
+        "@npm//@ngrx/entity",
+        "@npm//@ngrx/store",
+        "@npm//rxjs",
     ],
 )
 
 ts_library(
     name = "test_lib",
     srcs = glob(["*.spec.ts"]),
-    tsconfig = "//services/client:tsconfig_test",
+    tsconfig = "//angular-client:tsconfig_test",
     deps = [
-        "docs",
-        "//services/client/environment",
-        "//services/client/shared",
+        "discussions",
+        "//angular-client/environment",
+        "//angular-client/shared",
+        "@npm//@angular/compiler",
         "@npm//@angular/core",
         "@npm//@angular/platform-browser",
         "@npm//@angular/router",
@@ -53,7 +64,7 @@ karma_web_test_suite(
         "@io_bazel_rules_webtesting//browsers:firefox-local",
     ],
     tags = ["native"],
-    runtime_deps = ["//services/client:initialize_testbed"],
+    runtime_deps = ["//angular-client:initialize_testbed"],
     deps = [
         "test_lib",
         "//tools:rxjs_umd_modules",

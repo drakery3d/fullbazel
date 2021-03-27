@@ -31,7 +31,7 @@ ts_config(
 ts_config(
     name = "tsconfig_test",
     src = "tsconfig.test.json",
-    deps = ["//services/client:tsconfig"],
+    deps = ["//angular-client:tsconfig"],
 )
 
 sass_binary(
@@ -55,7 +55,7 @@ ng_ts_library(
     srcs = ["main.dev.ts"],
     tsconfig = "tsconfig",
     deps = [
-        "//services/client/app:dev",
+        "//angular-client/app:dev",
         "@npm//@angular/platform-browser",
     ],
 )
@@ -78,8 +78,8 @@ insert_html_assets(
 
 concatjs_devserver(
     name = "dev_server",
-    additional_root_paths = ["services/client/dev"],
-    entry_module = "fullstack-bazel/services/client/main.dev",
+    additional_root_paths = ["angular-client/dev"],
+    entry_module = "fullstack-bazel/angular-client/main.dev",
     port = 8080,
     scripts = [
         "@npm//:node_modules/tslib/tslib.js",
@@ -87,12 +87,12 @@ concatjs_devserver(
     ],
     static_files = [
         "@npm//:node_modules/zone.js/dist/zone.min.js",
-        "//services/client/assets",
+        "//angular-client/assets",
         "inject_scripts_for_dev",
         "styles.css",
         "favicon.ico",
     ],
-    deps = ["//services/client:dev_src"],
+    deps = ["//angular-client:dev_src"],
 )
 
 ng_ts_library(
@@ -100,7 +100,7 @@ ng_ts_library(
     srcs = ["main.prod.ts"],
     tsconfig = "tsconfig",
     deps = [
-        "//services/client/app:prod_browser",
+        "//angular-client/app:prod_browser",
         "@npm//@angular/core",
         "@npm//@angular/platform-browser",
     ],
@@ -152,8 +152,8 @@ terser_minified(
 insert_html_assets(
     name = "asset_injected_index_html",
     # pkg_web rule will re-root paths that start with _{name} by default
-    # _web_app/services/client/index.html -> index.html in the web package
-    outs = ["_web_app/services/client/index.html"],
+    # _web_app/angular-client/index.html -> index.html in the web package
+    outs = ["_web_app/angular-client/index.html"],
     asset_paths = [
         "$(execpath styles.css)",
         "$(execpath manifest.webmanifest)",
@@ -182,7 +182,7 @@ pkg_web(
         "main.html",
         "robots.txt",
         "styles.css",
-        "//services/client/assets",
+        "//angular-client/assets",
         "@npm//:node_modules/zone.js/dist/zone.min.js",
     ],
 )
@@ -232,7 +232,7 @@ pkg_web(
         "manifest.webmanifest",
         "robots.txt",
         "styles.css",
-        "//services/client/assets",
+        "//angular-client/assets",
         "@npm//:node_modules/zone.js/dist/zone.min.js",
         "@npm//:node_modules/@angular/service-worker/ngsw-worker.js",
         # Include polyfills that will be requested by old browsers
@@ -264,7 +264,7 @@ ts_library(
     srcs = ["server.ts"],
     tsconfig = "tsconfig_server",
     deps = [
-        "//services/client/app:server",
+        "//angular-client/app:server",
         "@npm//@angular/core",
         "@npm//@nguniversal/express-engine",
         "@npm//@types/express",

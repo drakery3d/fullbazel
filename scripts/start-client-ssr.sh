@@ -1,3 +1,3 @@
 # bin/bash
 
-command yarn bazel run //services/client
+command yarn bazel run //angular-client

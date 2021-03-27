@@ -3,7 +3,7 @@
 CONTEXT=""
 REPO=""
 
-command cp -n services/client/environment/dev.ts services/client/environment/prod.ts
+command cp -n angular-client/environment/dev.ts angular-client/environment/prod.ts
 
 # Run with remote cache in GitHub actions and
 # without otherwise

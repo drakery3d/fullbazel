@@ -8,7 +8,7 @@ ts_library(
         "app.e2e-spec.ts",
         "app.po.ts",
     ],
-    tsconfig = "//services/client:tsconfig_test",
+    tsconfig = "//angular-client:tsconfig_test",
     deps = [
         "@npm//@types/jasmine",
         "@npm//jasmine",
@@ -20,7 +20,7 @@ ts_library(
     name = "on_prepare",
     testonly = 1,
     srcs = ["on-prepare.ts"],
-    tsconfig = "//services/client:tsconfig_test",
+    tsconfig = "//angular-client:tsconfig_test",
     deps = [
         "@npm//@bazel/protractor",
         "@npm//@types/node",
@@ -33,20 +33,20 @@ ts_library(
 # protractor_web_test_suite(
 #     name = "pwa_server",
 #     on_prepare = "on_prepare",
-#     server = "//services/client:pwa_server",
+#     server = "//angular-client:pwa_server",
 #     deps = [":e2e"],
 # )
 
 # protractor_web_test_suite(
 #     name = "dev_server",
 #     on_prepare = "on_prepare",
-#     server = "//services/client:dev_server",
+#     server = "//angular-client:dev_server",
 #     deps = [":e2e"],
 # )
 
 # protractor_web_test_suite(
 #     name = "universal_server",
 #     on_prepare = "on_prepare",
-#     server = "//services/client:client",
+#     server = "//angular-client:client",
 #     deps = [":e2e"],
 # )

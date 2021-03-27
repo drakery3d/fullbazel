@@ -13,7 +13,7 @@ k8s_objects(
     objects = [
         "//libs/kubernetes:nginx_ingress_config",
         "//libs/kubernetes:strimzi_kafka",
-        "//services/client:kubernetes",
+        "//angular-client:kubernetes",
         "//nodejs-server:kubernetes",
     ],
 )
