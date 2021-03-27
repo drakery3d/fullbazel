@@ -6,6 +6,14 @@ resource "aws_route53_record" "www" {
   records = [var.ip]
 }
 
+resource "aws_route53_record" "nextjs_client" {
+  zone_id = var.zone_id
+  name    = "next.${var.domain}"
+  type    = "A"
+  ttl     = "300"
+  records = [var.ip]
+}
+
 resource "aws_route53_record" "api" {
   zone_id = var.zone_id
   name    = "api.${var.domain}"

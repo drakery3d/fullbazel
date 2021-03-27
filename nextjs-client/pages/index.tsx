@@ -8,6 +8,7 @@ export default function Home() {
       <Head>
         <title>Fullbazel</title>
         <link rel="icon" href="/favicon.ico" />
+        <meta name="description" content="Fullstack Example Monorepo with Bazel" />
       </Head>
 
       <main className={styles.main}>
@@ -18,20 +19,20 @@ export default function Home() {
         </p>
 
         <div className={styles.grid}>
-          <a className={styles.card}>
-            <h3>Documentation &rarr;</h3>
+          <div className={styles.card}>
+            <h2>Documentation &rarr;</h2>
             <p>Coming soon</p>
-          </a>
+          </div>
 
           <a href="https://github.com/drakery3d/fullbazel" className={styles.card}>
-            <h3>Source &rarr;</h3>
+            <h2>Source &rarr;</h2>
             <p>The source code is on GitHub</p>
           </a>
 
-          <a className={styles.card}>
-            <h3>Disussions &rarr;</h3>
+          <div className={styles.card}>
+            <h2>Disussions &rarr;</h2>
             <p>Example realtime messaging feature.</p>
-          </a>
+          </div>
         </div>
       </main>
     </div>

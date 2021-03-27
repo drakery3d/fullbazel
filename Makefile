@@ -1,5 +1,7 @@
 SHELL := /usr/bin/env bash
 
+# Setup
+
 .PHONY: auto-all
 auto-all: setup
 
@@ -13,23 +15,33 @@ setup:
 ensure-credentials:
 	@source development/scripts/ensure-credentials.sh
 
+# Angular Client
 
-.PHONY: init-infrastructure
-init-infrastructure: ensure-credentials
-	@source infrastructure/scripts/init-infrastructure.sh
+.PHONY: angular
+angular:
+	@source development/scripts/start-angular.sh
 
-.PHONY: plan-infrastructure
-plan-infrastructure: ensure-credentials
-	@source infrastructure/scripts/plan-infrastructure.sh
+.PHONY: angular-ssr
+angular-ssr:
+	@source development/scripts/start-angular-ssr.sh
 
-.PHONY: update-infrastructure
-update-infrastructure: ensure-credentials plan-infrastructure
-	@source infrastructure/scripts/update-infrastructure.sh
+# Next.js Client
 
-.PHONY: destroy-infrastructure
-destroy-infrastructure: ensure-credentials
-	@source infrastructure/scripts/destroy-infrastructure.sh
+.PHONY: next
+next:
+	@source development/scripts/start-next.sh
 
+.PHONY: next-prod
+next-prod:
+	@source development/scripts/start-next-prod.sh
+
+# Backend
+
+.PHONY: server
+server:
+	@source development/scripts/start-server.sh
+
+# Tooling
 
 .PHONY: test-all
 test-all: lint check-dependencies test test-integration
@@ -50,24 +62,35 @@ test:
 test-integration:
 	@source development/scripts/test-integration.sh
 
+# Infrastructure
 
-.PHONY: client
-client:
-	@source development/scripts/start-client.sh
+.PHONY: init-infrastructure
+init-infrastructure: ensure-credentials
+	@source infrastructure/scripts/init-infrastructure.sh
 
-.PHONY: client-ssr
-client-ssr:
-	@source development/scripts/start-client-ssr.sh
+.PHONY: plan-infrastructure
+plan-infrastructure: ensure-credentials
+	@source infrastructure/scripts/plan-infrastructure.sh
 
-.PHONY: server
-server:
-	@source development/scripts/start-server.sh
+.PHONY: update-infrastructure
+update-infrastructure: ensure-credentials plan-infrastructure
+	@source infrastructure/scripts/update-infrastructure.sh
 
+.PHONY: destroy-infrastructure
+destroy-infrastructure: ensure-credentials
+	@source infrastructure/scripts/destroy-infrastructure.sh
+
+# Deploy
 
 .PHONY: deploy
-deploy:
+deploy: nextjs-image
 	@source infrastructure/scripts/deploy.sh
 
+.PHONY: nextjs-image
+nextjs-image:
+	@source development/scripts/nextjs-image.sh
+
+# Others
 
 .PHONY: create-terraform-bucket
 create-terraform-bucket:
