@@ -44,11 +44,11 @@ services:
       - ./tsconfig.json:/tsconfig.json
       - ./node_modules:/node_modules
       - ./libs:/libs
-      - ./services/server:/services/server
+      - ./nodejs-server:/nodejs-server
     ports:
       - '3000:3000'
     env_file: libs/config/dev.config
-    command: yarn run ts-node-dev -r tsconfig-paths/register --project services/server/tsconfig.json services/server dev
+    command: yarn run ts-node-dev -r tsconfig-paths/register --project nodejs-server/tsconfig.json nodejs-server dev
     depends_on:
       - mysql
       - kafka

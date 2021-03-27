@@ -1,8 +1,8 @@
 {
   "spec_files": [
-    "services/server/user.repository.test.ts",
-    "services/server/push-subscription.repository.test.ts",
-    "services/server/messages.repository.test.ts",
+    "nodejs-server/user.repository.test.ts",
+    "nodejs-server/push-subscription.repository.test.ts",
+    "nodejs-server/messages.repository.test.ts",
 
     "!node_modules/**",
     "!bazel-*/**",

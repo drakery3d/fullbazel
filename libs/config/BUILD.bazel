@@ -18,7 +18,6 @@ ts_library(
     ],
     module_name = "@libs/config",
     tsconfig = "tsconfig",
-    visibility = ["//services:__subpackages__"],
     deps = [
         "@npm//@types/node",
         "@npm//inversify",
