@@ -1,4 +1,4 @@
-load("//tools:angular_ts_library.bzl", "ng_ts_library")
+load("//libraries/angular-tools:angular_ts_library.bzl", "ng_ts_library")
 load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
 load("@npm//@bazel/typescript:index.bzl", "ts_library")
 load("@npm//@bazel/concatjs:index.bzl", "karma_web_test_suite")
@@ -67,7 +67,7 @@ karma_web_test_suite(
     runtime_deps = ["//angular-client:initialize_testbed"],
     deps = [
         "test_lib",
-        "//tools:rxjs_umd_modules",
+        "//libraries/angular-tools:rxjs_umd_modules",
         "@npm//:node_modules/tslib/tslib.js",
     ],
 )
