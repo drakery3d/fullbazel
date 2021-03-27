@@ -1,0 +1,52 @@
+.theme
+  --color: #43a047
+  --color-light: #b9ecbb
+  --color-dark: #004300
+
+.light
+  --text: #2b2a35
+  --text-light: #828091
+  --background: #ffffff
+  --background-rgb: (255, 255, 255)
+  --shadow: rgba(0, 0, 0, .25)
+  --snackbar-bg: #2e2e2e
+  --snackbar-text: #ffffff
+
+.dark
+  --text: #ffffff
+  --text-light: #949494
+  --background: #191919
+  --background-rgb: (25, 25, 25)
+  --shadow: rgba(0, 0, 0, .9)
+  --snackbar-bg: #ffffff
+  --snackbar-text: #191919
+
+.theme.offline
+  .saturated
+    filter: grayscale(1)
+
+body
+  margin: 0
+  font-family: Rubik, Sans-Serif
+  font-weight: 400
+  font-size: 16px
+  color: var(--text)
+  background: var(--background)
+  min-width: 20rem
+
+::-webkit-scrollbar
+  width: 6px
+  height: 6px
+::-webkit-scrollbar-thumb
+  border-radius: 0.15rem
+  background: var(--text-light)
+  &:hover
+    background: var(--text)
+
+::selection
+  color: white
+  background: var(--color)
+
+a
+  color: inherit
+  text-decoration: none
