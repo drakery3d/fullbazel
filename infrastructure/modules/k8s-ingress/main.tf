@@ -42,7 +42,7 @@ resource "kubernetes_ingress" "ingress" {
 
   spec {
     tls {
-      hosts       = [var.domain, "api.${var.domain}"]
+      hosts       = [var.domain, "next.${var.domain}", "api.${var.domain}"]
       secret_name = "fullbazel-cert"
     }
 
@@ -53,6 +53,18 @@ resource "kubernetes_ingress" "ingress" {
           backend {
             service_name = "client"
             service_port = 8080
+          }
+        }
+      }
+    }
+
+    rule {
+      host = "next.${var.domain}"
+      http {
+        path {
+          backend {
+            service_name = "nextjs-client"
+            service_port = 3000
           }
         }
       }

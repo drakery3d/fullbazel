@@ -19,11 +19,22 @@ Setup
 
 - `make setup` (Install required software and sets up project)
 
-Development
+Angular Client
 
-- `make client` (Start Angular development server, http://localhost:8080)
-- `make server` (Start development backend)
-- `make client-ssr` (Start Angular Production server, http://localhost:8080)
+- `make angular` (Start Angular development server, http://localhost:8080)
+- `make angular-ssr` (Start Angular Production server, http://localhost:8080)
+
+Next.js Client
+
+- `make next` (Start Next.js development server, http://localhost:3000)
+- `make next-prod` (Start Next.js production server, http://localhost:3000)
+
+Backend
+
+- `make server` (Start development backend services)
+
+Tooling
+
 - `make test` (Unit tests with Bazel)
 - `make lint` (Check linting)
 - `make test-integration` (Integration tests with Jasmine and Testcontainers)

@@ -1,0 +1,8 @@
+load("@k8s_deploy//:defaults.bzl", "k8s_deploy")
+
+package(default_visibility = ["//visibility:public"])
+
+k8s_deploy(
+    name = "kubernetes",
+    template = "nextjs-client.yaml",
+)

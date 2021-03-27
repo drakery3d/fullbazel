@@ -16,5 +16,6 @@ k8s_objects(
         "//libraries/kubernetes:strimzi_kafka",
         "//angular-client:kubernetes",
         "//nodejs-server:kubernetes",
+        "//nextjs-client:kubernetes",
     ],
 )
