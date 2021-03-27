@@ -13,3 +13,6 @@ infrastructure/google-sa.json
 libraries/config/dev.config
 
 angular-client/environment/prod.ts
+
+nextjs-client/node_modules
+nextjs-client/.next
