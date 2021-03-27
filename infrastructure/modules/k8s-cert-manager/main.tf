@@ -19,32 +19,33 @@ resource "helm_release" "cert_manager" {
   }
 }
 
-resource "kubernetes_manifest" "cluster_issuer" {
-  provider = kubernetes-alpha
-  manifest = {
-    "apiVersion" = "cert-manager.io/v1alpha2"
-    "kind" = "ClusterIssuer"
-    "metadata" = {
-      "name" = "letsencrypt"
-    }
-    "spec" = {
-      "acme" = {
-        "email" = "flo@drakery.com"
-        "privateKeySecretRef" = {
-          "name" = "letsencrypt"
-        }
-        "server" = "https://acme-v02.api.letsencrypt.org/directory"
-        "solvers" = [
-          {
-            "http01" = {
-              "ingress" = {
-                "class" = "nginx"
-              }
-            }
-          },
-        ]
-      }
-    }
-  }
-  depends_on = [helm_release.cert_manager]
-}
+# FIXME apply certificate-issuer with terraform (Error: Failed to construct REST client)
+# resource "kubernetes_manifest" "cluster_issuer" {
+#   provider = kubernetes-alpha
+#   manifest = {
+#     "apiVersion" = "cert-manager.io/v1alpha2"
+#     "kind"       = "ClusterIssuer"
+#     "metadata" = {
+#       "name" = "letsencrypt"
+#     }
+#     "spec" = {
+#       "acme" = {
+#         "email" = "flo@drakery.com"
+#         "privateKeySecretRef" = {
+#           "name" = "letsencrypt"
+#         }
+#         "server" = "https://acme-v02.api.letsencrypt.org/directory"
+#         "solvers" = [
+#           {
+#             "http01" = {
+#               "ingress" = {
+#                 "class" = "nginx"
+#               }
+#             }
+#           },
+#         ]
+#       }
+#     }
+#   }
+#   depends_on = [helm_release.cert_manager]
+# }
