@@ -25,9 +25,9 @@ class Navbar extends React.Component<Props, State> {
 
   render() {
     const textColor = (path: string) =>
-      this.props.router.pathname === path ? 'text-primary-color' : ''
+      this.props.router.pathname === path ? 'text-primary-color-dark' : ''
     const iconColor = (path: string) =>
-      this.props.router.pathname === path ? 'text-primary-color' : 'text-text-color-light'
+      this.props.router.pathname === path ? 'text-primary-color-dark' : 'text-text-color-light'
 
     return (
       <div
@@ -118,9 +118,7 @@ class Navbar extends React.Component<Props, State> {
                 {this.state.isDark ? 'light_mode' : 'dark_mode'}
               </span>
             </div>
-            <div className="cursor-pointer">
-              <a>Sign In</a>
-            </div>
+            <div className="cursor-pointer">Sign In</div>
           </div>
         </nav>
       </div>
