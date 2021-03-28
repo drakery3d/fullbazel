@@ -20,3 +20,6 @@ command yarn bazelisk build \
   --define "cluster=${CONTEXT}" \
   --define "repo=${REPO}" \
   //...
+
+command cd nextjs-client
+command yarn install

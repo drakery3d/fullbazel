@@ -1,3 +1,7 @@
+@import "~tailwindcss/base"
+@import "~tailwindcss/components"
+@import "~tailwindcss/utilities"
+
 .theme
   --color: #43a047
   --color-light: #b9ecbb
@@ -24,15 +28,6 @@
 .theme.offline
   .saturated
     filter: grayscale(1)
-
-body
-  margin: 0
-  font-family: Rubik, Sans-Serif
-  font-weight: 400
-  font-size: 16px
-  color: var(--text)
-  background: var(--background)
-  min-width: 20rem
 
 ::-webkit-scrollbar
   width: 6px
