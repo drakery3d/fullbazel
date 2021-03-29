@@ -16,3 +16,4 @@ angular-client/environment/prod.ts
 
 nextjs-client/node_modules
 nextjs-client/.next
+nextjs-client/public/*.js
