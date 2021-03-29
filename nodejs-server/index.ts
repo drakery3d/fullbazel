@@ -222,6 +222,13 @@ app.get('', (req, res) => res.json({message: 'Hello from server'}))
 app.get('/sign-in-url', (req, res) => res.json({url: googleSignInUrl}))
 app.get('/vapid-key', (req, res) => res.json({key: vapidPublicKey}))
 
+app.get('/messages', async (req, res) => {
+  const messages = await messageRepo.getAll()
+  const userIds = [...new Set(messages.map(m => m.userId))]
+  const users = await userRepo.getByIds(userIds)
+  res.json({messages, users})
+})
+
 app.post('/signin', async (req, res) => {
   try {
     if (req.body.code) {
