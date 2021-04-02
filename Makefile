@@ -35,13 +35,11 @@ next:
 next-prod:
 	@source development/scripts/start-next-prod.sh
 
-# Backend
+# Development
 
 .PHONY: server
 server:
 	@source development/scripts/start-server.sh
-
-# Tooling
 
 .PHONY: test-all
 test-all: lint check-dependencies test test-integration
@@ -62,7 +60,7 @@ test:
 test-integration:
 	@source development/scripts/test-integration.sh
 
-# Infrastructure
+# Deployment
 
 .PHONY: init-infrastructure
 init-infrastructure: ensure-credentials
@@ -79,8 +77,6 @@ update-infrastructure: ensure-credentials plan-infrastructure
 .PHONY: destroy-infrastructure
 destroy-infrastructure: ensure-credentials
 	@source infrastructure/scripts/destroy-infrastructure.sh
-
-# Deploy
 
 .PHONY: deploy
 deploy: nextjs-image

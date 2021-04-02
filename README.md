@@ -11,9 +11,7 @@
 
 # Usage
 
-Requirements
-
-- Ubuntu 20.04 LTS
+**Recommended Operating System**: Ubuntu 20.04 LTS
 
 Setup
 
@@ -29,32 +27,46 @@ Next.js Client
 - `make next` (Start Next.js development server, http://localhost:3000)
 - `make next-prod` (Start Next.js production server, http://localhost:3000)
 
-Backend
+Development
 
 - `make server` (Start development backend services)
-
-Tooling
-
 - `make test` (Unit tests with Bazel)
 - `make lint` (Check linting)
 - `make test-integration` (Integration tests with Jasmine and Testcontainers)
 - `make check-dependencies` (Check npm dependencies)
 
-Infrastructure
+Deployment
 
 - `make init-infrastructure` (Initialize infrastructure)
 - `make plan-infrastructure` (Plan infrastructure)
 - `make update-infrastructure` (Update infrastructure)
 - `make destroy-infrastructure` (Destroy infrastructure)
-
-Deploy
-
 - `make deploy` (Deploy to Kubernetes cluster)
 
-# Issues
+# Codebase
 
-- Upgrade from NgRx v9 to v11 ([rules_nodejs/issues/2320](https://github.com/bazelbuild/rules_nodejs/issues/2320))
-- Upgrade from Karma v4 to v5 ([rules_nodejs/issues/2093](https://github.com/bazelbuild/rules_nodejs/issues/2093))
+**Services**
+
+- [`angular-client`](angular-client) **Angular**, web application
+- [`nextjs-client`](nextjs-client) **Next.js**, web application
+- [`nodejs-server`](nodejs-server) **Node.js**, http server
+
+**Libraries**
+
+- [`angular-tools`](libraries/angular-tools) **Bazel**, tooling for Angular
+- [`config`](libraries/config) **Typescript**, runtime configuration management and build time config generation
+- [`enums`](libraries/enums) **Typescript**, shared enumerations
+- [`kubernetes`](libraries/kubernetes) **Yaml**, Kubernetes configurations
+- [`schema`](libraries/schema) **Typescript**, shared Typescript interfaces
+- [`testing`](libraries/testing) **Typescript**, testing utilities
+- [`types`](libraries/types) **Typescript**, shared types
+- [`ui-elements`](libraries/ui-elements) **Typescript, Angular**, shared user interface components
+- [`websocket-store`](libraries/websocket-store) **Typescript, Angular**, NgRx module for web sockets
+
+**Miscellaneous**
+
+- [`development`](development), tooling, configurations and scripts for development
+- [`infrastructure`](infrastructure), Terraform configurations to deploy application in the cloud
 
 <!-- TODO Upgrade core-js and systemjs -->
 <!-- TODO move services/* into root, but keep libraries in libs/* -->
