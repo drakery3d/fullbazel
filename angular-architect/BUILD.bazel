@@ -1,0 +1,48 @@
+load("@npm//@angular-devkit/architect-cli:index.bzl", "architect")
+
+filegroup(
+    name = "common_deps",
+    srcs = [
+        "angular.json",
+        "tsconfig.json",
+        # "//:angular.json",
+    ],
+    visibility = ["//:__subpackages__"],
+)
+
+APPLICATION_DEPS = [
+    "common_deps",
+    "@npm//@angular/cli",
+    "@npm//@angular/core",
+    "@npm//@angular/router",
+    "@npm//@angular/platform-browser-dynamic",
+    "@npm//@angular-devkit/build-angular",
+    "@npm//rxjs",
+    "@npm//mime",
+    "@npm//zone.js",
+    "@npm//tslib",
+    "@npm//typescript",
+    # "//projects/frontend-lib",
+]
+
+architect(
+    name = "build",
+    args = [
+        "frontend:build",
+        "--outputPath=$(@D)",
+        # "--outputPath=$(RULEDIR)",
+    ],
+    configuration_env_vars = ["NG_BUILD_CACHE"],
+    data = glob(
+        [
+            "src/**/*",
+        ],
+        exclude = [
+            "src/**/*.spec.ts",
+            "src/test.ts",
+        ],
+    ) + APPLICATION_DEPS + [
+        "tsconfig.app.json",
+    ],
+    output_dir = True,
+)
