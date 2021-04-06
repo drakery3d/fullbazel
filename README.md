@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://github.com/drakery3d/fullstack-bazel">
-    <img width="180px" height="auto" src="./angular-client/assets/icons/icon-192x192.png" />
+    <img width="100px" height="auto" src="./angular-client/assets/icons/icon-192x192.png" />
   </a>
   <br>
   <h1>Fullstack Bazel</h1>
